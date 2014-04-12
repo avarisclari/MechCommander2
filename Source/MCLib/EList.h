@@ -4,7 +4,7 @@
 #pragma warning( disable : 4211 )
 
 #include <memory.h>
-#include "heap.h"
+#include "Heap.h"
 //--------------------------------------------------------------------------------------
 //
 // Mech Commander 2
@@ -30,7 +30,7 @@ which ensures proximity of all the elements, in order to increase the cacheabili
 
 Two template parameters are required to declare a list. The first is the type of the object,
 that is intended to be stored in the list. The second is the type by which we intend to pass the
-object. 
+object.
 
 The user needs to pass the initial element count and the amount of elements to grow the
 memory pool by, if required to accomodate all elements, to the constructor.
@@ -46,7 +46,7 @@ Note:
 	It is syntacticly legal to use a non-const version, however, it will not provide
 	const safty. Unfortunately there is no way to prevent this.
 
-Classes used with the list need to define a copy constructor, an assignment operator, and 
+Classes used with the list need to define a copy constructor, an assignment operator, and
 an equality operator in order to work properly (of course only if the default versions are
 not sufficient).
 
@@ -90,14 +90,14 @@ public:
 	CLASS DESCRIPTION
 	EList::EConstIterator
 	This class is used to iterate through the List.  You can read objects with this iterator but you
-	can't change them.  Use class !!(EIterator) for changing objects. 
+	can't change them.  Use class !!(EIterator) for changing objects.
 	**************************************************************************************************/
 	class EConstIterator
 	{
 	public:
 		// Note: Code needs to be implemented in class decleration, due
 		// to MSVC bug with nested template classes
-		
+
 		inline EConstIterator()							{ m_pCur_Node = NULL; }
 		inline EConstIterator(const EConstIterator& rIter)	{ m_pCur_Node = rIter.m_pCur_Node; }
 		inline EConstIterator& operator=(const EConstIterator& rIter)	{ m_pCur_Node = rIter.m_pCur_Node; return(*this); }
@@ -180,7 +180,7 @@ public:
 		{
 			return Item();
 		}
-		
+
 		inline T_ARG Item() const		{ return(m_pCur_Node->m_Data); }
 		inline bool IsValid() const	{ return(m_pCur_Node ? true : false); }
 		inline bool IsDone() const		{ return(m_pCur_Node ? false : true); }
@@ -193,7 +193,7 @@ public:
 		char	m_Name[64];
 #endif
 	};	// END CLASS EConstIterator
-	
+
 
 	/**************************************************************************************************
 	CLASS DESCRIPTION
@@ -229,8 +229,8 @@ public:
 	//===== OPERATORS =====
 
 	EList<ELIST_TPL_ARG>& operator=(const EList<ELIST_TPL_ARG>& rList);
-	inline	T&		operator[](unsigned long Pos);	
-	inline	T&		operator[](const typename EList<ELIST_TPL_ARG>::EIterator& rIter);	
+	inline	T&		operator[](unsigned long Pos);
+	inline	T&		operator[](const typename EList<ELIST_TPL_ARG>::EIterator& rIter);
 	inline	T_ARG	operator[](unsigned long Pos) const;
 	inline	T_ARG	operator[](const typename EList<ELIST_TPL_ARG>::EIterator& rIter) const;
 
@@ -262,13 +262,13 @@ public:
 	inline	bool	Replace(T_ARG Element, const typename EList<ELIST_TPL_ARG>::EIterator& rIter);	// Replace an element at the specified position
 	inline	bool	Replace(T_ARG Element, unsigned long Pos);		// Replace an element at the specified position
 
-	inline	typename EList<ELIST_TPL_ARG>::EIterator Iterator(unsigned long Pos);	
+	inline	typename EList<ELIST_TPL_ARG>::EIterator Iterator(unsigned long Pos);
 	inline	const typename EList<ELIST_TPL_ARG>::EConstIterator Iterator(unsigned long Pos) const;
 	inline	typename EList<ELIST_TPL_ARG>::EIterator Begin();
 	inline	const typename EList<ELIST_TPL_ARG>::EConstIterator Begin() const;
 	inline	typename EList<ELIST_TPL_ARG>::EIterator End();
 	inline	const typename EList<ELIST_TPL_ARG>::EConstIterator End() const;
-  
+
 	inline	T&	Get(const typename EList<const ELIST_TPL_ARG>::EIterator& rIter);	// Retrieve the element at the specified position
 	inline	T&	Get(unsigned long Pos);			// Retrieve the element at the specified position
 	inline	T&	GetHead();				// Retrieve the element at the start of the list
@@ -339,7 +339,7 @@ ELIST_TPL_DEF inline EList<ELIST_TPL_ARG>::EList()
 : m_Count(0), m_pHead(NULL), m_pTail(NULL)
 {
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	EList
@@ -353,7 +353,7 @@ ELIST_TPL_DEF EList<ELIST_TPL_ARG>::EList(const EList<ELIST_TPL_ARG>& rList)
 {
 	CopyData(rList);
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	~EList
@@ -363,7 +363,7 @@ ELIST_TPL_DEF EList<ELIST_TPL_ARG>::~EList()
 {
 	DestroyList();
 }
-	
+
 //-------------------------------------------------------------------------------------------------
 // OPERATORS
 //-------------------------------------------------------------------------------------------------
@@ -371,7 +371,7 @@ ELIST_TPL_DEF EList<ELIST_TPL_ARG>::~EList()
 FUNCTION DESCRIPTION:
 	operator=
 		Assignment operator, destroys the current elements and creates copies of all the
-		elements in the source list and adds them to this list. 
+		elements in the source list and adds them to this list.
 INPUT PARAMETERS:
 	rList:	The list to be assigned to this one
 RETURN VALUE:
@@ -387,7 +387,7 @@ ELIST_TPL_DEF EList<ELIST_TPL_ARG>& EList<ELIST_TPL_ARG>::operator=(const EList<
 	CopyData(rList);
 	return(*this);
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	operator[]
@@ -486,7 +486,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::operator!=(const EList<ELIST_TPL
 FUNCTION DESCRIPTION:
 	Iterator
 		Get an iterator that points at the element corresponding with the Position passed
-		
+
 INPUT PARAMETERS:
 	Pos:	The position of the element we want an iterator for
 RETURN VALUE:
@@ -543,7 +543,7 @@ FUNCTION DESCRIPTION:
 		Get an iterator that points at the head element of the list.
 		Also available as const version
 RETURN VALUE:
-	An iterator that points at the head element		
+	An iterator that points at the head element
 ***************************************************************************************************/
 ELIST_TPL_DEF inline typename EList<ELIST_TPL_ARG>::EIterator EList<ELIST_TPL_ARG>::Begin()
 {
@@ -576,7 +576,7 @@ FUNCTION DESCRIPTION:
 		Get an iterator that points at the tail element of the list
 		Also available as const version
 RETURN VALUE:
-	An iterator that points at the tail element		
+	An iterator that points at the tail element
 ***************************************************************************************************/
 ELIST_TPL_DEF inline typename EList<ELIST_TPL_ARG>::EIterator EList<ELIST_TPL_ARG>::End()
 {
@@ -619,7 +619,7 @@ ELIST_TPL_DEF bool EList<ELIST_TPL_ARG>::Clear()
 	DestroyList();
 	return(true);	// <<HACK>> BR - need to do checking
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	Prepend
@@ -654,7 +654,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::Prepend(T_ARG New_Element)
 	}
 	return(false);	// <<HACK>> BR
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	Append
@@ -768,7 +768,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::Insert(T_ARG  New_Element, unsig
 
 	return(Insert(New_Element, Iterator(Pos)));
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	DeleteHead
@@ -803,7 +803,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::DeleteHead()
 	else
 	{
 		ENode* pElement_To_Kill = m_pHead;		// Get the element we want to kill
-		m_pHead = m_pHead->m_pNext;				// Second element becomes head of the list 
+		m_pHead = m_pHead->m_pNext;				// Second element becomes head of the list
 		m_pHead->m_pPrev = NULL;
 		KillElement(pElement_To_Kill);
 
@@ -811,7 +811,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::DeleteHead()
 		return(true);
 	}
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	DeleteTail
@@ -850,7 +850,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::DeleteTail()
 		return(true);
 	}
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	Delete
@@ -870,7 +870,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::Delete(const typename EList<ELIS
 	if(m_Count == 1)
 	{
 		KillElement(m_pHead);
-		m_pHead = m_pTail = NULL;		
+		m_pHead = m_pTail = NULL;
 		m_Count = 0;
 		return(true);
 	}
@@ -922,7 +922,7 @@ ELIST_TPL_DEF inline bool EList<ELIST_TPL_ARG>::Delete(unsigned long Pos)
 
 	return(Delete(Iterator(Pos)));
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	Delete
@@ -980,7 +980,7 @@ ELIST_TPL_DEF inline T& EList<ELIST_TPL_ARG>::Get(const typename EList<const ELI
 	gosASSERT(m_Count && rIter.IsValid());
 	return(rIter.m_pCur_Node->m_Data);
 }
-	
+
 //-------------------------------------------------------------------------------------------------
 ELIST_TPL_DEF inline T& EList<ELIST_TPL_ARG>::Get(unsigned long Pos)
 {
@@ -999,7 +999,7 @@ ELIST_TPL_DEF inline T& EList<ELIST_TPL_ARG>::GetHead()
 	gosASSERT(m_Count);
 	return(m_pHead->m_Data);
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	GetTail
@@ -1012,7 +1012,7 @@ ELIST_TPL_DEF inline T& EList<ELIST_TPL_ARG>::GetTail()
 	gosASSERT(m_Count);
 	return(m_pTail->m_Data);
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	Replace
@@ -1157,7 +1157,7 @@ ELIST_TPL_DEF inline T_ARG EList<ELIST_TPL_ARG>::Get(const typename EList<ELIST_
 	gosASSERT(m_Count && rIter.IsValid());
 	return(rIter.m_pCur_Node->m_Data);
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	Get
@@ -1185,7 +1185,7 @@ ELIST_TPL_DEF inline T_ARG EList<ELIST_TPL_ARG>::GetHead() const
 	gosASSERT(m_Count);
 	return(m_pHead->m_Data);
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	GetTail
@@ -1198,7 +1198,7 @@ ELIST_TPL_DEF inline T_ARG EList<ELIST_TPL_ARG>::GetTail() const
 	gosASSERT(m_Count);
 	return(m_pTail->m_Data);
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	Find
@@ -1242,7 +1242,7 @@ INPUT PARAMETERS:
 	rStart_Iterator:	The element at which to start the search
 RETURN VALUE:
 		The iterator that corresponds with the element in the list we searched for,
-		or INVALID_ITERATOR if the element could not be found		
+		or INVALID_ITERATOR if the element could not be found
 ***************************************************************************************************/
 ELIST_TPL_DEF inline typename EList<ELIST_TPL_ARG>::EConstIterator EList<ELIST_TPL_ARG>::Find(T_ARG Item, const typename EList<ELIST_TPL_ARG>::EConstIterator& rStart_Iterator) const
 {
@@ -1270,7 +1270,7 @@ INPUT PARAMETERS:
 	rStart_Iterator:	The element at which to start the search
 RETURN VALUE:
 		The iterator that corresponds with the element in the list we searched for,
-		or INVALID_ITERATOR if the element could not be found		
+		or INVALID_ITERATOR if the element could not be found
 ***************************************************************************************************/
 ELIST_TPL_DEF inline typename EList<ELIST_TPL_ARG>::EIterator EList<ELIST_TPL_ARG>::Find(T_ARG Item, const typename EList<ELIST_TPL_ARG>::EIterator& rStart_Iterator)
 {
@@ -1300,7 +1300,7 @@ ELIST_TPL_DEF inline unsigned long EList<ELIST_TPL_ARG>::Count() const
 {
 	return(m_Count);
 }
-	
+
 
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
@@ -1383,9 +1383,9 @@ ELIST_TPL_DEF inline void EList<ELIST_TPL_ARG>::KillElement(ENode* pElement)
 {
 	gosASSERT(pElement);
 	pElement->m_Data.~T();			// Destruct the data component of the element
-	systemHeap->Free(pElement);					// Now free the element		
+	systemHeap->Free(pElement);					// Now free the element
 }
-	
+
 //-------------------------------------------------------------------------------------------------
 ELIST_TPL_DEF inline void EList<ELIST_TPL_ARG>::DestroyList()
 {
@@ -1405,7 +1405,7 @@ ELIST_TPL_DEF inline void EList<ELIST_TPL_ARG>::DestroyList()
 		DeleteHead();
 	}
 }
-	
+
 /**************************************************************************************************
 FUNCTION DESCRIPTION:
 	CopyData
@@ -1434,7 +1434,7 @@ ELIST_TPL_DEF bool EList<ELIST_TPL_ARG>::CopyData(const EList<ELIST_TPL_ARG>& rS
 	gosASSERT(pNode && pSrc_Node);		// Should never be NULL
 	m_pHead = m_pTail = pNode;
 	m_pHead->m_pPrev = NULL;
-	
+
 	for(unsigned long i = 1; i<rSrc.m_Count; i++)
 	{
 		pSrc_Node = pSrc_Node->m_pNext;
@@ -1452,6 +1452,6 @@ ELIST_TPL_DEF bool EList<ELIST_TPL_ARG>::CopyData(const EList<ELIST_TPL_ARG>& rS
 
 	return(true);
 }
-	
+
 //*************************************************************************************************
 #endif  // end of file ( ELIST.h )

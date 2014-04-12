@@ -1,5 +1,5 @@
 #pragma once
-#include "GameOS.hpp"
+#include "GameOS.HPP"
 //===========================================================================//
 // File:	 ToolOS.hpp														 //
 // Contents: External API not for Game use, but for tools					 //
@@ -30,7 +30,7 @@ void __stdcall gos_DeleteThread( DWORD ThreadHandle );
 
 
 enum gosThreadPriority
-{ 
+{
 	ThreadPri_Lowest=1,
 	ThreadPri_BelowNormal=2,
 	ThreadPri_Normal=3,
@@ -48,7 +48,7 @@ void __stdcall gos_SetThreadPriority( DWORD ThreadHandle, gosThreadPriority Prio
 // 'ThreadFinished' will be set when the thread has finished executing
 // 'Context' will be passed to the thread function
 //
-void __stdcall gos_TriggerThread( DWORD ThreadHandle, bool* ThreadFinished, void* Context ); 
+void __stdcall gos_TriggerThread( DWORD ThreadHandle, bool* ThreadFinished, void* Context );
 
 
 
@@ -196,7 +196,7 @@ void __stdcall gos_FileSetReadOnly( const char* FileName );
 
 //////////////////////////////////////////////////////////////////////////////////
 // Ways to specify how to open file.
-typedef enum gosEnum_FileWriteStatus 
+typedef enum gosEnum_FileWriteStatus
 {
 	READONLY,				// Open for READ
 	READWRITE,				// Open for READ and WRITE - but clears the file on open
@@ -205,7 +205,7 @@ typedef enum gosEnum_FileWriteStatus
 
 //////////////////////////////////////////////////////////////////////////////////
 // Different ways to seek within a file.
-typedef enum gosEnum_FileSeekType 
+typedef enum gosEnum_FileSeekType
 {
 	FROMSTART,
 	FROMCURRENT,

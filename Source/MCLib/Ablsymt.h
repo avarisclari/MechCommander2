@@ -15,7 +15,7 @@
 #endif
 
 #ifndef ABLSCAN_H
-#include "ablscan.h"
+#include "Ablscan.h"
 #endif
 
 #ifndef DABLENV_H
@@ -120,7 +120,7 @@ typedef struct {
 //***************************************************************************
 
 //------------------
-// SYMBOL TABLE node	
+// SYMBOL TABLE node
 
 typedef struct _SymTableNode {
 	SymTableNodePtr		left;
@@ -205,7 +205,7 @@ typedef struct _Type {
 		//	SymTableNodePtr		fieldSymTable;
 		//} record;
 	} info;
-} Type;	
+} Type;
 
 
 //***************************************************************************

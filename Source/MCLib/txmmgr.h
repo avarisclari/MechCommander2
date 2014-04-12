@@ -29,7 +29,7 @@
 #endif
 
 #include <string.h>
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 //----------------------------------------------------------------------
 enum MC_TextureKey
 {
@@ -96,11 +96,11 @@ typedef struct _MC_TextureNode
 
 	protected:
 		DWORD				gosTextureHandle;			//Handle returned by GOS
-		
+
 	public:
 		char 				*nodeName;					//Used for Unique nodes so I can just return the handle!
 		DWORD				uniqueInstance;				//Texture is modifiable.  DO NOT CACHE OUT!!!!!!
-		DWORD				neverFLUSH;					//Textures used by Userinput, etc.  DO NOT CACHE OUT!!!!!! 
+		DWORD				neverFLUSH;					//Textures used by Userinput, etc.  DO NOT CACHE OUT!!!!!!
 		DWORD				numUsers;					//Pushed up for each user using.
 														//Users can "free" a texture which will decrement the number and actually free it if number is 0
 		gos_TextureFormat 	key;						//Used to recreate texture if cached out.
@@ -108,7 +108,7 @@ typedef struct _MC_TextureNode
 		DWORD				width;						//Used to recreate texture if cached out.
 		DWORD				lzCompSize;					//Size of Compressed version.
 		long				lastUsed;					//Last Game turn texture was used.  Used to cache textures.
-		DWORD 				*textureData;				//Raw texture data.  Texture is stored here in system RAM 
+		DWORD 				*textureData;				//Raw texture data.  Texture is stored here in system RAM
 														//if we overrun the max number of GOS HAndles.
 														//When the texture is needed, another least used GOS handle is
 														//cached out and this one is copied in.
@@ -116,12 +116,12 @@ typedef struct _MC_TextureNode
 														//To gosTextureHandle must be replaced with a get_gosTextureHandle
 														//Or texture may not be cached in and it will draw the texture
 														//at this location instead.  Just like some video cards do!
-														//This value can be NULL if texture is on card.  
+														//This value can be NULL if texture is on card.
 														//Should only be alloced when we need to cache.
 														//This will keep system memory usage to a minimum.
 		MC_VertexArrayNode 	*vertexData;				//This holds the vertex draw data.  NULL if not used.
 		MC_VertexArrayNode	*vertexData2;
-		MC_VertexArrayNode	*vertexData3;				
+		MC_VertexArrayNode	*vertexData3;
 
 	void init (void)
 	{
@@ -148,7 +148,7 @@ typedef struct _MC_TextureNode
 	void removeBlock (DWORD blockNum);				//Just free one block.  DO NOT FREE GOS_TextureHandle.
 
 	void markBlock (DWORD blockNum);
-	
+
 	DWORD get_gosTextureHandle (void);				//If texture is not in VidRAM, cache a texture out and cache this one in.
 
 } MC_TextureNode;
@@ -159,7 +159,7 @@ class gos_VERTEXManager : public HeapManager
 	//Data Members
 	//-------------
 	protected:
-	
+
 		long						totalVertices;		//Total number of vertices in pool.
 		long						currentVertex;		//Pointer to next available vertex in pool.
 
@@ -186,7 +186,7 @@ class gos_VERTEXManager : public HeapManager
 			reset();
 			totalVertices = 0;
 		}
-		
+
 		~gos_VERTEXManager (void)
 		{
 			destroy();
@@ -200,7 +200,7 @@ class gos_VERTEXManager : public HeapManager
 			commitHeap();
 			reset();
 		}
-		
+
 		gos_VERTEX *getVertexBlock(long numVertices)
 		{
 			gos_VERTEX *start = (gos_VERTEX *)getHeapPtr();
@@ -209,7 +209,7 @@ class gos_VERTEXManager : public HeapManager
 			gosASSERT(currentVertex < totalVertices);
 			return start;
 		}
-		
+
 		void reset (void)
 		{
 			currentVertex = 0;
@@ -220,29 +220,29 @@ class gos_VERTEXManager : public HeapManager
 class MC_TextureManager
 {
 	friend MC_TextureNode;
-	
+
 	//Data Members
 	//------------
 	protected:
 
 		MC_TextureNode					*masterTextureNodes;		//Dynamically allocated from an MC Heap.
 		long							currentUsedTextures;		//Number of textures on video card.
-													
+
 		MC_VertexArrayNode 				*masterVertexNodes;			//Dynamically allocated from an MC Heap.
 		long							nextAvailableVertexNode;	//index to next available vertex Node
-													
+
 		UserHeapPtr						textureCacheHeap;			//Heap used to cache textures from vidCard to system RAM.
 		UserHeapPtr						textureStringHeap;			//Heap used to store filenames of textures so no dupes.
 		bool 							textureManagerInstrumented;	//Texture Manager Instrumented.
 		long							totalCacheMisses;			//NUmber of times flush has been called.\
-		
+
 		static gos_VERTEXManager		*gvManager;					//Stores arrays of vertices for draw.
 		static MemoryPtr				lzBuffer1;					//Used to compress/decompress textures from cache.
 		static MemoryPtr				lzBuffer2;					//Used to compress/decompress textures from cache.
 		/* iBufferRefCount is used to help determine if lzBuffer1&2 are valid. The assumption
 		is that if there are no valid MC_TextureManagers then lzBuffer1&2 are not valid. */
 		static int				iBufferRefCount;
-		
+
 		WORD							*indexArray;				//Master Vertex Index array.
 
 																	//Upto four different kinds of untextured triangle!
@@ -250,7 +250,7 @@ class MC_TextureManager
 		MC_VertexArrayNode				*vertexData2;				//This holds the vertex draw data for UNTEXTURED triangles!
 		MC_VertexArrayNode 				*vertexData3;				//This holds the vertex draw data for UNTEXTURED triangles!
 		MC_VertexArrayNode				*vertexData4;				//This holds the vertex draw data for UNTEXTURED triangles!
-		
+
 	//Member Functions
 	//-----------------
 	public:
@@ -258,17 +258,17 @@ class MC_TextureManager
 		void init (void)
 		{
 			masterTextureNodes = NULL;
-			
+
 			textureCacheHeap = NULL;
 			textureStringHeap = NULL;
 			textureManagerInstrumented = false;
 			totalCacheMisses = 0;
 			currentUsedTextures = 0;
 			indexArray = NULL;
-			
+
 			masterVertexNodes = NULL;
 			nextAvailableVertexNode = 0;
-			
+
 			vertexData = vertexData2 = vertexData3 = vertexData4 = NULL;
 		}
 
@@ -316,19 +316,19 @@ class MC_TextureManager
 		//------------------------------------------------------
 		// Frees up gos_VERTEX manager memory
 		void freeVertices (void);
-		
+
 		//------------------------------------------------------
 		// Creates gos_VERTEX Manager and allocates RAM.  Will not allocate if already done!
 		void startVertices (long maxVertices = 30000);
-		
+
 		//------------------------------------------------------
-		// Frees a specific texture. 
+		// Frees a specific texture.
 		void removeTexture (DWORD gosTextureHandle);
-		
+
 		//------------------------------------------------------
-		// Frees a specific textureNode. 
+		// Frees a specific textureNode.
 		void removeTextureNode (DWORD textureNode);
-		
+
  		//-----------------------------------------------------------------
 		// Gets gosTextureHandle for Node ID.  Does all caching necessary.
 		DWORD get_gosTextureHandle (DWORD nodeId)
@@ -347,7 +347,7 @@ class MC_TextureManager
 				{
 					masterTextureNodes[nodeId].vertexData = &(masterVertexNodes[nextAvailableVertexNode]);
 					gosASSERT(masterTextureNodes[nodeId].vertexData->numVertices == 0);
-					gosASSERT(masterTextureNodes[nodeId].vertexData->vertices == NULL); 
+					gosASSERT(masterTextureNodes[nodeId].vertexData->vertices == NULL);
 
 					nextAvailableVertexNode++;
 					masterTextureNodes[nodeId].vertexData->flags = flags;
@@ -359,7 +359,7 @@ class MC_TextureManager
 				{
 					masterTextureNodes[nodeId].vertexData2 = &(masterVertexNodes[nextAvailableVertexNode]);
 					gosASSERT(masterTextureNodes[nodeId].vertexData2->numVertices == 0);
-					gosASSERT(masterTextureNodes[nodeId].vertexData2->vertices == NULL); 
+					gosASSERT(masterTextureNodes[nodeId].vertexData2->vertices == NULL);
 
 					nextAvailableVertexNode++;
 					masterTextureNodes[nodeId].vertexData2->flags = flags;
@@ -373,13 +373,13 @@ class MC_TextureManager
 				{
 					masterTextureNodes[nodeId].vertexData3 = &(masterVertexNodes[nextAvailableVertexNode]);
 					gosASSERT(masterTextureNodes[nodeId].vertexData3->numVertices == 0);
-					gosASSERT(masterTextureNodes[nodeId].vertexData3->vertices == NULL); 
+					gosASSERT(masterTextureNodes[nodeId].vertexData3->vertices == NULL);
 
 					nextAvailableVertexNode++;
 					masterTextureNodes[nodeId].vertexData3->flags = flags;
 					masterTextureNodes[nodeId].vertexData3->textureIndex = nodeId;
 				}
-					
+
 				if (masterTextureNodes[nodeId].vertexData->flags == flags)
 					masterTextureNodes[nodeId].vertexData->numVertices += 3;
 				else if (masterTextureNodes[nodeId].vertexData2 &&
@@ -400,7 +400,7 @@ class MC_TextureManager
 				{
 					vertexData = &(masterVertexNodes[nextAvailableVertexNode]);
 					gosASSERT(vertexData->numVertices == 0);
-					gosASSERT(vertexData->vertices == NULL); 
+					gosASSERT(vertexData->vertices == NULL);
 
 					nextAvailableVertexNode++;
 					vertexData->flags = flags;
@@ -411,38 +411,38 @@ class MC_TextureManager
 				{
 					vertexData2 = &(masterVertexNodes[nextAvailableVertexNode]);
 					gosASSERT(vertexData2->numVertices == 0);
-					gosASSERT(vertexData2->vertices == NULL); 
+					gosASSERT(vertexData2->vertices == NULL);
 
 					nextAvailableVertexNode++;
 					vertexData2->flags = flags;
 					vertexData2->textureIndex = 0;
 				}
 				else if (vertexData && (vertexData->flags != flags) &&
-						vertexData2 && (vertexData2->flags != flags) && 
+						vertexData2 && (vertexData2->flags != flags) &&
 						!vertexData3)
 				{
 					vertexData3 = &(masterVertexNodes[nextAvailableVertexNode]);
 					gosASSERT(vertexData3->numVertices == 0);
-					gosASSERT(vertexData3->vertices == NULL); 
+					gosASSERT(vertexData3->vertices == NULL);
 
 					nextAvailableVertexNode++;
 					vertexData3->flags = flags;
 					vertexData3->textureIndex = 0;
 				}
 				else if (vertexData && (vertexData->flags != flags) &&
-						vertexData2 && (vertexData2->flags != flags) && 
-						vertexData3 && (vertexData3->flags != flags) && 
+						vertexData2 && (vertexData2->flags != flags) &&
+						vertexData3 && (vertexData3->flags != flags) &&
 						!vertexData4)
 				{
 					vertexData4 = &(masterVertexNodes[nextAvailableVertexNode]);
 					gosASSERT(vertexData4->numVertices == 0);
-					gosASSERT(vertexData4->vertices == NULL); 
+					gosASSERT(vertexData4->vertices == NULL);
 
 					nextAvailableVertexNode++;
 					vertexData4->flags = flags;
 					vertexData4->textureIndex = 0;
 				}
-				
+
  				if (vertexData->flags == flags)
 					vertexData->numVertices += 3;
 				else if (vertexData2 && vertexData2->flags == flags)
@@ -463,36 +463,36 @@ class MC_TextureManager
 			//This function adds the actual vertex data to the texture Node.
 			if (nodeId < MC_MAXTEXTURES)
 			{
-				if (masterTextureNodes[nodeId].vertexData && 
+				if (masterTextureNodes[nodeId].vertexData &&
 					masterTextureNodes[nodeId].vertexData->flags == flags)
 				{
 					gos_VERTEX * vertices = masterTextureNodes[nodeId].vertexData->currentVertex;
 					if (!vertices && !masterTextureNodes[nodeId].vertexData->vertices)
 					{
 						masterTextureNodes[nodeId].vertexData->currentVertex =
-						vertices = 
+						vertices =
 						masterTextureNodes[nodeId].vertexData->vertices =
 						gvManager->getVertexBlock(masterTextureNodes[nodeId].vertexData->numVertices);
 					}
-	
+
 					if (vertices < (masterTextureNodes[nodeId].vertexData->vertices + masterTextureNodes[nodeId].vertexData->numVertices))
 					{
 						#if 0
 						if ((data[0].u > 64.0f) ||
-							(data[0].u < -64.0f) || 
-							(data[1].u > 64.0f) ||  
-							(data[1].u < -64.0f) ||  
-							(data[2].u > 64.0f) ||  
+							(data[0].u < -64.0f) ||
+							(data[1].u > 64.0f) ||
+							(data[1].u < -64.0f) ||
+							(data[2].u > 64.0f) ||
 							(data[2].u < -64.0f))
 						{
 							PAUSE(("Vertex U Out of range"));
 						}
 
 						if ((data[0].v > 64.0f) ||
-							(data[0].v < -64.0f) || 
-							(data[1].v > 64.0f) ||  
-							(data[1].v < -64.0f) ||  
-							(data[2].v > 64.0f) ||  
+							(data[0].v < -64.0f) ||
+							(data[1].v > 64.0f) ||
+							(data[1].v < -64.0f) ||
+							(data[2].v > 64.0f) ||
 							(data[2].v < -64.0f))
 						{
 							PAUSE(("Vertex V Out of range"));
@@ -502,14 +502,14 @@ class MC_TextureManager
 						memcpy(vertices,data,sizeof(gos_VERTEX) * 3);
 						vertices += 3;
 					}
-					
+
 					masterTextureNodes[nodeId].vertexData->currentVertex = vertices;
 				}
 				else if (masterTextureNodes[nodeId].vertexData2 &&
 						 masterTextureNodes[nodeId].vertexData2->flags == flags)
 				{
 					gos_VERTEX * vertices = masterTextureNodes[nodeId].vertexData2->currentVertex;
-					
+
 					#if defined( _DEBUG) || defined(_ARMOR)
 					gos_VERTEX * oldVertices = vertices;
 					gos_VERTEX * oldStart = (masterTextureNodes[nodeId].vertexData2->vertices + masterTextureNodes[nodeId].vertexData2->numVertices);
@@ -519,46 +519,46 @@ class MC_TextureManager
 					if (!vertices && !masterTextureNodes[nodeId].vertexData2->vertices)
 					{
 						masterTextureNodes[nodeId].vertexData2->currentVertex =
-						vertices = 
+						vertices =
 						masterTextureNodes[nodeId].vertexData2->vertices =
 						gvManager->getVertexBlock(masterTextureNodes[nodeId].vertexData2->numVertices);
 					}
-	
+
 					if (vertices < (masterTextureNodes[nodeId].vertexData2->vertices + masterTextureNodes[nodeId].vertexData2->numVertices))
 					{
 						#if 0
 						if ((data[0].u > 64.0f) ||
-							(data[0].u < -64.0f) || 
-							(data[1].u > 64.0f) ||  
-							(data[1].u < -64.0f) ||  
-							(data[2].u > 64.0f) ||  
+							(data[0].u < -64.0f) ||
+							(data[1].u > 64.0f) ||
+							(data[1].u < -64.0f) ||
+							(data[2].u > 64.0f) ||
 							(data[2].u < -64.0f))
 						{
 							PAUSE(("Vertex U Out of range"));
 						}
 
 						if ((data[0].v > 64.0f) ||
-							(data[0].v < -64.0f) || 
-							(data[1].v > 64.0f) ||  
-							(data[1].v < -64.0f) ||  
-							(data[2].v > 64.0f) ||  
+							(data[0].v < -64.0f) ||
+							(data[1].v > 64.0f) ||
+							(data[1].v < -64.0f) ||
+							(data[2].v > 64.0f) ||
 							(data[2].v < -64.0f))
 						{
 							PAUSE(("Vertex V Out of range"));
 						}
 						#endif
-						
+
 						memcpy(vertices,data,sizeof(gos_VERTEX) * 3);
 						vertices += 3;
 					}
-					
+
 					masterTextureNodes[nodeId].vertexData2->currentVertex = vertices;
 				}
 				else if (masterTextureNodes[nodeId].vertexData3 &&
 						 masterTextureNodes[nodeId].vertexData3->flags == flags)
 				{
 					gos_VERTEX * vertices = masterTextureNodes[nodeId].vertexData3->currentVertex;
-					
+
 					#if defined(_DEBUG) || defined(_ARMOR)
 					gos_VERTEX * oldVertices = vertices;
 					gos_VERTEX * oldStart = (masterTextureNodes[nodeId].vertexData3->vertices + masterTextureNodes[nodeId].vertexData3->numVertices);
@@ -568,39 +568,39 @@ class MC_TextureManager
 					if (!vertices && !masterTextureNodes[nodeId].vertexData3->vertices)
 					{
 						masterTextureNodes[nodeId].vertexData3->currentVertex =
-						vertices = 
+						vertices =
 						masterTextureNodes[nodeId].vertexData3->vertices =
 						gvManager->getVertexBlock(masterTextureNodes[nodeId].vertexData3->numVertices);
 					}
-	
+
 					if (vertices < (masterTextureNodes[nodeId].vertexData3->vertices + masterTextureNodes[nodeId].vertexData3->numVertices))
 					{
 						#if 0
 						if ((data[0].u > 64.0f) ||
-							(data[0].u < -64.0f) || 
-							(data[1].u > 64.0f) ||  
-							(data[1].u < -64.0f) ||  
-							(data[2].u > 64.0f) ||  
+							(data[0].u < -64.0f) ||
+							(data[1].u > 64.0f) ||
+							(data[1].u < -64.0f) ||
+							(data[2].u > 64.0f) ||
 							(data[2].u < -64.0f))
 						{
 							PAUSE(("Vertex U Out of range"));
 						}
 
 						if ((data[0].v > 64.0f) ||
-							(data[0].v < -64.0f) || 
-							(data[1].v > 64.0f) ||  
-							(data[1].v < -64.0f) ||  
-							(data[2].v > 64.0f) ||  
+							(data[0].v < -64.0f) ||
+							(data[1].v > 64.0f) ||
+							(data[1].v < -64.0f) ||
+							(data[2].v > 64.0f) ||
 							(data[2].v < -64.0f))
 						{
 							PAUSE(("Vertex V Out of range"));
 						}
 						#endif
-						
+
 						memcpy(vertices,data,sizeof(gos_VERTEX) * 3);
 						vertices += 3;
 					}
-					
+
 					masterTextureNodes[nodeId].vertexData3->currentVertex = vertices;
 				}
 				else	//If we got here, something is really wrong
@@ -618,17 +618,17 @@ class MC_TextureManager
 					if (!vertices && !vertexData->vertices)
 					{
 						vertexData->currentVertex =
-						vertices = 
+						vertices =
 						vertexData->vertices =
 						gvManager->getVertexBlock(vertexData->numVertices);
 					}
-	
+
 					if (vertices <= (vertexData->vertices + vertexData->numVertices))
 					{
 						memcpy(vertices,data,sizeof(gos_VERTEX) * 3);
 						vertices += 3;
 					}
-					
+
 					vertexData->currentVertex = vertices;
 				}
 				else if (vertexData2 && vertexData2->flags == flags)
@@ -637,17 +637,17 @@ class MC_TextureManager
 					if (!vertices && !vertexData2->vertices)
 					{
 						vertexData2->currentVertex =
-						vertices = 
+						vertices =
 						vertexData2->vertices =
 						gvManager->getVertexBlock(vertexData2->numVertices);
 					}
-	
+
 					if (vertices <= (vertexData2->vertices + vertexData2->numVertices))
 					{
 						memcpy(vertices,data,sizeof(gos_VERTEX) * 3);
 						vertices += 3;
 					}
-					
+
 					vertexData2->currentVertex = vertices;
 				}
 				else if (vertexData3 && vertexData3->flags == flags)
@@ -656,17 +656,17 @@ class MC_TextureManager
 					if (!vertices && !vertexData3->vertices)
 					{
 						vertexData3->currentVertex =
-						vertices = 
+						vertices =
 						vertexData3->vertices =
 						gvManager->getVertexBlock(vertexData3->numVertices);
 					}
-	
+
 					if (vertices <= (vertexData3->vertices + vertexData3->numVertices))
 					{
 						memcpy(vertices,data,sizeof(gos_VERTEX) * 3);
 						vertices += 3;
 					}
-					
+
 					vertexData3->currentVertex = vertices;
 				}
 				else if (vertexData4 && vertexData4->flags == flags)
@@ -675,7 +675,7 @@ class MC_TextureManager
 					if (!vertices && !vertexData4->vertices)
 					{
 						vertexData4->currentVertex =
-						vertices = 
+						vertices =
 						vertexData4->vertices =
 						gvManager->getVertexBlock(vertexData4->numVertices);
 					}
@@ -685,7 +685,7 @@ class MC_TextureManager
 						memcpy(vertices,data,sizeof(gos_VERTEX) * 3);
 						vertices += 3;
 					}
-					
+
 					vertexData4->currentVertex = vertices;
 				}
 				else	//If we got here, something is really wrong
@@ -707,14 +707,14 @@ class MC_TextureManager
 			}
 
 			vertexData = vertexData2 = vertexData3 = vertexData4 = NULL;
-			
+
 			memset(masterVertexNodes,0,sizeof(MC_VertexArrayNode)*MC_MAXTEXTURES);
-			
+
 			nextAvailableVertexNode = 0;
 
 			gvManager->reset();
 		}
-		
+
 		//Sends down the triangle lists
 		void renderLists (void);
 
@@ -725,30 +725,30 @@ class MC_TextureManager
 			else
 				return nodeId;
 		}
-		
+
 		//----------------------------------------------------------------------------
 		// FlushCache copies a single flushable texture from VidRAM to system Memory
 		// No real logic yet, just find the first unused texture and swap it.
 		// DO NOT want to implement a priority system at all.
-		// Returns FALSE if no texture can be cached out this frame. 
+		// Returns FALSE if no texture can be cached out this frame.
 		bool flushCache (void);
-		
+
 		//-----------------------------------------------------------------------
 		// This routine will run through the TXM Cache on a regular basis and free
-		// up GOS Handles which haven't been used in some time.  Some Time TBD 
+		// up GOS Handles which haven't been used in some time.  Some Time TBD
 		// more accurately with time.
 		DWORD update (void);
-		
+
 		bool checkCacheHeap (void)
 		{
 			if (textureCacheHeap->totalCoreLeft() <= (TEXTURE_CACHE_SIZE - MAX_CACHE_SIZE))
 			{
 				return false;
 			}
-			
+
 			return true;
 		}
-		
+
 };
 
 //----------------------------------------------------------------------

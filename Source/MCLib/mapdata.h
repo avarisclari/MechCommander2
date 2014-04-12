@@ -26,14 +26,14 @@
 #endif
 
 #ifndef VERTEX_H
-#include "vertex.h"
+#include "Vertex.h"
 #endif
 
 #ifndef QUAD_H
 #include "quad.h"
 #endif
 
-#include <stuff\stuff.hpp>
+#include "Stuff/Stuff.hpp"
 
 //---------------------------------------------------------------------------
 enum  Overlays
@@ -69,7 +69,7 @@ class MapData : public HeapManager
 		PostcompVertexPtr			blocks;
 		PostcompVertexPtr			blankVertex;
 		int							hasSelection;
-									
+
 	public:
 		Stuff::Vector2DOf<float>	topLeftVertex;
 
@@ -84,12 +84,12 @@ class MapData : public HeapManager
 
 		void *operator new (size_t mySize);
 		void operator delete (void *us);
-		
+
 		void init (void)
 		{
 			HeapManager::init();
 
-			topLeftVertex.Zero();			
+			topLeftVertex.Zero();
 
 			blocks = NULL;
 
@@ -110,7 +110,7 @@ class MapData : public HeapManager
 		}
 
 		void destroy (void);
-		
+
 		~MapData (void)
 		{
 			destroy();
@@ -123,24 +123,24 @@ class MapData : public HeapManager
 
 		long update (void);
 		void makeLists (VertexPtr vertexList, long &numVerts, TerrainQuadPtr quadList, long &numTiles);
-		
-		Stuff::Vector2DOf<float> getTopLeftVertex (void) 
+
+		Stuff::Vector2DOf<float> getTopLeftVertex (void)
 		{
 			return topLeftVertex;
 		}
 
 		void calcLight (void);
 		void clearShadows();
-		
+
 		float terrainElevation (Stuff::Vector3D &position);
 		float terrainElevation ( long tileR, long tileC );
 
 		float terrainAngle (Stuff::Vector3D &position, Stuff::Vector3D* normal = NULL);
 		Stuff::Vector3D terrainNormal (Stuff::Vector3D& position);
 		float terrainLight (Stuff::Vector3D& position);
-		
+
 		float getTopLeftElevation (void);
-		
+
 		// old overlay stuff
 		void setOverlayTile (long block, long vertex, long offset);
 		long getOverlayTile (long block, long vertex);
@@ -151,7 +151,7 @@ class MapData : public HeapManager
 		void setTerrain( long tileR, long tileC, int terrainType );
 		long getTerrain( long tileR, long tileC );
 
-		void  setVertexHeight( int vertexIndex, float value ); 
+		void  setVertexHeight( int vertexIndex, float value );
 		float getVertexHeight( int vertexIndex );
 
 		PostcompVertexPtr getData (void)
@@ -165,7 +165,7 @@ class MapData : public HeapManager
 
 		void calcWater (float waterDepth, float waterShallowDepth, float waterAlphaDepth);
 		void recalcWater (void);									//Uses above values already passed in to just recalc the water
-		
+
 		float waterElevation () { return waterDepth; }
 
 		void markSeen (Stuff::Vector2DOf<float> &topLeftPosition, VertexPtr vertexList, Stuff::Vector3D &looker, Stuff::Vector3D &lookVector, float cone, float dist, byte who);

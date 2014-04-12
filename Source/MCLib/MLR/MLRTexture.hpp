@@ -10,7 +10,7 @@
 #endif
 
 #if !defined(MLR_GOSIMAGE_HPP)
-	#include <MLR\GOSImage.hpp>
+	#include "GOSImage.hpp"
 #endif
 
 namespace MidLevelRenderer {

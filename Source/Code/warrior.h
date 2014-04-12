@@ -44,7 +44,7 @@
 #endif
 
 #ifndef DGVEHICL_H
-#include "dgvehicl.h"
+#include "DGVEHICL.H"
 #endif
 
 #ifndef DTEAM_H
@@ -205,28 +205,28 @@ typedef enum {
 } WarriorRank;
 
 typedef enum {
-	LIGHT_MECH_SPECIALIST,	
-	LASER_SPECIALIST,		
-	LIGHT_AC_SPECIALIST,	
-	MEDIUM_AC_SPECIALIST,	
-	SRM_SPECIALIST,			
-	SMALL_ARMS_SPECIALIST,	
+	LIGHT_MECH_SPECIALIST,
+	LASER_SPECIALIST,
+	LIGHT_AC_SPECIALIST,
+	MEDIUM_AC_SPECIALIST,
+	SRM_SPECIALIST,
+	SMALL_ARMS_SPECIALIST,
 	SENSOR_SPECIALIST,
 	TOUGHNESS_SPECIALIST,
-	MEDIUM_MECH_SPECIALIST,	
+	MEDIUM_MECH_SPECIALIST,
 	PULSE_LASER_SPECIALIST,
 	ER_LASER_SPECIALIST,
 	LRM_SPECIALIST,
 	SCOUT,
-	LONG_JUMP,	
+	LONG_JUMP,
 	HEAVY_MECH_SPECIALIST,
 	PPC_SPECIALIST,
-	HEAVY_AC_SPECIALIST,	
-	SHORT_RANGE_SPECIALIST, 
+	HEAVY_AC_SPECIALIST,
+	SHORT_RANGE_SPECIALIST,
 	MEDIUM_RANGE_SPECIALIST,
-	LONG_RANGE_SPECIALIST,  	
+	LONG_RANGE_SPECIALIST,
 	ASSAULT_MECH_SPECIALIST,
-	GAUSS_SPECIALIST,		
+	GAUSS_SPECIALIST,
 	SHARPSHOOTER,
 	NUM_SPECIALTY_SKILLS
 } SpecialtySkill;
@@ -310,7 +310,7 @@ typedef enum {
 
 typedef struct {
 	char			code;
-	unsigned char	numTriggers;			
+	unsigned char	numTriggers;
 	long			trigger[MAX_ALARM_TRIGGERS];
 } PilotAlarm;
 
@@ -374,7 +374,7 @@ class TargetPriorityList {
 		void* operator new (size_t ourSize);
 
 		void operator delete (void* us);
-		
+
 		void init (void);
 
 		TargetPriorityList (void) {
@@ -637,7 +637,7 @@ typedef union _MemoryCell {
 
 //------------------------------------------------------------------------------------------
 
-typedef struct _QueuedTacOrder 
+typedef struct _QueuedTacOrder
 {
 	long						id;
 	Stuff::Vector3D				point;
@@ -715,7 +715,7 @@ typedef struct _MechWarriorData
 	long					numKilled;
 
 	long					descID;							//Used by Logistics to Desc.
-	long					nameIndex;						//Used by Logistics to Desc.		
+	long					nameIndex;						//Used by Logistics to Desc.
 
 	float					timeOfLastOrders;				// when I ask for orders
 	AttackerRec				attackers[MAX_ATTACKERS];		// should never have more than 12 attackers...
@@ -848,7 +848,7 @@ class MechWarrior {
 		long					numKilled;
 
 		long					descID;							//Used by Logistics to Desc.
-		long					nameIndex;						//Used by Logistics to Desc.		
+		long					nameIndex;						//Used by Logistics to Desc.
 		static	SpecialtySkillType	skillTypes[NUM_SPECIALTY_SKILLS];
 	protected:
 
@@ -949,7 +949,7 @@ class MechWarrior {
 
 		void* operator new (size_t ourSize);
 		void operator delete (void* us);
-		
+
 		static void setup (void);
 
 		static void shutdown (void);
@@ -1020,7 +1020,7 @@ class MechWarrior {
 		void radioMessage (long message, bool propogateIfMultiplayer = false);
 
 		void cancelRadioMessage (long message, bool propogateIfMultiplayer = false);
-		
+
 		DWORD getLastMessage(void)
 		{
 			return radioLog.lastMessage;
@@ -1131,7 +1131,7 @@ class MechWarrior {
 		bool getNotMineYet (void) {
 			return notMineYet;
 		}
-		
+
 		void setNotMineYet (bool result) {
 			notMineYet = result;
 		}
@@ -1141,12 +1141,12 @@ class MechWarrior {
 		}
 
 		//---------------------------------
-		// Specialty Skills		
+		// Specialty Skills
 		bool isLightMechSpecialist (void)			//DONE
 		{
 			return (specialtySkills[0] == 1);
 		}
-		
+
 		bool isMediumMechSpecialist (void)			//DONE
 		{
 			return (specialtySkills[8] == 1);
@@ -1171,7 +1171,7 @@ class MechWarrior {
 		{
 			return (specialtySkills[4] == 1);
 		}
-	
+
 		bool isSmallArmsSpecialist (void)			//DONE
 		{
 			return (specialtySkills[5] == 1);
@@ -1221,7 +1221,7 @@ class MechWarrior {
 		{
 			return (specialtySkills[20] == 1);
 		}
-	
+
 		bool isGaussSpecialist (void)				//DONE
 		{
 			return (specialtySkills[21] == 1);
@@ -1363,22 +1363,22 @@ class MechWarrior {
 		{
 			return audioStr;
 		}
-		
+
 		char *getVideoString (void)
 		{
 			return videoStr;
 		}
-		
+
 		char *getBrainString (void)
 		{
 			return brainStr;
 		}
-		
+
 		long getPilotPhoto (void)
 		{
 			return photoIndex;
 		}
-		
+
 		bool onHomeTeam (void);
 
 		bool underHomeCommand (void);
@@ -1395,7 +1395,7 @@ class MechWarrior {
 		}
 
 //		void setUnit (MoverGroupPtr _group, long _unitMateId);
-		
+
 		void setTeam (TeamPtr team);
 
 		void setVehicle (GameObjectPtr _vehicle);
@@ -1407,7 +1407,7 @@ class MechWarrior {
 		long setBrain (long brainHandle);
 
 		void setBrainName (char *brainName);
-		
+
 		ABLModulePtr getBrain (void) {
 			return(brain);
 		}
@@ -1553,7 +1553,7 @@ class MechWarrior {
 		void setMoveNewGoal (bool state) {
 			moveOrders.newGoal = state;
 		}
-		
+
 		MovePathPtr getMovePath (long which) {
 			return(moveOrders.path[which]);
 		}
@@ -1835,17 +1835,17 @@ class MechWarrior {
 		void setSituationGuardObject (GameObjectWatchID objWID);
 
 		unsigned long getSituationGuardObjectPartId (void);
-		
+
 		void setMessagePlaying()
 		{
 			isPlayingMsg = true;
 		}
-		
+
 		void clearMessagePlaying()
 		{
 			isPlayingMsg = false;
 		}
-		
+
 		bool getMessagePlaying()
 		{
 			return isPlayingMsg;
@@ -1903,7 +1903,7 @@ class MechWarrior {
 		void setCurTacOrder (TacticalOrder tacOrder);
 
 		void setGeneralTacOrder (TacticalOrder tacOrder);
-		
+
 		void setPlayerTacOrder (TacticalOrder tacOrder, bool fromQueue = false);
 
 		void setAlarmTacOrder (TacticalOrder tacOrder, long priority);
@@ -1987,7 +1987,7 @@ class MechWarrior {
 		long orderJumpToObject (bool unitOrder, bool setTacOrder, long origin, GameObjectPtr target, long selectionIndex = -1);
 
 		long orderTraversePath (bool unitOrder, bool setTacOrder, long origin, WayPathPtr wayPath, unsigned long params = TACORDER_PARAM_NONE);
-		
+
 		long orderPatrolPath (bool unitOrder, bool setTacOrder, long origin, WayPathPtr wayPath);
 
 		long orderPowerUp (bool unitOrder, long origin);
@@ -2090,7 +2090,7 @@ class MechWarrior {
 					strncpy(debugStrings[stringNum], s, MAXLEN_PILOT_DEBUG_STRING - 1);
 		}
 
-		char* getDebugString (long stringNum) 
+		char* getDebugString (long stringNum)
 		{
 			if ((stringNum > -1) && (stringNum < NUM_PILOT_DEBUG_STRINGS))
 				return(debugStrings[stringNum]);
@@ -2110,14 +2110,14 @@ class MechWarrior {
 		static void initGoalManager (long poolSize);
 
 		static void logPilots (GameLogPtr log);
-		
+
 		static bool anyPlayerInCombat (void);
 
 		void copyToData (MechWarriorData &data);
 		void copyFromData (MechWarriorData &data);
 
-		void save (PacketFilePtr file, long packetNum); 
-		void load (PacketFilePtr file, long packetNum); 
+		void save (PacketFilePtr file, long packetNum);
+		void load (PacketFilePtr file, long packetNum);
 
 		long static Save (PacketFilePtr file, long packetNum);
 		long static Load (PacketFilePtr file, long packetNum);

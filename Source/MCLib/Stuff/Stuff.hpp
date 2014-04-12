@@ -40,7 +40,7 @@
 #pragma warning(pop)
 
 #pragma warning(push)
-#include <gameOS.hpp>
+#include "../../GameOS/include/GameOS.HPP"
 #pragma warning(pop)
 
 #define USE_ASSEMBLER_CODE	1
@@ -115,7 +115,7 @@ namespace Stuff {
 		FirstgosFXClassID,
 		gosFXClassIDCount					= 64,
 		LastgosFXClassID					= FirstgosFXClassID + gosFXClassIDCount -1,
-		
+
 		//
 		//------------------------------------------
 		// Please note that all new class id's

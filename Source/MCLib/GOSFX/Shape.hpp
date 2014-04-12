@@ -9,7 +9,7 @@
 
 #include "gosFX.hpp"
 #include "Singleton.hpp"
-#include <MLR\MLR.hpp>
+#include "../MLR/MLR.hpp"
 
 namespace MidLevelRenderer {class MLRShape;}
 

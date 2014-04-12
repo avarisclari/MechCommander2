@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MLR" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="./Debug/MLR" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DTRACE_ENABLE" />
+					<Add option="-D_ARMOR" />
+					<Add option="-DLAB_ONLY" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DUSE_PROTOTYPES" />
+					<Add option="-DSTRICT" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-Wall" />
+					<Add option="-O0" />
+					<Add directory="../../mclib" />
+					<Add directory="../../GameOS/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../mclib" />
+					<Add directory="../../GameOS/include" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="./Release/MLR" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-DRELEASE" />
+					<Add option="-DUSE_PROTOTYPES" />
+					<Add option="-DSTRICT" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-Wall" />
+					<Add option="-O3" />
+					<Add directory="../../mclib" />
+					<Add directory="../../GameOS/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../mclib" />
+					<Add directory="../../GameOS/include" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Profile Win32">
+				<Option output="./Profile/MLR" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Profile" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DLAB_ONLY" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DUSE_PROTOTYPES" />
+					<Add option="-DSTRICT" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-Wall" />
+					<Add option="-O3" />
+					<Add directory="../../mclib" />
+					<Add directory="../../GameOS/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../mclib" />
+					<Add directory="../../GameOS/include" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="Documentation/overview.txt" />
+		<Unit filename="GOSImage.cpp" />
+		<Unit filename="GOSImage.hpp" />
+		<Unit filename="GOSImagePool.cpp" />
+		<Unit filename="GOSImagePool.hpp" />
+		<Unit filename="GOSVertex.cpp" />
+		<Unit filename="GOSVertex.hpp" />
+		<Unit filename="GOSVertex2UV.cpp" />
+		<Unit filename="GOSVertex2UV.hpp" />
+		<Unit filename="GOSVertexManipulation.hpp" />
+		<Unit filename="GOSVertexPool.hpp" />
+		<Unit filename="MLR.cpp" />
+		<Unit filename="MLR.hpp" />
+		<Unit filename="MLRAmbientLight.cpp" />
+		<Unit filename="MLRAmbientLight.hpp" />
+		<Unit filename="MLRCardCloud.cpp" />
+		<Unit filename="MLRCardCloud.hpp" />
+		<Unit filename="MLRClipTrick.hpp" />
+		<Unit filename="MLRClipper.cpp" />
+		<Unit filename="MLRClipper.hpp" />
+		<Unit filename="MLRClippingState.cpp" />
+		<Unit filename="MLRClippingState.hpp" />
+		<Unit filename="MLREffect.cpp" />
+		<Unit filename="MLREffect.hpp" />
+		<Unit filename="MLRHeaders.cpp" />
+		<Unit filename="MLRHeaders.hpp" />
+		<Unit filename="MLRIndexedPrimitiveBase.cpp" />
+		<Unit filename="MLRIndexedPrimitiveBase.hpp" />
+		<Unit filename="MLRIndexedTriangleCloud.cpp" />
+		<Unit filename="MLRIndexedTriangleCloud.hpp" />
+		<Unit filename="MLRInfiniteLight.cpp" />
+		<Unit filename="MLRInfiniteLight.hpp" />
+		<Unit filename="MLRInfiniteLightWithFallOff.hpp" />
+		<Unit filename="MLRInfiniteLightWithFalloff.cpp" />
+		<Unit filename="MLRLight.cpp" />
+		<Unit filename="MLRLight.hpp" />
+		<Unit filename="MLRLightMap.cpp" />
+		<Unit filename="MLRLightMap.hpp" />
+		<Unit filename="MLRLineCloud.cpp" />
+		<Unit filename="MLRLineCloud.hpp" />
+		<Unit filename="MLRLookUpLight.cpp" />
+		<Unit filename="MLRLookUpLight.hpp" />
+		<Unit filename="MLRNGonCloud.cpp" />
+		<Unit filename="MLRNGonCloud.hpp" />
+		<Unit filename="MLRPointCloud.cpp" />
+		<Unit filename="MLRPointCloud.hpp" />
+		<Unit filename="MLRPointLight.cpp" />
+		<Unit filename="MLRPointLight.hpp" />
+		<Unit filename="MLRPrimitiveBase.cpp" />
+		<Unit filename="MLRPrimitiveBase.hpp" />
+		<Unit filename="MLRPrimitiveClipping.hpp" />
+		<Unit filename="MLRPrimitiveLighting.hpp" />
+		<Unit filename="MLRShape.cpp" />
+		<Unit filename="MLRShape.hpp" />
+		<Unit filename="MLRSortByOrder.cpp" />
+		<Unit filename="MLRSortByOrder.hpp" />
+		<Unit filename="MLRSorter.cpp" />
+		<Unit filename="MLRSorter.hpp" />
+		<Unit filename="MLRSpotLight.cpp" />
+		<Unit filename="MLRSpotLight.hpp" />
+		<Unit filename="MLRState.cpp" />
+		<Unit filename="MLRState.hpp" />
+		<Unit filename="MLRTexture.cpp" />
+		<Unit filename="MLRTexture.hpp" />
+		<Unit filename="MLRTexturePool.cpp" />
+		<Unit filename="MLRTexturePool.hpp" />
+		<Unit filename="MLRTriangleClipping.hpp" />
+		<Unit filename="MLRTriangleCloud.cpp" />
+		<Unit filename="MLRTriangleCloud.hpp" />
+		<Unit filename="MLRTriangleLighting.hpp" />
+		<Unit filename="MLR_I_C_DT_PMesh.cpp" />
+		<Unit filename="MLR_I_C_DT_PMesh.hpp" />
+		<Unit filename="MLR_I_C_DT_TMesh.cpp" />
+		<Unit filename="MLR_I_C_DT_TMesh.hpp" />
+		<Unit filename="MLR_I_C_DeT_PMesh.cpp" />
+		<Unit filename="MLR_I_C_DeT_PMesh.hpp" />
+		<Unit filename="MLR_I_C_DeT_TMesh.cpp" />
+		<Unit filename="MLR_I_C_DeT_TMesh.hpp" />
+		<Unit filename="MLR_I_C_PMesh.cpp" />
+		<Unit filename="MLR_I_C_PMesh.hpp" />
+		<Unit filename="MLR_I_C_TMesh.cpp" />
+		<Unit filename="MLR_I_C_TMesh.hpp" />
+		<Unit filename="MLR_I_DT_PMesh.cpp" />
+		<Unit filename="MLR_I_DT_PMesh.hpp" />
+		<Unit filename="MLR_I_DT_TMesh.cpp" />
+		<Unit filename="MLR_I_DT_TMesh.hpp" />
+		<Unit filename="MLR_I_DeT_PMesh.cpp" />
+		<Unit filename="MLR_I_DeT_PMesh.hpp" />
+		<Unit filename="MLR_I_DeT_TMesh.cpp" />
+		<Unit filename="MLR_I_DeT_TMesh.hpp" />
+		<Unit filename="MLR_I_L_DT_PMesh.cpp" />
+		<Unit filename="MLR_I_L_DT_PMesh.hpp" />
+		<Unit filename="MLR_I_L_DT_TMesh.cpp" />
+		<Unit filename="MLR_I_L_DT_TMesh.hpp" />
+		<Unit filename="MLR_I_L_DeT_PMesh.cpp" />
+		<Unit filename="MLR_I_L_DeT_PMesh.hpp" />
+		<Unit filename="MLR_I_L_DeT_TMesh.cpp" />
+		<Unit filename="MLR_I_L_DeT_TMesh.hpp" />
+		<Unit filename="MLR_I_L_PMesh.cpp" />
+		<Unit filename="MLR_I_L_PMesh.hpp" />
+		<Unit filename="MLR_I_L_TMesh.cpp" />
+		<Unit filename="MLR_I_L_TMesh.hpp" />
+		<Unit filename="MLR_I_MT_PMesh.cpp" />
+		<Unit filename="MLR_I_MT_PMesh.hpp" />
+		<Unit filename="MLR_I_PMesh.cpp" />
+		<Unit filename="MLR_I_PMesh.hpp" />
+		<Unit filename="MLR_I_TMesh.cpp" />
+		<Unit filename="MLR_I_TMesh.hpp" />
+		<Unit filename="MLR_Terrain.cpp" />
+		<Unit filename="MLR_Terrain.hpp" />
+		<Unit filename="MLR_Terrain2.cpp" />
+		<Unit filename="MLR_Terrain2.hpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

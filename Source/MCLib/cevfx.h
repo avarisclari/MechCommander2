@@ -16,12 +16,12 @@
 #endif
 
 #include <float.h>
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 //---------------------------------------------------------------------------
 class VFXElement : public Element
 {
 	public:
-	
+
 		MemoryPtr		shapeTable;
 		long			frameNum;
 		long			x,y;
@@ -36,9 +36,9 @@ class VFXElement : public Element
 		frameNum = 0;
 		x = y = 0;
 		reverse = FALSE;
-		
+
 		fadeTable = NULL;
-		
+
 		noScaleDraw = FALSE;
 		scaleUp = FALSE;
 	}
@@ -54,7 +54,7 @@ class VFXElement : public Element
 class VFXShapeElement : public Element
 {
 	public:
-	
+
 		//---------------------------------------
 		// This new element class combines all of
 		// the shapes into a single Texture for
@@ -80,13 +80,13 @@ class VFXShapeElement : public Element
 		x = y = 0;
 
 		reverse[0] = reverse[1] = reverse[2] = reverse[3] = FALSE;
-		
+
 		fadeTable = NULL;
 
 		textureMemoryHandle = 0xffffffff;
 
 		actualHeight = -1;
-		
+
 		lightRGB = 0xffffffff;		//Fully Lit
 		fogRGB = 0xffffffff;		//NO Fog
 	}
@@ -107,7 +107,7 @@ class VFXShapeElement : public Element
 	}
 
 	void drawShape (void);
-		
+
 	virtual void draw (void);
 };
 
@@ -115,7 +115,7 @@ class VFXShapeElement : public Element
 class TextureElement : public Element
 {
 	public:
-	
+
 		//-----------------------------------------
 		// This just draws a textured face.
 		// Texture is passed in when inited.
@@ -144,7 +144,7 @@ class TextureElement : public Element
 	{
 		fogRGB = fog;
 	}
-		
+
 	void init (DWORD textureHandle, long _x, long _y, long hsx, long hsy, float tWidth, float _z, float tZ);
 	virtual void draw (void);
 };
@@ -153,18 +153,18 @@ class TextureElement : public Element
 class PolygonQuadElement : public Element
 {
 	public:
-		
+
 		//--------------------------------
 		// This draws any untextured face.
 		// Useful for status bars, etc.
 		gos_VERTEX		vertices[4];
-		
+
 	PolygonQuadElement (void)
 	{
 	}
-	
+
 	void init (gos_VERTEX *v);
-	
+
 	virtual void draw (void);
 
 };
@@ -173,18 +173,18 @@ class PolygonQuadElement : public Element
 class PolygonTriElement : public Element
 {
 	public:
-		
+
 		//--------------------------------
 		// This draws any untextured face.
 		// Useful for status bars, etc.
 		gos_VERTEX		vertices[3];
-		
+
 	PolygonTriElement (void)
 	{
 	}
-	
+
 	void init (gos_VERTEX *v);
-	
+
 	virtual void draw (void);
 
 };
@@ -193,20 +193,20 @@ class PolygonTriElement : public Element
 class TexturedPolygonQuadElement : public PolygonQuadElement
 {
 	public:
-		
+
 		//--------------------------------
 		// This draws any untextured face.
 		// Useful everywhere
 		DWORD		textureHandle;
 		bool		zWrite;
 		bool		zComp;
-		
+
 	TexturedPolygonQuadElement (void)
 	{
 	}
-	
+
 	void init (gos_VERTEX *v, DWORD tHandle, bool writeZ = true, bool compZ = true);
-	
+
 	virtual void draw (void);
 
 };
@@ -215,18 +215,18 @@ class TexturedPolygonQuadElement : public PolygonQuadElement
 class TexturedPolygonTriElement : public PolygonTriElement
 {
 	public:
-		
+
 		//--------------------------------
 		// This draws any textured face.
 		// Useful everywhere.
 		DWORD		textureHandle;
-		
+
 	TexturedPolygonTriElement (void)
 	{
 	}
-	
+
 	void init (gos_VERTEX *v, DWORD tHandle);
-	
+
 	virtual void draw (void);
 
 };

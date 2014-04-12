@@ -12,7 +12,7 @@ MechIcon.h			: Interface for the MechIcon component.
 #endif
 
 #ifndef AFONT_H
-#include "aFont.h"
+#include "../GUI/AFONT.H"
 #endif
 
 #ifndef MC2movie_H
@@ -47,7 +47,7 @@ public:
 private:
 
 	unsigned long pilotTextureIndex;
-	
+
 	static float			pilotIconX;
 	static float			pilotIconY;
 
@@ -75,7 +75,7 @@ public:
 		virtual bool			init( Mover* pMover ){ return false; }
 		void init();
 
-		
+
 
 
 		bool inRegion( int x, int y );
@@ -94,7 +94,7 @@ public:
 		static void resetResolution(bool bForce);
 
 		void setLocationIndex( int i );
-		void beginDeathAnimation( ){ deathAnimationTime = .0001f; } 
+		void beginDeathAnimation( ){ deathAnimationTime = .0001f; }
 		bool deathAnimationOver(){ return deathAnimationTime > animationInfos[NUM_DEATH_INFOS-1].time; }
 		bool isAnimatingDeath() { return deathAnimationTime ? 1 : 0; }
 
@@ -113,9 +113,9 @@ protected:
 		static StaticInfo*		jumpJetIcon;
 
 		static aFont*			gosFontHandle;
-		
+
 		static gos_VERTEX	bmpLocation[17][5]; // in screen coords
-		
+
 		static GUI_RECT textArea[17];
 		static GUI_RECT pilotRect[17];
 		static GUI_RECT selectionRect[17];
@@ -159,7 +159,7 @@ protected:
 		static		MC2MoviePtr 	bMovie;
 		static		DWORD			pilotVideoTexture;
 		static		MechWarrior*	pilotVideoPilot;
-		
+
 };
 
 class MechIcon : public ForceGroupIcon
@@ -177,9 +177,9 @@ class MechIcon : public ForceGroupIcon
 		void doDraw( char* newDamage, char* oldDamage, unsigned long handle, unsigned long where);
 		virtual void setDrawBack( bool bSet);
 
-		
 
-		
+
+
 
 	private:
 
@@ -188,7 +188,7 @@ class MechIcon : public ForceGroupIcon
 		bool init( long whichIndex );
 		bool initTextures();
 
-		
+
 };
 
 class VehicleIcon : public ForceGroupIcon

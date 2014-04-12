@@ -13,10 +13,10 @@
 //---------------------------------------------------------------------------
 // Include Files
 #ifndef DVERTEX_H
-#include "dvertex.h"
+#include "Dvertex.h"
 #endif
 
-#include <stuff\stuff.hpp>
+#include "Stuff/Stuff.hpp"
 
 //---------------------------------------------------------------------------
 // Macro Definitions
@@ -33,11 +33,11 @@ struct PostcompVertex
 {
 	//---------------------------------------------------
 	// This Structure is used to store the data the 3D
-	// version of the terrain uses so I don't have to 
+	// version of the terrain uses so I don't have to
 	// recalculate it every frame!
 	//
 	// Replaces the pVertex pointer in Vertex Class
-	
+
 	Stuff::Vector3D		vertexNormal;		//Used for lighting
 
 	float				elevation;			//Stored here so terrain can be locally deformed
@@ -75,11 +75,11 @@ class Vertex
 		float				vx,vy;				//Unrotated World Coordinates of Vertex
 		float				px,py;				//Screen Coordinates of vertex.
 		float				pz,pw;				//Depth of vertex.
-		
+
 		long				vertexNum;			//Physical Vertex Position in mapData
 
 												//Used by new Object positioning system.
-		long				blockVertex;		//What terrain block is this vertex part of.vertexNumber;		
+		long				blockVertex;		//What terrain block is this vertex part of.vertexNumber;
 												//What vertex number in the block
 
 		long				posTile;			//Where are we on the tile!  Saves 24 divides per tile if overlay on tile!!!
@@ -97,7 +97,7 @@ class Vertex
 		DWORD				calcThisFrame;		//Calced this vertex this frame?
 
 		float				hazeFactor;			//Used to distance fog the terrain.
-		
+
 #ifdef _DEBUG
 		bool				selected;			//Debug to show which triangle I am on.
 #endif
@@ -116,12 +116,12 @@ class Vertex
 			wz = ww = 0.0f;
 
 			posTile = -1;
-			
+
 			vertexNum = -1;
 
 			lightRGB = fogRGB = 0xffffffff;
 			calcThisFrame = false;
-			
+
 		}
 
 		Vertex (void)
@@ -142,15 +142,15 @@ class Vertex
 		{
 			init();
 			pVertex = preVertex;
-			
+
 			return(NO_ERR);
 		}
-		
+
 		long getBlockNumber (void)
 		{
 			return (blockVertex>>16);
 		}
-		
+
 		long getVertexNumber (void)
 		{
 			return (blockVertex & 0x0000ffff);

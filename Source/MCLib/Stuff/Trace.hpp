@@ -5,16 +5,16 @@
 #pragma once
 
 #include "Stuff.hpp"
-#include <ToolOS.hpp>
+#include "../../GameOS/include/ToolOS.hpp"
 
 namespace Stuff {
 
-	#if defined(TRACE_ENABLED) 
+	#if defined(TRACE_ENABLED)
 
 		//#######################################################################
 		//###################    TraceSample    #################################
 		//#######################################################################
-	
+
 		#pragma pack( push, trace_pack, 4 )
 		struct TraceSample
 		{

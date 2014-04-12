@@ -30,7 +30,7 @@
 #include "objmgr.h"
 #endif
 
-#include <stuff\stuff.hpp>
+#include "Stuff/Stuff.hpp"
 #include <gosFX\gosfxheaders.hpp>
 //---------------------------------------------------------------------------
 // Macro Definitions
@@ -42,24 +42,24 @@ class WeaponBoltType : public ObjectType
 	//Data Members
 	//-------------
 	public:
-	
+
 		long			fireSoundFX;
 		long			hitEffectObjNum;
 		long			missEffectObjNum;
 		long			lightEffectObjNum;
 		long			fireEffect;
 		long			trailEffect;
-		
+
 		DWORD           frontRGB;
 		DWORD           backRGB;
 		DWORD           middleRGB;
 		DWORD           midEdgeRGB;
-		
+
 		float			projLength;
 		float			bulgeLength;
 		float			bulgeWidth;
 		float			velocity;
-		
+
 		unsigned char	boltAlpha;
 		unsigned char	edgeAlpha;
 
@@ -68,7 +68,7 @@ class WeaponBoltType : public ObjectType
 		float			outRadius;
 		DWORD			lightRGB;
 		float			intensity;
-		
+
 		bool			isBeam;
 		float			beamDuration;
 		float			beamWiggle;
@@ -82,7 +82,7 @@ class WeaponBoltType : public ObjectType
 		float			afterHitTime;
 		float			areaEffectDmg;
 		float			areaEffectRad;
-		
+
 	//Member Functions
 	//-----------------
 	public:
@@ -90,15 +90,15 @@ class WeaponBoltType : public ObjectType
 		void init (void)
 		{
 			ObjectType::init();
-		
+
 			objectTypeClass = WEAPONBOLT_TYPE;
 			objectClass = WEAPONBOLT;
 
 			fireSoundFX = hitEffectObjNum = missEffectObjNum = lightEffectObjNum = fireEffect = trailEffect = 0;
-				
+
 			frontRGB = middleRGB = backRGB = midEdgeRGB = 0;
-			
-			projLength = bulgeLength = bulgeWidth = velocity = 0.0;	
+
+			projLength = bulgeLength = bulgeWidth = velocity = 0.0;
 
 			boltAlpha = edgeAlpha = 0xff;
 
@@ -106,43 +106,43 @@ class WeaponBoltType : public ObjectType
 			maxRadius = outRadius = 0.0f;
 			lightRGB = 0x00000000;
 			intensity = 1.0;
-			
+
 			isBeam = false;
 			beamDuration = 0.0f;
 			beamWiggle = 0.0f;
 			mipTexture = false;
-			
+
 			textureName = NULL;
-			
+
 			arcEffect = false;
 			arcHeight = -1.0f;
-			
+
 			afterHitTime = 0.0f;
-			
+
 			areaEffectDmg = areaEffectRad = 0.0f;
 		}
-		
+
 		WeaponBoltType (void)
 		{
 			init();
 		}
-		
+
 		virtual long init (FilePtr objFile, unsigned long fileSize);
 		long init (FitIniFilePtr objFile);
-		
+
 		~WeaponBoltType (void)
 		{
 			destroy();
 		}
-		
+
 		virtual void destroy (void);
-		
+
 		virtual GameObjectPtr createInstance (void);
 
 		//--------------------------------------------------
 		// This functions creates lights for the below bolts
 		TG_LightPtr getLight (void);
-		
+
 		virtual bool handleCollision (GameObjectPtr collidee, GameObjectPtr collider);
 		virtual bool handleDestruction (GameObjectPtr collidee, GameObjectPtr collider);
 };
@@ -186,41 +186,41 @@ class WeaponBolt : public GameObject
 
 			GameObjectWatchID	ownerWID;
 			long				hotSpotNumber;
-		
+
 			GameObjectWatchID	targetWID;
 			long				targetHotSpot;
 			Stuff::Vector3D		*targetPosition;
 			float				distanceToTarget;
 			float				halfDistanceToTarget;
-			
+
 			WeaponShotInfo		weaponShot;
-			
+
 			Stuff::Vector3D		laserPosition;
 			Stuff::Vector3D		laserVertices[4];
 			Stuff::Vector3D		laserSide[4];
 
 			TG_LightPtr			pointLight;
 			DWORD				lightId;
-			
+
 			long				effectId;
 			bool 				hitTarget;
-			
+
 			//NEW  GOS FX
 			gosFX::Effect		*gosEffect;
 			gosFX::Effect		*muzzleEffect;
 			gosFX::Effect		*hitEffect;
 			gosFX::Effect		*missEffect;
 			gosFX::Effect		*waterMissEffect;
-			
+
 			float				timeLeft;
 			Stuff::Vector3D		hsPos;
-			
+
 			float				hitLeft;
 			DWORD				mcTextureHandle;
 			DWORD				gosTextureHandle;
 			float				startUV;
 			float				goalHeight;
-			
+
 	//Member Functions
 	//-----------------
 		public:
@@ -235,35 +235,35 @@ class WeaponBolt : public GameObject
 			hotSpotNumber = 0;
 			targetHotSpot = 0;
 			targetPosition = NULL;
-			
+
 			distanceToTarget = 0.0;
-			
+
 			ownerWID = targetWID = 0;
 
 			pointLight = NULL;
 			lightId = 0xffffffff;
-			
+
 			gosEffect = NULL;
 			muzzleEffect = NULL;
 			hitEffect = NULL;
 			missEffect = NULL;
 			waterMissEffect = NULL;
-			
+
 			effectId = -1;
-			
+
 			hitTarget = false;
-			
+
 			timeLeft = 0.0;
 			hsPos.Zero();
-			
+
 			hitLeft = 0.0f;
-			
+
 			startUV = 0.0f;
 			mcTextureHandle = 0;
 			gosTextureHandle = 0xffffffff;
-			
+
 			weaponShot.damage = 0.0f;
-			
+
 			goalHeight = 0.0f;
 		}
 
@@ -273,12 +273,12 @@ class WeaponBolt : public GameObject
 		}
 
 		virtual void destroy (void);
-		
+
 		virtual long update (void);
 		virtual void render (void);
-		
+
 		virtual void init (bool create, ObjectTypePtr _type);
-		
+
 		virtual void init (long fxId)
 		{
 			effectId = fxId;
@@ -296,7 +296,7 @@ class WeaponBolt : public GameObject
 		}
 
 		bool isVisible (void);
-		
+
 		void setOwner (GameObjectPtr who);
 		void setTarget (GameObjectPtr who);
 		void setTargetPosition (Stuff::Vector3D pos);
@@ -305,10 +305,10 @@ class WeaponBolt : public GameObject
 		{
 			ownerWID = source->getWatchID();
 			targetWID = dest->getWatchID();
-			
+
 			hotSpotNumber = sourceHS;
 			targetHotSpot = targetHS;
-			
+
 			if (dest->isMech())
 			{
 				targetHotSpot = 0;
@@ -341,18 +341,18 @@ class WeaponBolt : public GameObject
 			else
 				myOwner->appearance->setWeaponNodeRecycle(sourceHS,BASE_NODE_RECYCLE_TIME);
 		}
-		
+
 		void connect (GameObjectPtr source, Stuff::Vector3D targetLoc, WeaponShotInfo* shotInfo = NULL, long sourceHS = 0)
 		{
 			ownerWID = source->getWatchID();
 			targetWID = 0;
 			hotSpotNumber = sourceHS;
-			
+
 			setTargetPosition(targetLoc);
-			
+
 			if (shotInfo)
 				weaponShot = *shotInfo;
-				
+
 			//Reset Node recycle time to either BASE or beam duration.
 			GameObjectPtr myOwner = ObjectManager->getByWatchID(ownerWID);
 			if (((WeaponBoltTypePtr)getObjectType())->isBeam)

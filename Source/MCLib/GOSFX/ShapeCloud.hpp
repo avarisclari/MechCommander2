@@ -9,7 +9,7 @@
 
 #include "gosFX.hpp"
 #include "SpinningCloud.hpp"
-#include <MLR\MLR.hpp>
+#include "../MLR/MLR.hpp"
 
 namespace MidLevelRenderer {class MLRShape;}
 

@@ -23,7 +23,7 @@
 #include <string.h>
 
 #ifndef _MBCS
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 #else
 #include <assert.h>
 #define gosASSERT assert
@@ -190,7 +190,7 @@ class MasterComponent {
 		~MasterComponent (void) {
 			destroy();
 		}
-		
+
 		void init (void) {
 			masterID = -1;
 			name[0] = NULL;
@@ -200,7 +200,7 @@ class MasterComponent {
 		MasterComponent (void) {
 			init();
 		}
-		
+
 		long init (FitIniFile* componentFile);
 
 		long initEXCEL (char* dataLine, float baseSensorRange);
@@ -218,7 +218,7 @@ class MasterComponent {
 		long getResourcePoints (void) {
 			return(resourcePoints);
 		}
-		
+
 		ComponentFormType getForm (void) {
 			return(form);
 		}
@@ -231,12 +231,12 @@ class MasterComponent {
 		{
 			size = sz;
 		}
-		
+
 		long getHealth (void) {
 			return(health);
 		}
 
-		char getCriticalSpacesReq (long location) 
+		char getCriticalSpacesReq (long location)
 		{
 			if ((location < 0) && (location > NUM_BODY_LOCATIONS))
 				return -1;
@@ -244,7 +244,7 @@ class MasterComponent {
 			return(criticalSpacesReq[location]);
 		}
 
-		void setCriticalSpacesReq (long location, char value) 
+		void setCriticalSpacesReq (long location, char value)
 		{
 			if ((location < 0) && (location > NUM_BODY_LOCATIONS))
 				return;
@@ -268,7 +268,7 @@ class MasterComponent {
 		float getTonnage (void) {
 			return(tonnage);
 		}
-		
+
 		void setTonnage (float tons)
 		{
 			tonnage = tons;
@@ -487,7 +487,7 @@ class MasterComponent {
 		float getAmmoExplosiveDamage (void) {
 			return(stats.ammo.explosiveDamage);
 		}
-		
+
 		void setAmmoExplosiveDamage (float ammoDamage)
 		{
 			stats.ammo.explosiveDamage = ammoDamage;
@@ -504,8 +504,8 @@ class MasterComponent {
 		void setResourcePoints (long points) {
 			resourcePoints = points;
 		}
-		
-		void setSensorRange (float range) 
+
+		void setSensorRange (float range)
 		{
 			stats.sensor.range = (short)range;
 		}
@@ -545,7 +545,7 @@ class MasterComponent {
 		char *getAbbreviation (void) {
 			return (&abbreviation[0]);
 		}
-		
+
 		bool isOffensiveWeapon (void);
 
 		bool isDefensiveWeapon (void);

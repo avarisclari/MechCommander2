@@ -6,7 +6,7 @@
 #define MATHFUNC_H
 
 #ifndef STUFF_STUFF_HPP
-#include <stuff/stuff.hpp>
+#include "Stuff/Stuff.hpp"
 #endif
 
 // DESCRIBES A COORDINATE SYSTEM, OR FRAME OR REFERENCE
@@ -73,17 +73,17 @@ public:
 
 	frameOfRef & trans_to_frame (frameOfRef &new_frame);
 	frameOfRef & trans_from_frame (frameOfRef &old_frame);
-	
+
 	void trans_to_frame (Stuff::Vector3D &vector)
 	{
 		float vx = vector.x;
 		float vy = vector.y;
 		float vz = vector.z;
-		
+
 		vector.x = i.x*vx + i.y*vy + i.z*vz;
 		vector.y = j.x*vx + j.y*vy + j.z*vz;
 		vector.z = k.x*vx + k.y*vy + k.z*vz;
-	}	
+	}
 };
 
 void Rotate (Stuff::Vector2DOf<float> &vec, float angle);
@@ -118,10 +118,10 @@ _inline long float2long (float val)
 	// There is but BOY is it slow.  We will try Andy's Magical formula instead.
 	// Doesn't work either.  Major bug in Intel's FPU.
 	// Will simply call long here now to insure working ok and address later.
-	
+
 	long result = long(val);
 	return result;
-	
+
 #if 0
 	float point5 = 0.49f;
 	if (val < 0.0f)
@@ -172,7 +172,7 @@ _inline float mc2_atan2 (float f1, float f2)
 			fstp result
 		}
 	}
-	
+
 	return result;
 }
 
@@ -199,7 +199,7 @@ _inline float sign (float f1)
 {
 	if (f1 < 0.0f)
 		return -1.0f;
-		
+
 	return 0.0f;
 }
 #endif

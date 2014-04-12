@@ -12,8 +12,8 @@
 #define DEBUGGING_H
 
 #include <stdio.h>
-#include <GameOS.hpp>
-//#include <GameOS\ToolOS.hpp>
+#include "../GameOS/include/GameOS.HPP"
+#include "../GameOS/include/ToolOS.hpp"
 
 //---------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ class GameDebugWindow {
 			for (long i = 0; i < MAX_DEBUG_WINDOW_LINES; i++)
 				textBuffer[i][0] = NULL;
 		}
-		
+
 		GameDebugWindow (void) {
 			init();
 		}
@@ -57,7 +57,7 @@ class GameDebugWindow {
 			pos[0] = x;
 			pos[1] = y;
 		}
-		
+
 		void open (long x = -1, long y = -1) {
 			if ((x > -1) && (y > -1))
 				setPos(x, y);
@@ -78,16 +78,16 @@ class GameDebugWindow {
 		~GameDebugWindow (void) {
 			destroy();
 		}
-		
-		virtual void destroy (void) 
+
+		virtual void destroy (void)
 		{
-			if (font) 
+			if (font)
 			{
 				gos_DeleteFont(font);
 				font = NULL;
 			}
 		}
-		
+
 		void print (char* s);
 
 		void render (void);

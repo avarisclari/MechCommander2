@@ -9,7 +9,7 @@ ControlGui.h			: Interface for the ControlGui component.  This thing holds the t
 \*************************************************************************************************/
 
 #ifndef GAMETACMAP_H
-#include "GameTacMap.h"
+#include "gameTacMap.h"
 #endif
 
 #ifndef FORCEGROUPBAR_H
@@ -33,7 +33,7 @@ ControlGui.h			: Interface for the ControlGui component.  This thing holds the t
 #endif
 
 #ifndef AEDIT_H
-#include "aEdit.h"
+#include "../GUI/aEdit.h"
 #endif
 
 #ifndef MC2movie_H
@@ -70,14 +70,14 @@ struct	ButtonData
 	aFont			textFont;
 
 	char			fileName[32];
-	long			stateCoords[4][2];	
+	long			stateCoords[4][2];
 	long			textureWidth;
 	long			textureHeight;
 	int				fileWidth;
 	int				fileHeight;
 	unsigned long	textureHandle;
 	bool			textureRotated;
-	
+
 };
 
 class ControlButton
@@ -100,7 +100,7 @@ class ControlButton
 	void setColor( unsigned long newColor );
 	static void makeUVs( gos_VERTEX* vertices, int State, ButtonData& data );
 
-	static void initButtons( FitIniFile& file, long buttonCount, 
+	static void initButtons( FitIniFile& file, long buttonCount,
 			ControlButton* buttons, ButtonData* buttonData, const char* str, aFont* font = 0 );
 
 
@@ -161,7 +161,7 @@ class ControlGui
 		bool isOverTacMap();
 
 		bool isChatting() { return bChatting; }
-		
+
 		//TUTORIAL
 		bool animateTacMap (long buttonId,float timeToScroll,long numFlashes);
 		bool pushButton (long buttonId);
@@ -210,7 +210,7 @@ class ControlGui
 			REPAIR_VEHICLE,
 			PEGASUS_SCOUT,
 			MINELAYER,
-			RECOVERY_TEAM,	
+			RECOVERY_TEAM,
 			STOP_VEHICLE,
 			MAX_VEHICLE
 		};
@@ -241,47 +241,47 @@ class ControlGui
 		bool	getGuardTower();
 		void	switchTabs( int direction );
 		void	renderObjective( CObjective* pObjective, long xPos, long yPos, bool bDrawTotal );
-		void	renderMissionStatus( bool bRender){ renderStatusInfo = bRender; }		
-		
+		void	renderMissionStatus( bool bRender){ renderStatusInfo = bRender; }
+
 		int		getCurrentRange();
 		void	pressInfoButton( ){ handleClick( INFO_COMMAND ); }
 		bool	infoButtonPressed() { return getButton( INFO_COMMAND )->state & ControlButton::PRESSED; }
 
 		void	showServerMissing();
 
-		void	pressAirstrikeButton() 
-		{ 
+		void	pressAirstrikeButton()
+		{
 			for ( int i = 0; i < LAST_VEHICLE; i++ )
 			{
 				if (( vehicleButtons[i].ID == LARGE_AIRSTRIKE) &&
 					!( vehicleButtons[i].state & ControlButton::PRESSED ))
 				{
-					handleVehicleClick( LARGE_AIRSTRIKE ); 
+					handleVehicleClick( LARGE_AIRSTRIKE );
 				}
 			}
-		}		
-		void	pressLargeAirstrikeButton() { handleVehicleClick( LARGE_AIRSTRIKE ); }		
-		void	pressSensorStrikeButton() 
-		{ 
+		}
+		void	pressLargeAirstrikeButton() { handleVehicleClick( LARGE_AIRSTRIKE ); }
+		void	pressSensorStrikeButton()
+		{
 			for ( int i = 0; i < LAST_VEHICLE; i++ )
 			{
 				if (( vehicleButtons[i].ID == SENSOR_PROBE) &&
 					!( vehicleButtons[i].state & ControlButton::PRESSED ))
 				{
-					handleVehicleClick( SENSOR_PROBE ); 
+					handleVehicleClick( SENSOR_PROBE );
 				}
 			}
-		}		
+		}
 
 		void	setRolloverHelpText( unsigned long textID );
 
 
-		void	setChatText( const char* playerName, const char* message, unsigned long backgroundColor, 
+		void	setChatText( const char* playerName, const char* message, unsigned long backgroundColor,
 			unsigned long textColor );
 		void	toggleChat( bool setTeamOnly );
 		void eatChatKey();
 		void	cancelInfo();
-		
+
 		ControlButton*		getButton( int ID );
 
 		struct RectInfo
@@ -306,7 +306,7 @@ class ControlGui
 
 		RectInfo*		rectInfos;
 		long			rectCount;
-		
+
 		//static	ButtonFile		vehicleFileData[LAST_VEHICLE];
 		static unsigned long RUN;
 		static unsigned long WALK;
@@ -341,7 +341,7 @@ class ControlGui
 		float				resultsTime;
 		bool				renderObjectives;
 		float				objectiveTime;
-		
+
 		float				tabFlashTime;
 		static long OBJECTIVESTOP;
 		static long OBJECTIVESLEFT;
@@ -395,7 +395,7 @@ class ControlGui
 		aFont					vehicleFont;
 		aFont					timerFont;
 		aFont					missionResultsFont;
-		
+
 		aText					chatEdit;
 		aEdit					playerNameEdit;
 		aEdit					personalEdit;

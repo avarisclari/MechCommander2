@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MCLib" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release Win32">
+				<Option output="./Release/MCLib" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-DFINAL" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="../GameOS/include" />
+					<Add directory="mclib" />
+					<Add directory="." />
+					<Add directory="../editor" />
+					<Add directory="../../DirectX8/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../GameOS/include" />
+					<Add directory="mclib" />
+					<Add directory="." />
+					<Add directory="../editor" />
+					<Add directory="../../DirectX8/include" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Profile Win32">
+				<Option output="./Profile/MCLib" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Profile" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-DLAB_ONLY" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="../GameOS/include" />
+					<Add directory="mclib" />
+					<Add directory="." />
+					<Add directory="../editor" />
+					<Add directory="../../DirectX8/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../GameOS/include" />
+					<Add directory="mclib" />
+					<Add directory="." />
+					<Add directory="../editor" />
+					<Add directory="../../DirectX8/include" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Debug Win32">
+				<Option output="./Debug/MCLib" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_ARMOR" />
+					<Add option="-DLAB_ONLY" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add directory="../GameOS/include" />
+					<Add directory="mclib" />
+					<Add directory="." />
+					<Add directory="../editor" />
+					<Add directory="../../DirectX8/include" />
+					<Add directory="../coretech/libraries;.;../editor;../zlib;$(NoInherit)" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../GameOS/include" />
+					<Add directory="mclib" />
+					<Add directory="." />
+					<Add directory="../editor" />
+					<Add directory="../../DirectX8/include" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="Abl.h" />
+		<Unit filename="Abldbug.cpp" />
+		<Unit filename="Abldbug.h" />
+		<Unit filename="Abldecl.cpp" />
+		<Unit filename="Ablenv.cpp" />
+		<Unit filename="Ablenv.h" />
+		<Unit filename="Ablerr.cpp" />
+		<Unit filename="Ablerr.h" />
+		<Unit filename="Ablexec.cpp" />
+		<Unit filename="Ablexec.h" />
+		<Unit filename="Ablexpr.cpp" />
+		<Unit filename="Ablgen.h" />
+		<Unit filename="Ablparse.h" />
+		<Unit filename="Ablrtn.cpp" />
+		<Unit filename="Ablscan.cpp" />
+		<Unit filename="Ablscan.h" />
+		<Unit filename="Ablstd.cpp" />
+		<Unit filename="Ablstmt.cpp" />
+		<Unit filename="Ablsymt.cpp" />
+		<Unit filename="Ablsymt.h" />
+		<Unit filename="Ablxexpr.cpp" />
+		<Unit filename="Ablxstd.cpp" />
+		<Unit filename="Ablxstmt.cpp" />
+		<Unit filename="AlphaPalette.cpp" />
+		<Unit filename="Appear.cpp" />
+		<Unit filename="Appear.h" />
+		<Unit filename="Apprtype.cpp" />
+		<Unit filename="Apprtype.h" />
+		<Unit filename="Bitflag.cpp" />
+		<Unit filename="Bitflag.h" />
+		<Unit filename="Camera.cpp" />
+		<Unit filename="Camera.h" />
+		<Unit filename="Celement.cpp" />
+		<Unit filename="Celement.h" />
+		<Unit filename="Cident.cpp" />
+		<Unit filename="Cident.h" />
+		<Unit filename="DPacket.h" />
+		<Unit filename="DTerrTxm.h" />
+		<Unit filename="Dabldbug.h" />
+		<Unit filename="Dappear.h" />
+		<Unit filename="Daprtype.h" />
+		<Unit filename="Dbitflag.h" />
+		<Unit filename="Dcamera.h" />
+		<Unit filename="Dheap.h" />
+		<Unit filename="Dident.h" />
+		<Unit filename="Dinifile.h" />
+		<Unit filename="Dvertex.h" />
+		<Unit filename="ECharString.cpp" />
+		<Unit filename="ECharString.h" />
+		<Unit filename="EList.h" />
+		<Unit filename="EString.cpp" />
+		<Unit filename="EString.h" />
+		<Unit filename="EWCharString.cpp" />
+		<Unit filename="EWCharString.h" />
+		<Unit filename="File.cpp" />
+		<Unit filename="Gvactor.cpp" />
+		<Unit filename="Gvactor.h" />
+		<Unit filename="Heap.cpp" />
+		<Unit filename="Heap.h" />
+		<Unit filename="Inifile.cpp" />
+		<Unit filename="Inifile.h" />
+		<Unit filename="Lz.h" />
+		<Unit filename="Move.cpp" />
+		<Unit filename="Move.h" />
+		<Unit filename="Mstates.h" />
+		<Unit filename="ObjectAppearance.h" />
+		<Unit filename="Packet.cpp" />
+		<Unit filename="Paths.cpp" />
+		<Unit filename="Paths.h" />
+		<Unit filename="Pqueue.cpp" />
+		<Unit filename="Pqueue.h" />
+		<Unit filename="Routines.cpp" />
+		<Unit filename="Sounds.h" />
+		<Unit filename="Soundsys.cpp" />
+		<Unit filename="Soundsys.h" />
+		<Unit filename="TacMap.cpp" />
+		<Unit filename="TacMap.h" />
+		<Unit filename="TerrTxm.cpp" />
+		<Unit filename="TerrTxm.h" />
+		<Unit filename="Terrain.cpp" />
+		<Unit filename="Terrain.h" />
+		<Unit filename="Timing.cpp" />
+		<Unit filename="Timing.h" />
+		<Unit filename="Utilities.cpp" />
+		<Unit filename="Utilities.h" />
+		<Unit filename="Vertex.h" />
+		<Unit filename="Vfx.h" />
+		<Unit filename="Vport.h" />
+		<Unit filename="bdactor.cpp" />
+		<Unit filename="bdactor.h" />
+		<Unit filename="celine.cpp" />
+		<Unit filename="celine.h" />
+		<Unit filename="cellip.cpp" />
+		<Unit filename="cellip.h" />
+		<Unit filename="cepane.cpp" />
+		<Unit filename="cepane.h" />
+		<Unit filename="cepoly.h" />
+		<Unit filename="cevfx.cpp" />
+		<Unit filename="cevfx.h" />
+		<Unit filename="clip.h" />
+		<Unit filename="clouds.cpp" />
+		<Unit filename="clouds.h" />
+		<Unit filename="cmponent.cpp" />
+		<Unit filename="cmponent.h" />
+		<Unit filename="color.cpp" />
+		<Unit filename="color.h" />
+		<Unit filename="crater.cpp" />
+		<Unit filename="crater.h" />
+		<Unit filename="csvfile.cpp" />
+		<Unit filename="csvfile.h" />
+		<Unit filename="dablenv.h" />
+		<Unit filename="dbasegui.h" />
+		<Unit filename="dcsvfile.h" />
+		<Unit filename="debugging.cpp" />
+		<Unit filename="debugging.h" />
+		<Unit filename="dffile.h" />
+		<Unit filename="dfile.h" />
+		<Unit filename="dgamelog.h" />
+		<Unit filename="dmapdata.h" />
+		<Unit filename="dmovemgr.h" />
+		<Unit filename="dobjblck.h" />
+		<Unit filename="dobjclass.h" />
+		<Unit filename="dquad.h" />
+		<Unit filename="dstd.h" />
+		<Unit filename="dterrain.h" />
+		<Unit filename="err.cpp" />
+		<Unit filename="err.h" />
+		<Unit filename="fastfile.cpp" />
+		<Unit filename="fastfile.h" />
+		<Unit filename="ffent.h" />
+		<Unit filename="ffile.cpp" />
+		<Unit filename="ffile.h" />
+		<Unit filename="file.h" />
+		<Unit filename="floathelp.cpp" />
+		<Unit filename="floathelp.h" />
+		<Unit filename="gamelog.cpp" />
+		<Unit filename="gamelog.h" />
+		<Unit filename="genactor.cpp" />
+		<Unit filename="genactor.h" />
+		<Unit filename="lzcomp.cpp" />
+		<Unit filename="lzdecomp.cpp" />
+		<Unit filename="mapdata.cpp" />
+		<Unit filename="mapdata.h" />
+		<Unit filename="mathfunc.cpp" />
+		<Unit filename="mathfunc.h" />
+		<Unit filename="mclib.h" />
+		<Unit filename="mech3d.cpp" />
+		<Unit filename="mech3d.h" />
+		<Unit filename="mouse.cpp" />
+		<Unit filename="msl.cpp" />
+		<Unit filename="msl.h" />
+		<Unit filename="objstatus.h" />
+		<Unit filename="packet.h" />
+		<Unit filename="quad.cpp" />
+		<Unit filename="quad.h" />
+		<Unit filename="resizeImage.h" />
+		<Unit filename="scale.cpp" />
+		<Unit filename="scale.h" />
+		<Unit filename="sortlist.cpp" />
+		<Unit filename="sortlist.h" />
+		<Unit filename="terrtxm2.cpp" />
+		<Unit filename="terrtxm2.h" />
+		<Unit filename="tgainfo.cpp" />
+		<Unit filename="tgainfo.h" />
+		<Unit filename="tgl.cpp" />
+		<Unit filename="tgl.h" />
+		<Unit filename="txmconv.cpp" />
+		<Unit filename="txmconv.h" />
+		<Unit filename="txmmgr.cpp" />
+		<Unit filename="txmmgr.h" />
+		<Unit filename="userInput.h" />
+		<Unit filename="userinput.cpp" />
+		<Unit filename="vfx_ellipse.cpp" />
+		<Unit filename="vfx_map_polygon.cpp" />
+		<Unit filename="vfx_transform.cpp" />
+		<Unit filename="vfx_translatedraw.cpp" />
+		<Unit filename="vfxtile.cpp" />
+		<Unit filename="vport.cpp" />
+		<Unit filename="weaponfx.cpp" />
+		<Unit filename="weaponfx.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

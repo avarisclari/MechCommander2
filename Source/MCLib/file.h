@@ -30,7 +30,7 @@
 #endif
 
 #ifndef HEAP_H
-#include "heap.h"
+#include "Heap.h"
 #endif
 
 #include <stdlib.h>
@@ -98,10 +98,10 @@ class File
 	// Data Members
 	//--------------
 	protected:
-	
+
 		char 					*fileName;
 		FileMode				fileMode;
-	
+
 		long					handle;
 
 		FastFilePtr				fastFile;
@@ -115,7 +115,7 @@ class File
 		FilePtr					*childList;
 		unsigned long			numChildren;
 		unsigned long			maxChildren;
-				
+
 		FilePtr					parent;
 		unsigned long			parentOffset;
 		unsigned long			physicalLength;
@@ -138,7 +138,7 @@ class File
 
 			void *operator new (size_t mySize);
 			void operator delete (void *us);
-			
+
 			File (void);
 			~File (void);
 
@@ -153,7 +153,7 @@ class File
 			virtual void close (void);
 
 			virtual long open (File *_parent, unsigned long fileSize, long numChildren = 50);
-			
+
 			void deleteFile (void);
 
 			long seek (long pos, long from = SEEK_SET);
@@ -210,7 +210,7 @@ class File
 			{
 				return logicalPosition;
 			}
-			
+
 			FilePtr getParent (void)
 			{
 				return parent;
@@ -220,14 +220,14 @@ class File
 			{
 				return(fileMode);
 			}
-			
+
 			long getFileHandle (void)
 			{
 				return(handle);
 			}
 
 			time_t getFileMTime (void);
-			
+
 			long addChild (FilePtr child);
 			void removeChild (FilePtr child);
 

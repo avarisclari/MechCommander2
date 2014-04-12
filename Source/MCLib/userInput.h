@@ -25,7 +25,7 @@
 #endif
 
 #include <string.h>
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
 //---------------------------------------------------------------------------
 #define MC2_MOUSE_UP		0
@@ -118,9 +118,9 @@ class MouseCursorData
 		// on the smallest texture that will hold their shape.  Thus if
 		// have a mouse with four frames of animation it will be stored
 		// on a 64x64.
-		
+
 		long numCursors;
-		
+
 		StaticInfo*	cursorInfos;	// gotta be pointer, so destructor is called before texmgr quits
 
 		char mouseHS[MAX_MOUSE_STATES][2];
@@ -128,20 +128,20 @@ class MouseCursorData
 		float frameLengths[MAX_MOUSE_STATES];
 
 		friend class UserInput;
-		
+
 	public:
 		MouseCursorData (void)
 		{
 			init();
 		}
-		
+
 		~MouseCursorData (void)
 		{
 			destroy();
 		}
-		
+
 		void destroy (void);
-		
+
 		void init (void)
 		{
 			numCursors = 0;
@@ -150,8 +150,8 @@ class MouseCursorData
 			memset( numFrames, 0, sizeof( numFrames ) );
 			memset( frameLengths, 0, sizeof( frameLengths ) );
 		}
-		
-		
+
+
 		long getNumFrames (long state)
 		{
 			if ((state >= 0) && (state < numCursors))
@@ -164,19 +164,19 @@ class MouseCursorData
 		{
 			if ((state >= 0) && (state < numCursors))
 				return mouseHS[state][0];
-				
+
 			return 0;
 		}
-				
+
 		char getMouseHSY (long state)
 		{
 			if ((state >= 0) && (state < numCursors))
 				return mouseHS[state][1];
-				
+
 			return 0;
 		}
-		
-				
+
+
 		void initCursors (char *cursorFile);
 };
 
@@ -234,9 +234,9 @@ class UserInput
 
 		float lastMouseXPosition;				//Last Mouse X Position.
 		float lastMouseYPosition;				//Last Mouse Y Position.
-		
+
 		MouseCursorData *cursors;				//Stores the actual cursor data and Info
-		
+
 		bool drawTerrainPointer;				//Draw an inverse project cross
 		long mouseState;						//Which cursor should I draw?
 		long mouseFrame;						//current Mouse Frame
@@ -251,9 +251,9 @@ class UserInput
 
 		bool leftMouseJustUp;					// leftButtonUp message equivalent
 		bool rightMouseJustUp;					// right up equivalent
-		
+
 		DWORD	attilaIndex;					// Set to 0xffffffff if no Attila Present.
-		
+
 	public:
 
 		//Need to have the mouse draw here
@@ -274,7 +274,7 @@ class UserInput
 			mouseScale = 1.0f;
 			mouseXPosition = mouseYPosition = 0.0;
 
-			mouseXDelta = mouseYDelta = 
+			mouseXDelta = mouseYDelta =
 			mouseWheelDelta = 0;
 
 			leftClick = rightClick = middleClick = false;
@@ -291,7 +291,7 @@ class UserInput
 			lastLeftMouseButtonState = lastRightMouseButtonState = lastMiddleMouseButtonState = MC2_MOUSE_UP;
 
 			lastMouseYPosition = lastMouseXPosition = 0.0;
-			
+
 			drawTerrainPointer = false;
 			mouseState = -1;
 			mouseFrameLength = 0.0;
@@ -299,7 +299,7 @@ class UserInput
 			viewMulX = viewMulY = viewAddX = viewAddY = 0.0f;
 			leftMouseJustUp = 0;
 			rightMouseJustUp = 0;
-			
+
 			attilaIndex = 0xffffffff;
 
 			mouseLeftHeldTime = 0.f;
@@ -309,7 +309,7 @@ class UserInput
 		}
 
 		void initMouseCursors (char *mouseFile);
-		
+
 		void destroy (void)
 		{
 			if ( cursors )
@@ -410,27 +410,27 @@ class UserInput
 		{
 			return (mouseXPosition * viewMulX);
 		}
-		
+
 		float realMouseY (void)
 		{
 			return (mouseYPosition * viewMulY);
 		}
-		
+
 		void setMousePos (float x, float y)
 		{
 			float xRes = 0.0f;
 			float yRes = 0.0f;
 
-			if ((fabs(viewMulX) > Stuff::SMALL) && 
+			if ((fabs(viewMulX) > Stuff::SMALL) &&
 				(fabs(viewMulY) > Stuff::SMALL))
 			{
 				xRes = x/viewMulX;
 				yRes = y/viewMulY;
 			}
-			
+
 			gos_SetMousePosition(xRes,yRes);
 		}
-		
+
 		long getMouseXDelta (void)
 		{
 			return mouseXDelta;
@@ -494,7 +494,7 @@ class UserInput
 			return(rightClick);
 		}
 
-//		bool isLeftHeld() { 
+//		bool isLeftHeld() {
 //			return isLeftClick && lastLeftMouseButtonState == MC2_MOUSE_DOWN;
 //		}
 
@@ -512,12 +512,12 @@ class UserInput
 		{
 			return middleClick;
 		}
-		
+
 		bool isMiddleDoubleClick (void)
 		{
 			return middleDoubleClick;
 		}
-		
+
 		void setMouseCursor (long state);
 
 		long getMouseCursor (void)
@@ -534,15 +534,15 @@ class UserInput
 		{
 			return (mouseFrame);
 		}
-				
+
 		void mouseOn (void);				//Draw Mouse Cursor
 		void mouseOff (void);				//Don't Draw Mouse Cursor
-		
+
 		void pointerOn (void)
 		{
 			drawTerrainPointer = true;
 		}
-		
+
 		void pointerOff (void)
 		{
 			drawTerrainPointer = false;
@@ -557,59 +557,59 @@ class UserInput
 		{
 			return rightMouseJustUp;
 		}
-		
+
 		//------------------------------------------------------------------------------------
 		// Used to make mouse move off into distance in perspective to help depth perception
 		void setMouseScale (float scaleFactor);
-		
+
 		//----------------------------------------------------------
 		// Attila Functionality.
 		void addAttila (DWORD joyIndex)
 		{
 			attilaIndex = joyIndex;
 		}
-		
+
 		float getAttilaXAxis (void)		//Left/Right Scroll
 		{
 			float result = 0.0f;
 			if (attilaIndex != 0xffffffff)
 				result = gosJoystick_GetAxis(attilaIndex, JOY_XAXIS);
-				
-			return result;			
+
+			return result;
 		}
-		
+
 		float getAttilaYAxis (void)		//Up/Down Scroll
 		{
 			float result = 0.0f;
 			if (attilaIndex != 0xffffffff)
 				result = gosJoystick_GetAxis(attilaIndex, JOY_YAXIS);
-				
-			return result;			
+
+			return result;
 		}
-		
+
 		float getAttilaRAxis (void)	//Camera Rotation
 		{
 			float result = 0.0f;
 			if (attilaIndex != 0xffffffff)
 				result = gosJoystick_GetAxis(attilaIndex, JOY_RZAXIS);
-				
-			return result;			
+
+			return result;
 		}
 
-		float getMouseRightHeld() 
+		float getMouseRightHeld()
 		{
 			return mouseRightHeldTime;
 		}
 
-		float getMouseLeftHeld() 
+		float getMouseLeftHeld()
 		{
 			return mouseLeftHeldTime;
 		}
-		
+
 		//------------------------
 		// Poller
 		void update (void);
-		
+
 		void render (void);						//Last thing rendered.  Draws Mouse.
 };
 

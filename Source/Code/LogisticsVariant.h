@@ -14,7 +14,7 @@ class LogisticsComponent;
 class CSVFile;
 class FitIniFile;
 
-#include "EString.h"
+#include "../MCLib/EString.h"
 
 #pragma warning (disable:4514)
 
@@ -54,7 +54,7 @@ public:
 protected:
 
 	int					refCount;
-	
+
 	float				maxWeight;
 	long				chassisNameID;	// resource ID
 	long				baseCost;
@@ -88,7 +88,7 @@ protected:
 
 	long				fitID;
 
-	MechAppearance*		appearance; 
+	MechAppearance*		appearance;
 
 	friend class		LogisticsVariant;
 	friend class		LogisticsMech;
@@ -104,7 +104,7 @@ protected:
 		LOGISTICS_COMPONENT_LOCATION location;
 		LogisticsComponent*				component;
 	};
-	
+
 
 
 };
@@ -119,11 +119,11 @@ protected:
 		LogisticsVariant( const LogisticsChassis* pChassis, bool isDesignerMech );
 		LogisticsVariant( const LogisticsVariant&  ); // going to need copy c'tor
 		virtual ~LogisticsVariant();
-		
+
 		int init( CSVFile* fileName, LogisticsChassis*, int blockID );
 
 		int		compareWeight( LogisticsVariant* );
-		
+
 		inline bool			isAvailable() const { return (availableToUser && !bHidden); }
 		unsigned long	getID() const { return ID; }
 		float			getMaxWeight() const { return chassis->maxWeight; }
@@ -174,8 +174,8 @@ protected:
 
 		int			getIconIndex() const { return chassis->iconPictureIndex; }
 
-		int			getComponentAreaWidth() const{ return chassis->componentAreaWidth; } 
-		int			getComponentAreaHeight() const { return chassis->componentAreaHeight; } 
+		int			getComponentAreaWidth() const{ return chassis->componentAreaWidth; }
+		int			getComponentAreaHeight() const { return chassis->componentAreaHeight; }
 
 		LogisticsComponent*	getCompAtLocation( int i, int j, long& realI, long& realJ );
 		int			getComponentLocation( LogisticsComponent* pComp, long& i, long& j );
@@ -192,19 +192,19 @@ protected:
 
 
 
-		
+
 	protected:
 
-	
+
 		const LogisticsChassis::ComponentInfo* getComponentAtLocation(long x, long y) const;
 
-		
+
 		unsigned long		ID; // bottom 8 bits = mech chassis, next 8 = number within
 		int					fileID; // in csv file
-		
+
 		LogisticsChassis*	chassis;
 		EString				variantName;	// in file
-		
+
 		long				componentCount;
 		LogisticsChassis::ComponentInfo		components[54]; // I count a max of 54 components, might want to check though
 
@@ -219,7 +219,7 @@ protected:
 		bool				hasSensor() const;
 
 		// SUPPRESSED
-		
+
 		friend class LogisticsMech;
 
 

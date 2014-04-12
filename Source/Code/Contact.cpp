@@ -40,7 +40,7 @@
 #include "soundsys.h"
 #endif
 
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
 //***************************************************************************
 
@@ -74,7 +74,7 @@ void* ContactInfo::operator new (size_t ourSize) {
 void ContactInfo::operator delete (void* us) {
 
 	missionHeap->Free(us);
-}	
+}
 
 //***************************************************************************
 // SENSOR SYSTEM routines
@@ -110,13 +110,13 @@ void SensorSystem::init (void) {
 
 	//ALWAYS true UNLESS this is a sensor probe or a sensor tower!!
 	hasLOSCapability = true;
-	
+
 	//----------------------------------------------------
 	// Don't update any sensors on the very first frame...
 	nextScanUpdate = 0.5;
-	
+
 	lastScanUpdate = 0.0;
-	
+
 	numContacts = 0;
 	id = numSensors++;
 
@@ -222,7 +222,7 @@ void SensorSystem::setRange (float newRange) {
 }
 
 //---------------------------------------------------------------------------
-float SensorSystem::getRange (void) 
+float SensorSystem::getRange (void)
 {
 	float result = range;
 
@@ -234,7 +234,7 @@ float SensorSystem::getRange (void)
 			result += range * 0.2f;
 	}
 	*/
-	
+
 	return result;
 }
 
@@ -267,11 +267,11 @@ long SensorSystem::calcContactStatus (MoverPtr mover) {
 	//If object we are looking for is at the edge, NO CONTACT!!
 	if (!Terrain::IsGameSelectTerrainPosition(mover->getPosition()))
 		return CONTACT_NONE;
-		
+
 	//-------------------------------------------------------------
 	// Should be properly set when active probes are implemented...
 	long newContactStatus = CONTACT_NONE;
-	if (!notShutdown || (range == 0.0) && !broken) 
+	if (!notShutdown || (range == 0.0) && !broken)
 	{
 		if (owner->lineOfSight(mover) && !mover->isDisabled())
 			newContactStatus = CONTACT_VISUAL;
@@ -289,7 +289,7 @@ long SensorSystem::calcContactStatus (MoverPtr mover) {
 		}
 	}
 
-	if (mover->getFlag(OBJECT_FLAG_SENSOR) && !mover->isDisabled()) 
+	if (mover->getFlag(OBJECT_FLAG_SENSOR) && !mover->isDisabled())
 	{
 		bool moverNotContact = mover->hasNullSignature() || (mover->getEcmRange() != 0.0f);
 		bool moverInvisible = (mover->getStatus() == OBJECT_STATUS_SHUTDOWN);
@@ -346,7 +346,7 @@ long SensorSystem::calcContactStatus (MoverPtr mover) {
 	{
 		SensorSystemManager::enemyInLOS = true;
 	}
- 
+
 	return(newContactStatus);
 }
 
@@ -368,7 +368,7 @@ long SensorSystem::getSensorQuality (void) {
 			}
 		}
 	}
-	
+
 	return(CONTACT_SENSOR_QUALITY_1);
 }
 
@@ -427,7 +427,7 @@ void SensorSystem::removeContact (long contactIndex) {
 
 	MoverPtr contact = (MoverPtr)ObjectManager->get(contacts[contactIndex] & 0x7FFF);
 	Assert(contact != NULL, contacts[contactIndex] & 0x7FFF, " SensorSystem.removeContact: bad contact ");
-	
+
 	numContacts--;
 	if ((numContacts > 0) && (contactIndex != numContacts)) {
 		//-----------------------------------------------
@@ -477,19 +477,19 @@ void SensorSystem::updateContacts (void) {
 		return;
 
 	long i = 0;
-	while (i < numContacts) 
+	while (i < numContacts)
 	{
 		MoverPtr contact = (MoverPtr)ObjectManager->get(contacts[i] & 0x7FFF);
 		long contactStatus = calcContactStatus(contact);
 		if (contactStatus == CONTACT_NONE)
 			removeContact(i);
-		else 
+		else
 		{
 			contacts[i] =  contact->getHandle();
 			if (contactStatus == CONTACT_VISUAL)
 				contacts[i] |= 0x8000;
 			modifyContact(contact, contactStatus == CONTACT_VISUAL);
-			
+
 /*			if (teamContactStatus < contactStatus) {
 				//--------------------------------------------------
 				// Better sensor info, so update the team sensors...
@@ -521,14 +521,14 @@ void SensorSystem::updateScan (bool forceUpdate) {
 	if (!owner->getTeam())
 		return;
 
-	if (1/*(nextScanUpdate < scenarioTime) || forceUpdate*/) 
+	if (1/*(nextScanUpdate < scenarioTime) || forceUpdate*/)
 	{
-	
+
 		long currentScan = -1;
 		if ((currentScan = scanBattlefield()) > -1)		//No returns size of largest contact.
 		{
-			if (owner->isMover() && 
-				(owner->getTeam() == Team::home) && 
+			if (owner->isMover() &&
+				(owner->getTeam() == Team::home) &&
 				(currentScan > SoundSystem::largestSensorContact))
 			{
 				SoundSystem::largestSensorContact = currentScan;
@@ -572,11 +572,11 @@ __inline void getLargest (long &currentLargest, MoverPtr mover, long contactStat
 }
 
 //---------------------------------------------------------------------------
-long SensorSystem::scanBattlefield (void) 
+long SensorSystem::scanBattlefield (void)
 {
 	//NOW returns size of largest contact!
 	long currentLargest = -1;
-	
+
 	if (!owner)
 		Fatal(0, " Sensor has no owner ");
 
@@ -589,13 +589,13 @@ long SensorSystem::scanBattlefield (void)
 	long numNewContacts = 0;
 
 	long numMovers = ObjectManager->getNumMovers();
-	for (long i = 0; i < numMovers; i++) 
+	for (long i = 0; i < numMovers; i++)
 	{
 		MoverPtr mover = (MoverPtr)ObjectManager->getMover(i);
-		if (mover->getExists() && (mover->getTeamId() != owner->getTeamId())) 
+		if (mover->getExists() && (mover->getTeamId() != owner->getTeamId()))
 		{
 			long contactStatus = calcContactStatus(mover);
-			if (isContact(mover)) 
+			if (isContact(mover))
 			{
 				if (contactStatus == CONTACT_NONE)
 					removeContact(mover);
@@ -605,9 +605,9 @@ long SensorSystem::scanBattlefield (void)
 					getLargest(currentLargest,mover,contactStatus);
 				}
 			}
-			else 
+			else
 			{
-				if (contactStatus != CONTACT_NONE) 
+				if (contactStatus != CONTACT_NONE)
 				{
 					addContact(mover, contactStatus == CONTACT_VISUAL ? true : false);
 					getLargest(currentLargest,mover,contactStatus);
@@ -618,7 +618,7 @@ long SensorSystem::scanBattlefield (void)
 	}
 
 	totalContacts += numNewContacts;
-	
+
 	return(currentLargest);
 }
 
@@ -636,7 +636,7 @@ long SensorSystem::scanMover (Mover* mover) {
 
 	if (mover->getExists() && (mover->getTeamId() != owner->getTeamId())) {
 		long contactStatus = calcContactStatus(mover);
-		if (isContact(mover)) 
+		if (isContact(mover))
 		{
 			if (contactStatus == CONTACT_NONE)
 				removeContact(mover);
@@ -646,9 +646,9 @@ long SensorSystem::scanMover (Mover* mover) {
 				//getLargest(currentLargest,mover,contactStatus);
 			}
 		}
-		else 
+		else
 		{
-			if (contactStatus != CONTACT_NONE) 
+			if (contactStatus != CONTACT_NONE)
 			{
 				addContact(mover, contactStatus == CONTACT_VISUAL ? true : false);
 				//getLargest(currentLargest,mover,contactStatus);
@@ -757,7 +757,7 @@ void TeamSensorSystem::update (void) {
 			Assert(mover->getContactInfo()->teams[teamId] == k, 0, " Bad teams/contact link ");
 		}
 #endif
-		
+
 		if (Team::teams[teamId] == Team::home)
 			SoundSystem::largestSensorContact = -1;
 
@@ -981,7 +981,7 @@ void TeamSensorSystem::decNumEnemyContacts (void) {
 	numEnemyContacts--;
 	if (!numEnemyContacts && (Team::teams[teamId] == Team::home))
 		homeTeamInContact = false;
-		
+
 	if (numEnemyContacts < 0)
 		Fatal(0, " Negative Team Contact Count ");
 }
@@ -1074,11 +1074,11 @@ void TeamSensorSystem::removeContact (SensorSystemPtr sensor, MoverPtr contact) 
 		Assert(contactIndex < 0xFFFF, contactIndex, " 0xFFFF ");
 		MoverPtr removedContact = (MoverPtr)ObjectManager->get(contacts[contactIndex]);
 		Assert(removedContact == contact, contactIndex, " TeamSensorSystem.removeContact: bad contact ");
-		
+
 		contactInfo->teams[teamId] = 0xFFFF;
 		contactInfo->contactStatus[teamId] = CONTACT_NONE;
-		contactInfo->teamSpotter[teamId] = 0;         
-	
+		contactInfo->teamSpotter[teamId] = 0;
+
 		numContacts--;
 		if ((numContacts > 0) && (contactIndex != numContacts)) {
 			//-----------------------------------------------
@@ -1128,7 +1128,7 @@ void TeamSensorSystem::updateContactList (void) {
 void TeamSensorSystem::updateEcmEffects (void) {
 
 	for (long i = 0; i < numSensors; i++)
-		sensors[i]->ecmEffect = SensorManager->getEcmEffect(sensors[i]->owner); 
+		sensors[i]->ecmEffect = SensorManager->getEcmEffect(sensors[i]->owner);
 }
 
 //***************************************************************************
@@ -1260,12 +1260,12 @@ void SensorSystemManager::destroy (void) {
 
 	if (sensorPool)
 	{
-		for (long i = 0; i < MAX_SENSORS; i++) 
+		for (long i = 0; i < MAX_SENSORS; i++)
 		{
 			delete sensorPool[i];
 			sensorPool[i] = NULL;
 		}
-		
+
 		missionHeap->Free(sensorPool);
 		sensorPool = NULL;
 	}
@@ -1273,7 +1273,7 @@ void SensorSystemManager::destroy (void) {
 	freeSensors = 0;
 	freeList = NULL;
 
-	for (long i = 0; i < Team::numTeams; i++) 
+	for (long i = 0; i < Team::numTeams; i++)
 	{
 		delete teamSensors[i];
 		teamSensors[i] = NULL;
@@ -1288,7 +1288,7 @@ void SensorSystemManager::destroy (void) {
 
 //---------------------------------------------------------------------------
 
-void SensorSystemManager::addTeamSensor (long teamId, SensorSystemPtr sensor) 
+void SensorSystemManager::addTeamSensor (long teamId, SensorSystemPtr sensor)
 {
 	if ((teamId > -1) && (teamId < Team::numTeams))
 	{
@@ -1309,7 +1309,7 @@ void SensorSystemManager::removeTeamSensor (long teamId, SensorSystemPtr sensor)
 
 //---------------------------------------------------------------------------
 
-void SensorSystemManager::update (void) 
+void SensorSystemManager::update (void)
 {
 	updateEcmEffects();
 	updateSensors();
@@ -1326,17 +1326,17 @@ void SensorSystemManager::updateEcmEffects (void) {
 
 //---------------------------------------------------------------------------
 
-void SensorSystemManager::updateSensors (void) 
+void SensorSystemManager::updateSensors (void)
 {
 	/*
 	for (long i = 0; i < Team::numTeams; i++)
 		teamSensors[i]->update();
 	*/
-	
+
 	//Let's try one team per frame update!!
 	if (Team::teams[teamToUpdate] == Team::home)
 		enemyInLOS = false;		//Resets every scan for HOME team!!!!
-		
+
  	teamSensors[teamToUpdate]->update();
 	teamToUpdate++;
 	if (teamToUpdate == Team::numTeams)

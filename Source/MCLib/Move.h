@@ -37,7 +37,7 @@
 #include "dgamelog.h"
 #endif
 
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
 //***************************************************************************
 
@@ -329,7 +329,7 @@ typedef struct _MapCell {
 		data &= (MAPCELL_GATE_MASK ^ 0xFFFFFFFF);
 		data |= (gate << MAPCELL_GATE_SHIFT);
 	}
-	
+
 	bool getPassable (void) {
 		return((data & MAPCELL_PASSABLE_MASK) ? true : false);
 	}
@@ -374,7 +374,7 @@ typedef struct _MapCell {
 		data &= (MAPCELL_HEIGHT_MASK ^ 0xFFFFFFFF);
 		data |= (localElevation << MAPCELL_HEIGHT_SHIFT);
 	}
-	
+
 	DWORD getLocalHeight (void) {
 		return((data & MAPCELL_HEIGHT_MASK) >> MAPCELL_HEIGHT_SHIFT);
 	}
@@ -528,12 +528,12 @@ class MissionMap {
 		long				debugCells[MAX_DEBUG_CELLS][3];
 
 		void				(*placeMoversCallback) (void);
-		
+
 	public:
 
 		void* operator new (size_t mySize);
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			map = NULL;
 			height = 0;
@@ -541,13 +541,13 @@ class MissionMap {
 			preserveCells = false;
 			numPreservedCells = 0;
 			placeMoversCallback = NULL;
-			numDebugCells = 0;  
+			numDebugCells = 0;
 		}
-		
+
 		MissionMap (void) {
 			init();
 		}
-		
+
 		void destroy (void);
 
 		~MissionMap (void) {
@@ -742,7 +742,7 @@ class MissionMap {
 		void setBuildGate (long row, long col, bool set) {
 			map[row * width + col].setBuildGate(set);
 		}
-		
+
 		bool getBuildWall (long row, long col) {
 			return(map[row * width + col].getBuildWall());
 		}
@@ -758,7 +758,7 @@ class MissionMap {
 		void setBuildLandBridge (long row, long col, bool set) {
 			map[row * width + col].setBuildLandBridge(set);
 		}
-		
+
 		bool getForest (long row, long col) {
 			return(map[row * width + col].getForest());
 		}
@@ -790,7 +790,7 @@ class MissionMap {
 		long getHeight (void) {
 			return(height);
 		}
-		
+
 		long getWidth (void) {
 			return(width);
 		}
@@ -860,7 +860,7 @@ typedef PathStep* PathStepPtr;
 class MovePath {
 
 	public:
-	
+
 		Stuff::Vector3D		goal;								// world pos of path goal
 		Stuff::Vector3D		target;								// world pos of object target
 		long				numSteps;							// if paused or no steps, == 0, else == numStepsWhenNotPaused
@@ -870,12 +870,12 @@ class MovePath {
 		PathStep			stepList[MAX_STEPS_PER_MOVEPATH];	// actual steps :)
 		bool				marked;								// is it currently marked
 		long				globalStep;							// if part of a complex path
-		
+
 	public:
-	
+
 		void* operator new (size_t mySize);
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			goal.Zero();
 			numSteps = 0;
@@ -885,7 +885,7 @@ class MovePath {
 			marked = false;
 			globalStep = -1;
 		}
-		
+
 		long init (long numberOfSteps);
 
 		void clear (void);
@@ -940,7 +940,7 @@ class MovePath {
 		MovePath (void) {
 			init();
 		}
-		
+
 		void destroy (void);
 
 		~MovePath (void) {
@@ -1150,7 +1150,7 @@ class GlobalMap {
 
 		void* operator new (size_t mySize);
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			height = 0;
 			width = 0;
@@ -1197,7 +1197,7 @@ class GlobalMap {
 		GlobalMap (void) {
 			init();
 		}
-		
+
 		void destroy (void);
 
 		~GlobalMap (void) {
@@ -1453,12 +1453,12 @@ class MoveMap {
 		void propogateCost (long mapCellIndex, long cost, long g);
 		void propogateCostJUMP (long r, long c, long cost, long g);
 		long calcHPrime (long r, long c);
-		
+
 	public:
 
 		void* operator new (size_t mySize);
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			ULr = 0;
 			ULc = 0;
@@ -1496,11 +1496,11 @@ class MoveMap {
 			blockedDoorCallback = NULL;
 			placeStationaryMoversCallback = NULL;
 		}
-		
+
 		MoveMap (void) {
 			init();
 		}
-		
+
 		void destroy (void);
 
 		~MoveMap (void) {

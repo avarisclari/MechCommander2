@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Viewer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release Win32">
+				<Option output="Release/ViewRel" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release" />
+				<Option external_deps="./Release/libMCLib.a;./Release/libStuff.a;./Release/libMLR.a;./Release/libGUI.a;" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DVIEWER" />
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="./window" />
+					<Add directory="../gameos/include" />
+					<Add directory="../MCLIB" />
+					<Add directory="../gui" />
+					<Add directory="../code" />
+					<Add directory="../netlib" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="./window" />
+					<Add directory="../gameos/include" />
+					<Add directory="../MCLIB" />
+					<Add directory="../gui" />
+					<Add directory="../code" />
+					<Add directory="../netlib" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="..\mclib\Release" />
+					<Add library="Win32\mclib" />
+					<Add library="..\gameos\lib\Release" />
+					<Add library="Win32\gameos" />
+					<Add library="Win32\gameplatform" />
+					<Add library="..\mclib\gosfx\Release" />
+					<Add library="Win32\gosfx" />
+					<Add library="..\mclib\mlr\Release" />
+					<Add library="Win32\mlr" />
+					<Add library="..\mclib\stuff\Release" />
+					<Add library="Win32\stuff" />
+					<Add library="..\gui\Release" />
+					<Add library="Win32\gui" />
+					<Add library="Win32\zlib" />
+					<Add library="./Release/libMCLib.a" />
+					<Add library="./Release/libStuff.a" />
+					<Add library="./Release/libMLR.a" />
+					<Add library="./Release/libGUI.a" />
+					<Add directory="../../DirectX8/lib" />
+				</Linker>
+			</Target>
+			<Target title="Profile Win32">
+				<Option output="Profile/ViewPro" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Profile" />
+				<Option external_deps="./Profile/libMCLib.a;./Profile/libStuff.a;./Profile/libMLR.a;./Profile/libGUI.a;" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-DNOMINMAX" />
+					<Add option="-DVIEWER" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="./window" />
+					<Add directory="../gameos/include" />
+					<Add directory="../MCLIB" />
+					<Add directory="../gui" />
+					<Add directory="../code" />
+					<Add directory="../netlib" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="./window" />
+					<Add directory="../gameos/include" />
+					<Add directory="../MCLIB" />
+					<Add directory="../gui" />
+					<Add directory="../code" />
+					<Add directory="../netlib" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="..\mclib\Profile" />
+					<Add library="Win32\mclib" />
+					<Add library="..\gameos\lib\Profile" />
+					<Add library="Win32\gameos" />
+					<Add library="Win32\gameplatform" />
+					<Add library="..\mclib\gosfx\Profile" />
+					<Add library="Win32\gosfx" />
+					<Add library="..\mclib\mlr\Profile" />
+					<Add library="Win32\mlr" />
+					<Add library="..\mclib\stuff\Profile" />
+					<Add library="Win32\stuff" />
+					<Add library="..\gui\Profile" />
+					<Add library="Win32\gui" />
+					<Add library="Win32\zlib" />
+					<Add library="./Profile/libMCLib.a" />
+					<Add library="./Profile/libStuff.a" />
+					<Add library="./Profile/libMLR.a" />
+					<Add library="./Profile/libGUI.a" />
+					<Add directory="../../DirectX8/lib" />
+				</Linker>
+			</Target>
+			<Target title="Debug Win32">
+				<Option output="Debug/ViewDbg" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug" />
+				<Option external_deps="./Debug/libMCLib.a;./Debug/libStuff.a;./Debug/libMLR.a;./Debug/libGUI.a;" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-D_ARMOR" />
+					<Add option="-DUSE_PROTOTYPES" />
+					<Add option="-DSTRICT" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DVIEWER" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add directory="./window" />
+					<Add directory="../gameos/include" />
+					<Add directory="../MCLIB" />
+					<Add directory="../gui" />
+					<Add directory="../code" />
+					<Add directory="../netlib" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="./window" />
+					<Add directory="../gameos/include" />
+					<Add directory="../MCLIB" />
+					<Add directory="../gui" />
+					<Add directory="../code" />
+					<Add directory="../netlib" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="..\mclib\Debug" />
+					<Add library="Win32\mclib" />
+					<Add library="..\gameos\lib\Debug" />
+					<Add library="Win32\gameos" />
+					<Add library="Win32\gameplatform" />
+					<Add library="..\mclib\gosfx\Debug" />
+					<Add library="Win32\gosfx" />
+					<Add library="..\mclib\mlr\Debug" />
+					<Add library="Win32\mlr" />
+					<Add library="..\mclib\stuff\Debug" />
+					<Add library="Win32\stuff" />
+					<Add library="..\gui\Debug" />
+					<Add library="Win32\gui" />
+					<Add library="Win32\zlib" />
+					<Add library="./Debug/libMCLib.a" />
+					<Add library="./Debug/libStuff.a" />
+					<Add library="./Debug/libMLR.a" />
+					<Add library="./Debug/libGUI.a" />
+					<Add directory="../../DirectX8/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../AMSTRMID.LIB" />
+		<Unit filename="../Code/LogisticsComponent.cpp" />
+		<Unit filename="../Code/LogisticsData.cpp" />
+		<Unit filename="../Code/LogisticsMech.cpp" />
+		<Unit filename="../Code/LogisticsMissionInfo.cpp" />
+		<Unit filename="../Code/LogisticsPilot.cpp" />
+		<Unit filename="../Code/LogisticsVariant.cpp" />
+		<Unit filename="../Code/Mechlopedia.cpp" />
+		<Unit filename="../Code/SimpleComponentListBox.cpp" />
+		<Unit filename="../Code/gamesound.cpp" />
+		<Unit filename="../Code/mission2.cpp" />
+		<Unit filename="../Code/prefs.cpp" />
+		<Unit filename="../Code/radio.cpp" />
+		<Unit filename="../Code/simpleCamera.cpp" />
+		<Unit filename="../Code/version.h" />
+		<Unit filename="../GUI/aAnimObject.cpp" />
+		<Unit filename="Mechlopedia.ico" />
+		<Unit filename="Script1.rc" />
+		<Unit filename="View.cpp" />
+		<Unit filename="resource.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

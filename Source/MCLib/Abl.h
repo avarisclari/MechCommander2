@@ -11,11 +11,11 @@
 #define	ABL_H
 
 #ifndef ABLGEN_H
-#include "ablgen.h"
+#include "Ablgen.h"
 #endif
 
 #ifndef ABLEXEC_H
-#include "ablexec.h"
+#include "Ablexec.h"
 #endif
 
 #ifndef ABLSYMT_H
@@ -23,11 +23,11 @@
 #endif
 
 #ifndef ABLENV_H
-#include "ablenv.h"
+#include "Ablenv.h"
 #endif
 
 #ifndef ABLDBUG_H
-#include "abldbug.h"
+#include "Abldbug.h"
 #endif
 
 //***************************************************************************

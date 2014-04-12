@@ -6,7 +6,7 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 #include <string.h>
 
 
@@ -28,7 +28,7 @@ public:
 
 	float width(){ return location[2].x - location[0].x; }
 	float height(){ return location[2].y - location[0].y; }
-	
+
 	void getData(unsigned char * buffer);
 
 	void showGUIWindow( bool bShow );
@@ -62,14 +62,14 @@ void drawEmptyRect( const GUI_RECT& rect, unsigned long leftBorderColor = 0xffff
 
 void drawRect( const GUI_RECT& rect, unsigned long color );
 
-void drawShadowText( long colorTop, long colorShadow, HGOSFONT3D font, 
+void drawShadowText( long colorTop, long colorShadow, HGOSFONT3D font,
 					long left, long top, bool proportional, const char* text, bool bBold, float scale );
 
-void drawShadowText( long colorTop, long colorShadow, HGOSFONT3D font, 
+void drawShadowText( long colorTop, long colorShadow, HGOSFONT3D font,
 					long left, long top, bool proportional, const char* text, bool bold, float scale,
 					long xOffset, long yOffset);
 
-void drawShadowText( long colorTop, long colorShadow, HGOSFONT3D font, 
+void drawShadowText( long colorTop, long colorShadow, HGOSFONT3D font,
 					long left, long top, long right, long bottom, bool proportional, const char* text, bool bold, float scale,
 					long xOffset, long yOffset);
 
@@ -77,7 +77,7 @@ void drawShadowText( long colorTop, long colorShadow, HGOSFONT3D font,
 
 long interpolateColor( long color1, long color2, float percent );
 
-inline long reverseRGB( long oldVal ) 
+inline long reverseRGB( long oldVal )
 {
 	return ( (oldVal & 0xff000000) | ((oldVal & 0xff0000) >> 16) | (oldVal & 0xff00) | ((oldVal & 0xff) << 16) );
 }

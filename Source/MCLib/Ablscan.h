@@ -15,7 +15,7 @@
 #endif
 
 #ifndef ABLERR_H
-#include "ablerr.h"
+#include "Ablerr.h"
 #endif
 
 //***************************************************************************
@@ -184,7 +184,7 @@ class ABLFile {
 		void operator delete (void *us);
 
 		void init (void);
-	
+
 		ABLFile (void) {
 			init();
 		}
@@ -194,7 +194,7 @@ class ABLFile {
 		~ABLFile (void) {
 			destroy();
 		}
-		
+
 		long set (void* fPtr) {
 			file = fPtr;
 		}
@@ -276,7 +276,7 @@ extern unsigned long (*ABLGetTimeCallback) (void);
 extern void (*ABLFatalCallback) (long code, char* s);
 
 //***************************************************************************
-	
+
 #endif
 
 

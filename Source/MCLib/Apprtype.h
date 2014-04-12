@@ -26,7 +26,7 @@
 #include "heap.h"
 #endif
 
-#include <stuff\stuffheaders.hpp>
+#include "Stuff/StuffHeaders.hpp"
 
 //---------------------------------------------------------------------------
 // Macro definitions
@@ -42,28 +42,28 @@ class AppearanceType
 	//Data Members
 	//-------------
 	public:
-	
+
 		unsigned long 		numUsers;			//Number of users using this appearanceType.
 		unsigned long		appearanceNum;		//What kind am I.
 		AppearanceTypePtr	next;				//Pointer to next type in list.
 
 		char 				*name;				//Appearance Base FileName.
-	
+
 		Stuff::Vector3D		typeUpperLeft;		//For Designer defined extents of objects
 		Stuff::Vector3D		typeLowerRight;		//For Designer defined extents of objects
 
 		float				boundsUpperLeftX;
 		float				boundsUpperLeftY;
-		
+
 		float				boundsLowerRightX;
 		float				boundsLowerRightY;
-		
+
 		bool				designerTypeBounds;	//So I know not to change them if the designer typed them in.
-		
+
 	//Member Functions
 	//-----------------
 	public:
-	
+
 		void* operator new (size_t memSize);
 		void operator delete (void* treePtr);
 
@@ -86,7 +86,7 @@ class AppearanceType
 		}
 
 		virtual void init (char *fileName);
-		
+
 		virtual void destroy (void);
 
 		void reinit (void);
@@ -105,7 +105,7 @@ class AppearanceType
 		{
 			return(appearanceNum >> 24);
 		}
-		
+
 		virtual ~AppearanceType (void)
 		{
 			destroy();
@@ -118,18 +118,18 @@ class AppearanceTypeList
 	//Data Members
 	//-------------
 	protected:
-	
+
 		AppearanceTypePtr	head;
 		AppearanceTypePtr	last;
-		
+
 	public:
 
 		static UserHeapPtr	appearanceHeap;
-		
+
 	//Member Functions
 	//----------------
 	public:
-	
+
 		AppearanceTypeList (void)
 		{
 			head = last = NULL;
@@ -139,11 +139,11 @@ class AppearanceTypeList
 		void init (unsigned long heapSize);
 
 		AppearanceTypePtr getAppearance (unsigned long apprNum, char * apprFile);
-		
+
 		long removeAppearance (AppearanceTypePtr which);
-		
+
 		void destroy (void);
-		
+
 		~AppearanceTypeList (void)
 		{
 			destroy();

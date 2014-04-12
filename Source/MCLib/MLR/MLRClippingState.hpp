@@ -32,7 +32,7 @@ namespace MidLevelRenderer {
 	//##########################################################################
 	//	Attention !!! when changing the flags also change them in
 	//	Stuff::Vector4D::MultiplySetClip the assembler block
-	//	
+	//
 	//##########################################################################
 		enum {
 			TopClipBit = 0,
@@ -119,14 +119,14 @@ namespace MidLevelRenderer {
 		void
 			SetClip(int mask, int flag)
 		{
-			Check_Pointer(this); 
+			Check_Pointer(this);
 #if USE_ASSEMBLER_CODE
 			_asm {
 				xor		ecx, ecx
 
 				mov		ebx, mask
 
-				test	ebx, 0ffffffffh
+				test	ebx, 0 ffffffffh
 
 				seta	cl
 
@@ -247,13 +247,13 @@ namespace MidLevelRenderer {
 
 			xor		ecx,ecx
 			xor		edx, edx
-			test	dword ptr [edi], 080000000h
+			test	dword ptr [edi], 80000000 h
 			setne	cl
 			sub		edx, ecx
 			and		edx, 8	// RightClipFlag
 
 			xor		ebx, ebx
-			test	dword ptr [edi+4], 080000000h
+			test	dword ptr [edi+4], 80000000 h
 			setne	cl
 			sub		ebx, ecx
 			and		ebx, 2	// BottomClipFlag
@@ -261,14 +261,14 @@ namespace MidLevelRenderer {
 			or		edx, ebx
 
 			xor		ebx, ebx
-			test	dword ptr [edi+8], 080000000h
+			test	dword ptr [edi+8], 80000000 h
 			setne	cl
 			sub		ebx, ecx
 			and		ebx, 16	// NearClipFlag
 
 			or		edx, ebx
 
-			fld		dword ptr [edi+0Ch]
+			fld		dword ptr [edi+0 Ch]
 
 			xor		ebx, ebx
 			fcom	dword ptr [edi]
@@ -293,7 +293,7 @@ namespace MidLevelRenderer {
 			xor		ebx, ebx
 			fcomp	dword ptr [edi+8]
 			fnstsw	ax
-			test	ah, 41h
+			test	ah, 41 h
 			setne	cl
 			sub		ebx, ecx
 			and		ebx, 32	// FarClipFlag
@@ -302,7 +302,7 @@ namespace MidLevelRenderer {
 
 			mov		_ret, edx
 		}
-		
+
 		clippingState = _ret;
 #else
 		clippingState = 0;

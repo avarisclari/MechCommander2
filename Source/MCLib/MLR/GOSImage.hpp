@@ -10,7 +10,7 @@
 #endif
 
 #if !defined(GAMEOS_HPP)
-	#include <GameOS.hpp>
+	#include "GameOS/include/GameOS.HPP"
 #endif
 
 #ifndef TXMMGR_H
@@ -59,20 +59,20 @@ namespace MidLevelRenderer {
 				{ Check_Object(this); return ( (flags & Loaded) != 0); }
 
 		DWORD GetHandle()
-		{ 
+		{
 			Check_Object(this);
 			DWORD imageHandle = mcTextureManager->get_gosTextureHandle(mcTextureNodeIndex);
 
 			if (imageHandle == 0xffffffff)
 				imageHandle = 0;
 
-			return imageHandle; 
+			return imageHandle;
 		}
 
 		void SetHandle (DWORD handle)
 		{
 			//EVERY call to this must change from gos_load to our load
-			Check_Object(this);  
+			Check_Object(this);
 			mcTextureNodeIndex = handle;
 		}
 

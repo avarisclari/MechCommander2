@@ -5,7 +5,7 @@
 #ifndef AFONT_H
 #define AFONT_H
 
-#include <gameOS.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
 class aFont;
 
@@ -22,7 +22,7 @@ public:
 	long init( const char* fontName);
 	long init( long resourceID );
 	void destroy();
-	void render( const char* text, int XPos, int YPos, int areaWidth, 
+	void render( const char* text, int XPos, int YPos, int areaWidth,
 		int areaHeight, unsigned long color, bool bBold, int alignment );
 
 	long load( const char* fontName);
@@ -30,7 +30,7 @@ public:
 	unsigned long width( const char* st) const;
 	unsigned long height( const char* st, int areaWidth ) const;
 	void		  getSize( unsigned long& width, unsigned long& height, const char* pText );
-	
+
 	static HGOSFONT3D loadFont( long resourceID, long& size );
 	long	getSize() { return size; }
 
@@ -42,7 +42,7 @@ private:
 	char			fontName[64]; // so we can copy fonts
 	long			size;
 	void copyData( const aFont& src );
-	
+
 };
 
 // Error codes, local to this file...

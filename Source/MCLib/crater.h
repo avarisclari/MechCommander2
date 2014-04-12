@@ -19,8 +19,7 @@
 #endif
 
 
-#include <stuff\stuff.hpp>
-
+#include "Stuff/Stuff.hpp"
 //---------------------------------------------------------------------
 // Macro Definitions
 enum craterTypes
@@ -63,15 +62,15 @@ class CraterManager
 	//Data Members
 	//-------------
 	protected:
-		
+
 		HeapManagerPtr		craterPosHeap;
 		UserHeapPtr			craterShpHeap;
-		
+
 		unsigned long		craterPosHeapSize;
 		unsigned long		craterShpHeapSize;
-		
+
 		PacketFilePtr		craterFile;
-		
+
 		unsigned long		maxCraters;
 		unsigned long		currentCrater;
 		CraterDataPtr		craterList;
@@ -79,47 +78,47 @@ class CraterManager
 
 		DWORD				*craterTextureIndices;
 		DWORD				*craterTextureHandles;
-				
+
 	//Member Functions
 	//-----------------
 	protected:
-		
+
 	public:
-	
+
 		void init (void)
 		{
 			craterPosHeap = NULL;
 			craterShpHeap = NULL;
 
 			craterPosHeapSize = craterShpHeapSize = 0;
-			
+
 			currentCrater = maxCraters = 0;
 			craterList = NULL;
 
 			numCraterTextures = 0;
-			
+
 			craterTextureHandles = NULL;
 			craterTextureIndices = NULL;
-			
+
 			craterFile = NULL;
 		}
-		
+
 		CraterManager (void)
 		{
 			init();
 		}
-		
+
 		long init (long numCraters, unsigned long craterTypeSize, char *craterFileName);
-		
+
 		~CraterManager (void)
 		{
 			destroy();
 		}
-		
+
 		void destroy (void);
-		
+
 		long addCrater (long craterType, Stuff::Vector3D &position, float rotation);
-		
+
 		long update (void);
 		void render (void);
 };

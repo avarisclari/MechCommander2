@@ -22,8 +22,8 @@
 #include <file.h>
 #endif
 
-#include <sys\types.h>
-#include <sys\stat.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 //---------------------------------------------------------------------------
 #define MAX_FILENAME_SIZE		250
 
@@ -31,7 +31,7 @@
 #define FASTFILE_VERSION_LZ		0xFADDECAF
 
 #pragma pack(1)
-typedef struct 
+typedef struct
 {
     long	offset;
     long	size;						//LZ Compressed Size
@@ -41,7 +41,7 @@ typedef struct
 } FILEENTRY;
 #pragma pack()
 
-typedef struct 
+typedef struct
 {
     long		inuse;
     long		pos;
@@ -88,7 +88,7 @@ class FastFile
 				length = st.st_size;
 			}
 
-			return length;			
+			return length;
 		}
 
 		long getNumFiles (void)

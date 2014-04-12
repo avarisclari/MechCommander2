@@ -13,15 +13,15 @@
 //---------------------------------------------------------------------------
 // Include Files
 #ifndef DCAMERA_H
-#include "dcamera.h"
+#include "Dcamera.h"
 #endif
 
 #ifndef GAMEOS_HPP
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 #endif
 
 #ifndef STUFF_HPP
-#include <stuff\stuff.hpp>
+#include "Stuff/Stuff.hpp"
 #endif
 
 //---------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class Clouds
 		long			gridSize;
 		float			scrollU;
 		float			scrollV;
-		
+
 		CloudVertexPtr	cloudVertices;
 
 	public:
@@ -59,29 +59,29 @@ class Clouds
 		void init (void)
 		{
 			mcTextureNodeIndex = gosTextureHandle = 0xffffffff;
-			
+
 			renderClouds = false;
-			
+
 			scrollU = scrollV = 0.0f;
-			
+
 			cloudVertices = NULL;
 			gridSize = 0;
 		}
-		
+
 		Clouds (void)
 		{
 			init();
 		}
-		
+
 		void destroy (void);
-		
+
 		~Clouds (void)
 		{
 			destroy();
 		}
-		
+
 		void init (char *textureName, long gSize);
-		
+
 		void update (void);
 		void render (void);
 };

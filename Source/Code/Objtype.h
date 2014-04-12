@@ -26,7 +26,7 @@
 #endif
 
 #ifndef STUFF_HPP
-#include <stuff\stuff.hpp>
+#include "../MCLib/Stuff/Stuff.hpp"
 #endif
 
 #define MAX_NAME		25
@@ -37,7 +37,7 @@
 class ObjectType {
 
 	protected:
-	
+
 		ObjectTypeNumber		objTypeNum;				//What exactly am I?
 		long					numUsers;				//How many people love me?
 		long					objectTypeClass;		//What type am I?
@@ -56,7 +56,7 @@ class ObjectType {
 
 		void* operator new (size_t ourSize);
 		void operator delete (void *us);
-			
+
 		void init (void) {
 			objectClass = INVALID;
 			objectTypeClass = -1;			//This is an invalid_object
@@ -65,39 +65,39 @@ class ObjectType {
 			potentialContact = false;
 
 			extentRadius = 0;				//Nothing can hit me if this is zero.
-			
+
 			keepMe = false;
-			
+
 			iconNumber = -1;				//defaults to no icon
 
 			appearName = NULL;
 			subType = 0;
 		}
-		
+
 		ObjectType (void) {
 			init();
 		}
-		
+
 		virtual long init (FilePtr objFile, unsigned long fileSize);
 
 		long init (FitIniFilePtr objFile);
-		
+
 		virtual ~ObjectType (void) {
 			destroy();
 		}
-		
+
 		virtual void destroy (void);
-		
+
 		virtual GameObjectPtr createInstance (void);
-		
+
 		void addUser (void) {
 			numUsers++;
 		}
-		
+
 		void removeUser (void) {
 			numUsers--;
 		}
-		
+
 		void noMoreUsers (void) {
 			numUsers = 0;
 		}
@@ -109,20 +109,20 @@ class ObjectType {
 		bool lovable (void) {
 			return keepMe;
 		}
-		
+
 		void makeLovable (void) {
 			keepMe = true;
 		}
-		
+
 		ObjectTypeNumber whatAmI (void) {
 			return(objTypeNum);
 		}
 
-		char * getAppearanceTypeName (void) 
+		char * getAppearanceTypeName (void)
 		{
 			return(appearName);
 		}
-			
+
 		bool getPotentialContact (void) {
 			return(potentialContact);
 		}
@@ -138,11 +138,11 @@ class ObjectType {
 		ObjectTypeNumber getDestroyedObject (void) {
 			return(destroyedObject);
 		}
-		
+
 		ObjectTypeNumber getExplosionObject (void) {
 			return(explosionObject);
 		}
-		
+
 		float getExtentRadius (void) {
 			return(extentRadius);
 		}
@@ -150,7 +150,7 @@ class ObjectType {
 		void setExtentRadius (float newRadius) {
 			extentRadius = newRadius;
 		}
-		
+
 		ObjectTypeNumber getObjTypeNum (void) {
 			return(objTypeNum);
 		}
@@ -166,7 +166,7 @@ class ObjectType {
 		long getIconNumber(void) {
 			return iconNumber;
 		}
-						
+
 		long getTeamId (void) {
 			return teamId;
 		}
@@ -180,7 +180,7 @@ class ObjectType {
 		}
 
 		virtual bool handleCollision (GameObjectPtr collidee, GameObjectPtr collider);
-		
+
 		virtual bool handleDestruction (GameObjectPtr collidee, GameObjectPtr collider);
 
 		virtual float getBurnTime (void) {
@@ -210,20 +210,20 @@ class ObjectTypeManager {
 		static long				wallHeavyTypeHandle;
 		static long				wallMediumTypeHandle;
 		static long				wallLightTypeHandle;
-			
+
 	public:
 
 		void init (void) {
 		}
-			
+
 		ObjectTypeManager (void) {
 			init();
 		}
 
 		long init (char* objectFileName, long objectTypeCacheSize, long objectCacheSize, long maxObjectTypes = 1024);
-			
+
 		void destroy (void);
-							
+
 		~ObjectTypeManager (void) {
 			destroy();
 		}
@@ -231,7 +231,7 @@ class ObjectTypeManager {
 		void remove (long objTypeNum);
 
 		void remove (ObjectTypePtr ptr);
-			
+
 		ObjectTypePtr load (ObjectTypeNumber objTypeNum, bool noCacheOut = true, bool forceLoad = false);
 
 		ObjectTypePtr get (ObjectTypeNumber objTypeNum, bool loadIt = true);

@@ -11,7 +11,7 @@
 //---------------------------------------------------------------------------
 // Include Files
 #ifndef DTERRTXM_H
-#include "dterrtxm.h"
+#include "DTerrTxm.h"
 #endif
 
 #ifndef MAPDATA_H
@@ -90,7 +90,7 @@ struct MC_OverlayType
 	long			numTextures;
 	long			oldOverlayId;
 	bool			isMLRAppearance;
-	MemoryPtr		*overlayData;				
+	MemoryPtr		*overlayData;
 	long			baseTXMIndex;
 	unsigned long	terrainMapRGB;
 };
@@ -119,10 +119,10 @@ class TerrainTextures
 
 		long				numOverlays;
 		MC_OverlayTypePtr	overlays;
-		
+
 		long				numDetails;
 		MC_DetailTypePtr	details;
-		
+
 		long				numTransitions;
 		TransitionTypePtr	transitions;
 		long				nextTransition;
@@ -135,7 +135,7 @@ class TerrainTextures
 
 		bool				quickLoad;				//Checks for list o magic textures and then checks that each magic texture exists.
 		char				*localBaseName;
-		File				*listTransitionFile;	
+		File				*listTransitionFile;
 
 		static bool			terrainTexturesInstrumented;
 
@@ -161,7 +161,7 @@ class TerrainTextures
 		void combineOverlayTxm (MemoryPtr dest, long type, long mipLevel);
 
 	public:
-	
+
 		void init (void)
 		{
 			tileHeap = NULL;
@@ -186,19 +186,19 @@ class TerrainTextures
 
 			numDetails = 0;
 			details = NULL;
-			
+
 			//--------------------------------------------------------
 			// Stores Transition Texture in VidMem.
 			numTransitions = 0;
 			transitions = NULL;
 			nextTransition = 0;
-			
+
 			//------------------------------------------------------
 			// Used to convert maps to new formats when textures change.
 			firstOverlay = 0;
 
 			//---------------------------------------------------------------------------------
-			//Checks for list o magic textures and then checks that each magic texture exists. 
+			//Checks for list o magic textures and then checks that each magic texture exists.
 			quickLoad = false;
 			localBaseName = NULL;
 			listTransitionFile = NULL;
@@ -217,28 +217,28 @@ class TerrainTextures
 		}
 
 		long init (char *fileName, char* baseName);
-		
+
 		long setTexture (DWORD typeInfo, DWORD overlayInfo);
-		
+
 		long setDetail (DWORD typeInfo, DWORD frameNum);
-		
+
 		float getDetailTilingFactor (long typeInfo)
 		{
 			if (typeInfo < numDetails)
 				return details[typeInfo].tilingFactor;
-				
+
 			return 64.0f;
 		}
 
 		long getNumTypes() const { return numTypes; }
 
 		long getTextureNameID( long id ) const { return types[id].nameId; }
-		
+
 		float getDetailFrameRate (long typeInfo)
 		{
 			if ((typeInfo < numDetails) && details[typeInfo].frameRate > Stuff::SMALL)
 				return (1.0f / details[typeInfo].frameRate);
-				
+
 			return 0.066666667f;		//15 FPS
 		}
 
@@ -247,7 +247,7 @@ class TerrainTextures
 		void getOverlayInfoFromHandle( long handle, Overlays& id, unsigned long& Offset );
 
 		void purgeTransitions (void);
-		
+
 		DWORD getTextureTypeRGB (long typeInfo)
 		{
 			gosASSERT(typeInfo < numTypes);
@@ -268,7 +268,7 @@ class TerrainTextures
 
 		DWORD getTexture (DWORD texture)
 		{
-			if ((long)texture >= nextAvailable) 
+			if ((long)texture >= nextAvailable)
 				return NULL;
 
 			if ( textures[texture].mcTextureNodeIndex == 0xffffffff )
@@ -279,7 +279,7 @@ class TerrainTextures
 
 		DWORD getTextureHandle (DWORD texture)
 		{
-			if ((long)texture >= nextAvailable) 
+			if ((long)texture >= nextAvailable)
 				return 0xffffffff;
 
 			mcTextureManager->get_gosTextureHandle(textures[texture].mcTextureNodeIndex);
@@ -288,7 +288,7 @@ class TerrainTextures
 
 		DWORD getDetail (DWORD dTexture)
 		{
-			if ((long)dTexture >= nextAvailable) 
+			if ((long)dTexture >= nextAvailable)
 				return NULL;
 
 			if ( textures[dTexture].mcTextureNodeIndex == 0xffffffff )
@@ -299,7 +299,7 @@ class TerrainTextures
 
 		DWORD getDetailHandle (DWORD dTexture)
 		{
-			if ((long)dTexture >= nextAvailable) 
+			if ((long)dTexture >= nextAvailable)
 				return NULL;
 
 			mcTextureManager->get_gosTextureHandle(textures[dTexture].mcTextureNodeIndex);
@@ -311,24 +311,24 @@ class TerrainTextures
 			if ((mipLevel >= 0) && (mipLevel < MC_MAX_MIP_LEVELS))
 				globalMipLevel = mipLevel;
 		}
-		
+
 		long getFirstOverlay (void)
 		{
 			return firstOverlay;
 		}
-		
+
 		bool isCement (DWORD typeInfo)
 		{
 			return (textures[typeInfo].flags & MC2_TERRAIN_CEMENT_FLAG) == MC2_TERRAIN_CEMENT_FLAG;
 		}
-		
+
 		bool isAlpha (DWORD typeInfo)
 		{
 			return (textures[typeInfo].flags & MC2_TERRAIN_ALPHA_FLAG) == MC2_TERRAIN_ALPHA_FLAG;
 		}
 
 		static void initializeStatistics();
-		
+
 		void update (void);
 };
 

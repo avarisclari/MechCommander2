@@ -19,7 +19,7 @@
 #include "vfx.h"
 #endif
 
-#include <stuff\stuff.hpp>
+#include "Stuff/Stuff.hpp"
 //---------------------------------------------------------------------------
 class LineElement : public Element
 {
@@ -30,7 +30,7 @@ class LineElement : public Element
 		long					color;
 		long					endColor;
 		MemoryPtr				fadeTable;
-		
+
 	LineElement (void) : Element()
 	{
 		startPos.x = startPos.y = startPos.z = startPos.w = 0.0f;

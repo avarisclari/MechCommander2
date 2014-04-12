@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------
 
 #ifndef INIFILE_H
-#include "inifile.h"
+#include "Inifile.h"
 #endif
 
 #ifndef PACKET_H
@@ -32,11 +32,11 @@
 #endif
 
 #ifndef BITFLAG_H
-#include "bitflag.h"
+#include "Bitflag.h"
 #endif
 
 #ifndef CIDENT_H
-#include "cident.h"
+#include "Cident.h"
 #endif
 
 #ifndef ERR_H
@@ -52,7 +52,7 @@
 #endif
 
 #ifndef PQUEUE_H
-#include "pqueue.h"
+#include "Pqueue.h"
 #endif
 
 #ifndef SCALE_H
@@ -68,11 +68,11 @@
 #endif
 
 #ifndef TIMING_H
-#include "timing.h"
+#include "Timing.h"
 #endif
 
 #ifndef USERINPUT_H
-#include "userinput.h"
+#include "userInput.h"
 #endif
 
 #ifndef VFX_H
@@ -80,11 +80,11 @@
 #endif
 
 #ifndef VPORT_H
-#include "vport.h"
+#include "Vport.h"
 #endif
 
 #ifndef CELEMENT_H
-#include "celement.h"
+#include "Celement.h"
 #endif
 
 #ifndef CELINE_H
@@ -128,27 +128,27 @@
 #endif
 
 #ifndef TERRAIN_H
-#include "terrain.h"
+#include "Terrain.h"
 #endif
 
 #ifndef CAMERA_H
-#include "camera.h"
+#include "Camera.h"
 #endif
 
 #ifndef APPEAR_H
-#include "appear.h"
+#include "Appear.h"
 #endif
 
 #ifndef APPRTYPE_H
-#include "apprtype.h"
+#include "Apprtype.h"
 #endif
 
 #ifndef SOUNDSYS_H
-#include "soundsys.h"
+#include "Soundsys.h"
 #endif
 
 #ifndef SOUNDS_H
-#include "sounds.h"
+#include "Sounds.h"
 #endif
 
 #ifndef BDACTOR_H
@@ -156,7 +156,7 @@
 #endif
 
 #ifndef GVACTOR_H
-#include "gvactor.h"
+#include "Gvactor.h"
 #endif
 
 #ifndef MECH3D_H

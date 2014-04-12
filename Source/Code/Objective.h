@@ -7,9 +7,9 @@ Objective.h			: Interface for the Objective component.
 //===========================================================================//
 \*************************************************************************************************/
 
-#include "elist.h"
-#include "EString.h"
-#include "tchar.h"
+#include "../MCLib/EList.h"
+#include "../MCLib/EString.h"
+#include <wchar.h>
 #include "mover.h"
 
 #ifndef BLDNG_H
@@ -259,13 +259,13 @@ public:
 	virtual bool Save( FitIniFile* file );
 	virtual EString InstanceDescription();
 	virtual void CastAndCopy(const CObjectiveCondition *pMaster) { (*this) = (*(dynamic_cast<const CSpecificStructureObjectiveCondition *>(pMaster))); }
-	
+
 	virtual Stuff::Vector3D GetObjectivePosition()		//Used to draw on tacmap
 	{
 		Building *m_pBuilding = (Building *)ObjectManager->getByWatchID(m_pBuildingWID);
 		if (m_pBuilding)
 			return m_pBuilding->getPosition();
-			
+
 		return Stuff::Vector3D(-999999.0f,-999999.0f,-999999.0f);
 	}
 };
@@ -421,7 +421,7 @@ public:
 	virtual bool Save( FitIniFile* file );
 	virtual EString InstanceDescription();
 	virtual void CastAndCopy(const CObjectiveCondition *pMaster) { (*this) = (*(dynamic_cast<const CAreaObjectiveCondition *>(pMaster))); }
-	
+
 	virtual Stuff::Vector3D GetObjectivePosition()		//Used to draw on tacmap
 	{
  		return Stuff::Vector3D(m_targetCenterX,m_targetCenterY,0.0f);

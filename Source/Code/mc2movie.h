@@ -20,7 +20,7 @@
 #include "heap.h"
 #endif
 
-#include <windows.h>
+//#include <windows.h>
 
 //--------------------------------------------------------------------------
 const DWORD MAX_TEXTURES_NEEDED = 6;
@@ -121,19 +121,19 @@ class MC2Movie
 		{
 			return m_MC2Name;
 		}
-		
+
 	protected:
-	
+
 		DWORD*		MC2Surface;									//Extra surface used if MC2 Movie is larger then 256x256
 		DWORD		mc2TextureNodeIndex[MAX_TEXTURES_NEEDED];		//Handles to textures for MC2 movie data.
 		RECT		MC2Rect;										//Physical Location on screen for MC2 movie.
-					
+
 		DWORD 		numWide;										//Number of textures wide display is
 		DWORD		numHigh;										//Number of textures high the display is
-		DWORD		totalTexturesUsed;                              //total Number of texture used to display 
-					
+		DWORD		totalTexturesUsed;                              //total Number of texture used to display
+
 		bool		forceStop;										//Should MC2 movie end now?
-					
+
 		DWORD		singleTextureSize;								//Size of the single texture.  Fit it to smallest texture we can use.
 		bool		stillPlaying;									//Is MC2 movie over?
 

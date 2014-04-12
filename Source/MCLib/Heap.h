@@ -19,12 +19,12 @@
 #endif
 
 #ifndef DHEAP_H
-#include "dheap.h"
+#include "Dheap.h"
 #endif
 
 #include <memory.h>
 
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 //---------------------------------------------------------------------------
 // Macro Definitions
 #ifndef NO_ERR
@@ -59,7 +59,7 @@ extern UserHeapPtr systemHeap;
 #ifdef _DEBUG
 #define NUMMEMRECORDS 128000
 
-typedef struct _memRecord 
+typedef struct _memRecord
 {
 	void*			ptr;
 	unsigned long	size;
@@ -97,36 +97,36 @@ class HeapManager
 
 	public:
 		HeapManagerPtr			nxt;
-	
+
 	//Member Functions
 	//-----------------
 	public:
 
 		void init (void);
 		HeapManager (void);
-		
+
 		void destroy (void);
 		~HeapManager (void);
 
 		long createHeap (unsigned long memSize);
 		long commitHeap (unsigned long commitSize = 0);
 		long decommitHeap (unsigned long decommitSize = 0);
-		
+
 		MemoryPtr getHeapPtr (void);
 		operator MemoryPtr (void);
 
 		void HeapManager::MemoryDump();
-		
+
 		virtual unsigned char heapType (void)
 		{
 			return BASE_HEAP;
 		}
-		
+
 		unsigned long owner (void)
 		{
 			return whoMadeMe;
 		}
-		
+
 		unsigned long tSize (void)
 		{
 			return committedSize;
@@ -147,14 +147,14 @@ struct HeapBlock
 class UserHeap : public HeapManager
 {
 	//Data Members
-	//-------------	
+	//-------------
 	protected:
 		HeapBlockPtr		heapStart;
 		HeapBlockPtr		heapEnd;
 		HeapBlockPtr		firstNearBlock;
 		unsigned long		heapSize;
 		bool				mallocFatals;
-		
+
 		long				heapState;
 
 		char				*heapName;
@@ -174,26 +174,26 @@ class UserHeap : public HeapManager
 		void	relink (HeapBlockPtr newBlock);
 		void	unlink (HeapBlockPtr oldBlock);
 		bool	mergeWithLower (HeapBlockPtr block);
-		
+
 	public:
-	
+
 		UserHeap (void);
 		long init (unsigned long memSize, char *heapId = NULL, bool useGOS = false);
-		
+
 		~UserHeap (void);
 		void destroy (void);
-		
+
 		unsigned long totalCoreLeft (void);
 		unsigned long coreLeft (void);
 		unsigned long size (void) { return heapSize;}
-		
+
 		void *Malloc (unsigned long memSize);
 		long Free (void *memBlock);
-		
+
 		void *calloc (unsigned long memSize);
-		
+
 		void walkHeap (bool printIt = FALSE, bool skipAllocated = FALSE);
-		
+
 		long getLastError (void);
 
 		bool heapReady (void)
@@ -205,12 +205,12 @@ class UserHeap : public HeapManager
 		{
 			mallocFatals = fatalFlag;
 		}
-		
+
 		virtual unsigned char heapType (void)
 		{
 			return USER_HEAP;
 		}
-		
+
 		char *getHeapName (void)
 		{
 			return heapName;
@@ -221,21 +221,21 @@ class UserHeap : public HeapManager
 		#ifdef _DEBUG
 		void startHeapMallocLog (void);		//This function will start recoding each malloc and
 											//free to insure that there are no leaks.
-											
+
 		void stopHeapMallocLog (void);		//This can be used to suspend logging when mallocs
 											//that are not desired to be logged are called.
-											
+
 		void dumpRecordLog (void);
-											
+
 		#else
 		void startHeapMallocLog (void)		//DOES NOTHING IN RELEASE/PROFILE BUILDS!
 		{
 		}
-										
+
 		void stopHeapMallocLog (void)
 		{
 		}
-		
+
 		void dumpRecordLog (void)
 		{
 		}
@@ -253,7 +253,7 @@ class HeapList
 		protected:
 			static GlobalHeapRec heapRecords[MAX_HEAPS];
 			static bool heapInstrumented;
-		
+
 	//Member Functions
 	//----------------
 		public:
@@ -263,25 +263,25 @@ class HeapList
 
 				heapInstrumented = false;
 			}
-			
+
 			HeapList (void)
 			{
 				init();
 			}
-			
+
 			void destroy (void)
 			{
 				init();
 			}
-			
+
 			~HeapList (void)
 			{
 				destroy();
 			}
-			
+
 			void addHeap (HeapManagerPtr newHeap);
 			void removeHeap (HeapManagerPtr oldHeap);
-			
+
 			void update (void);			//Called every frame in Debug to monitor heaps!
 
 			void dumpLog (void);

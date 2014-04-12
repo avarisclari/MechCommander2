@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Stuff" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="./Debug/Stuff" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DLAB_ONLY" />
+					<Add option="-DUSE_PROTOTYPES" />
+					<Add option="-DSTRICT" />
+					<Add option="-D_ARMOR" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-Wall" />
+					<Add option="-O0" />
+					<Add directory="../../GameOS/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../GameOS/include" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="./Release/Stuff" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-DRELEASE" />
+					<Add option="-DUSE_PROTOTYPES" />
+					<Add option="-DSTRICT" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-Wall" />
+					<Add option="-O3" />
+					<Add directory="../../GameOS/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../GameOS/include" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Profile Win32">
+				<Option output="./Profile/Stuff" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Profile" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DLAB_ONLY" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DUSE_PROTOTYPES" />
+					<Add option="-DSTRICT" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-Wall" />
+					<Add option="-O3" />
+					<Add directory="../../GameOS/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../GameOS/include" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="AffineMatrix.cpp" />
+		<Unit filename="AffineMatrix.hpp" />
+		<Unit filename="AffineMatrix_Test.cpp" />
+		<Unit filename="Angle.cpp" />
+		<Unit filename="Angle.hpp" />
+		<Unit filename="Angle_Test.cpp" />
+		<Unit filename="ArmorOff.hpp" />
+		<Unit filename="ArmorOn.hpp" />
+		<Unit filename="Auto_Container.hpp" />
+		<Unit filename="Auto_Ptr.hpp" />
+		<Unit filename="Average.hpp" />
+		<Unit filename="Chain.cpp" />
+		<Unit filename="Chain.hpp" />
+		<Unit filename="Chain_Test.cpp" />
+		<Unit filename="Color.cpp" />
+		<Unit filename="Color.hpp" />
+		<Unit filename="Database.cpp" />
+		<Unit filename="Database.hpp" />
+		<Unit filename="ExtentBox.cpp" />
+		<Unit filename="ExtentBox.hpp" />
+		<Unit filename="FileStream.cpp" />
+		<Unit filename="FileStream.hpp" />
+		<Unit filename="FileStreamManager.cpp" />
+		<Unit filename="FileStreamManager.hpp" />
+		<Unit filename="FileStream_Test.cpp" />
+		<Unit filename="Hash.cpp" />
+		<Unit filename="Hash.hpp" />
+		<Unit filename="Hash_Test.cpp" />
+		<Unit filename="Initialized_Ptr.hpp" />
+		<Unit filename="Iterator.cpp" />
+		<Unit filename="Iterator.hpp" />
+		<Unit filename="Line.cpp" />
+		<Unit filename="Line.hpp" />
+		<Unit filename="LinearMatrix.cpp" />
+		<Unit filename="LinearMatrix.hpp" />
+		<Unit filename="LinearMatrix_Test.cpp" />
+		<Unit filename="Link.cpp" />
+		<Unit filename="Link.hpp" />
+		<Unit filename="MArray.hpp" />
+		<Unit filename="MString.cpp" />
+		<Unit filename="MString.hpp" />
+		<Unit filename="MString_Test.cpp" />
+		<Unit filename="Matrix.cpp" />
+		<Unit filename="Matrix.hpp" />
+		<Unit filename="MatrixStack.cpp" />
+		<Unit filename="MatrixStack.hpp" />
+		<Unit filename="Matrix_Test.cpp" />
+		<Unit filename="MemoryBlock.cpp" />
+		<Unit filename="MemoryBlock.hpp" />
+		<Unit filename="MemoryBlock_Test.cpp" />
+		<Unit filename="MemoryStream.cpp" />
+		<Unit filename="MemoryStream.hpp" />
+		<Unit filename="MemoryStream_Test.cpp" />
+		<Unit filename="Motion.cpp" />
+		<Unit filename="Motion.hpp" />
+		<Unit filename="NameList.cpp" />
+		<Unit filename="NameList.hpp" />
+		<Unit filename="NameList_Test.cpp" />
+		<Unit filename="Node.cpp" />
+		<Unit filename="Node.hpp" />
+		<Unit filename="Noncopyable.hpp" />
+		<Unit filename="Normal.cpp" />
+		<Unit filename="Normal.hpp" />
+		<Unit filename="Normal_Test.cpp" />
+		<Unit filename="NotationFile.cpp" />
+		<Unit filename="NotationFile.hpp" />
+		<Unit filename="NotationFile_Test.cpp" />
+		<Unit filename="Note.cpp" />
+		<Unit filename="Note.hpp" />
+		<Unit filename="OBB.cpp" />
+		<Unit filename="OBB.hpp" />
+		<Unit filename="Origin.cpp" />
+		<Unit filename="Origin.hpp" />
+		<Unit filename="Origin_Test.cpp" />
+		<Unit filename="Page.cpp" />
+		<Unit filename="Page.hpp" />
+		<Unit filename="Plane.cpp" />
+		<Unit filename="Plane.hpp" />
+		<Unit filename="Plug.cpp" />
+		<Unit filename="Plug.hpp" />
+		<Unit filename="Point3D.cpp" />
+		<Unit filename="Point3D.hpp" />
+		<Unit filename="Point3D_Test.cpp" />
+		<Unit filename="Polar.cpp" />
+		<Unit filename="Polar.hpp" />
+		<Unit filename="Random.cpp" />
+		<Unit filename="Random.hpp" />
+		<Unit filename="Random_Test.cpp" />
+		<Unit filename="Ray.cpp" />
+		<Unit filename="Ray.hpp" />
+		<Unit filename="Ray_Test.cpp" />
+		<Unit filename="RegisteredClass.cpp" />
+		<Unit filename="RegisteredClass.hpp" />
+		<Unit filename="Rotation.cpp" />
+		<Unit filename="Rotation.hpp" />
+		<Unit filename="Rotation_Test.cpp" />
+		<Unit filename="SafeChain.cpp" />
+		<Unit filename="SafeChain.hpp" />
+		<Unit filename="SafeChain_Test.cpp" />
+		<Unit filename="SafeSocket.cpp" />
+		<Unit filename="SafeSocket.hpp" />
+		<Unit filename="Scalar.cpp" />
+		<Unit filename="Scalar.hpp" />
+		<Unit filename="Slot.cpp" />
+		<Unit filename="Slot.hpp" />
+		<Unit filename="Socket.cpp" />
+		<Unit filename="Socket.hpp" />
+		<Unit filename="SortedChain.cpp" />
+		<Unit filename="SortedChain.hpp" />
+		<Unit filename="SortedChain_Test.cpp" />
+		<Unit filename="SortedSocket.cpp" />
+		<Unit filename="SortedSocket.hpp" />
+		<Unit filename="Sphere.cpp" />
+		<Unit filename="Sphere.hpp" />
+		<Unit filename="Stuff.cpp" />
+		<Unit filename="Stuff.hpp" />
+		<Unit filename="StuffHeaders.cpp" />
+		<Unit filename="StuffHeaders.hpp" />
+		<Unit filename="Style.cpp" />
+		<Unit filename="Style.hpp" />
+		<Unit filename="Table.cpp" />
+		<Unit filename="Table.hpp" />
+		<Unit filename="Table_Test.cpp" />
+		<Unit filename="Trace.cpp" />
+		<Unit filename="Trace.hpp" />
+		<Unit filename="Tree.cpp" />
+		<Unit filename="Tree.hpp" />
+		<Unit filename="Tree_Test.cpp" />
+		<Unit filename="UnitVector.cpp" />
+		<Unit filename="UnitVector.hpp" />
+		<Unit filename="UnitVector_Test.cpp" />
+		<Unit filename="Vector2D.hpp" />
+		<Unit filename="Vector3D.cpp" />
+		<Unit filename="Vector3D.hpp" />
+		<Unit filename="Vector3D_Test.cpp" />
+		<Unit filename="Vector4D.cpp" />
+		<Unit filename="Vector4D.hpp" />
+		<Unit filename="Vector4D_Test.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

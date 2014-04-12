@@ -5,7 +5,7 @@
 // Copyright (C) Microsoft Corporation. All rights reserved.                 //
 //===========================================================================//
 // Notes				essentiall CString with an E.
-//				
+//
 //***************************************************************
 
 
@@ -19,9 +19,9 @@
 typedef const EChar*	ECHARPTR;
 
 #include <stdlib.h>
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
-class EString 
+class EString
 {
 
 public:
@@ -47,7 +47,7 @@ public:
 
 	// puts this string in the middle of another string
 	inline void	Insert( int Start_Index, const EString& String );
-	void	Insert( int Start_Index, const EChar* String ); 
+	void	Insert( int Start_Index, const EChar* String );
 
 	void		Swap( EString& );
 	inline void	Empty();
@@ -94,7 +94,7 @@ public:
 	inline EChar& operator[]( int Index );
 	inline const EChar& operator[](int Index) const;
 
-	inline bool operator<( const EString& ) const; 
+	inline bool operator<( const EString& ) const;
 	inline bool operator<( const EChar* ) const;
 	inline friend bool operator<( const EChar*, const EString& );
 
@@ -109,7 +109,7 @@ public:
 	inline bool operator>=( const EString& ) const;
 	inline bool operator>=( const EChar*) const;
 	inline friend bool operator>=( const EChar*, const EString&);
-	
+
 	int Size() const; 	// number of bytes
 	int Length() const;	// number of characters
 
@@ -120,17 +120,17 @@ public:
 
 	int ReverseFind ( EChar, int End_Index = EString::INVALID_INDEX) const;
 
-	
-	// we are going to treat this object as a TCHAR array, so we 
+
+	// we are going to treat this object as a TCHAR array, so we
 	// don't have to worry about #of chars versus #of bytes
 	EString SubString( int Start_Index, int End_Index ) const;
-	inline EString Left( int Num_Chars) const;	 
-	inline EString Right( int Num_Chars) const;	
+	inline EString Left( int Num_Chars) const;
+	inline EString Right( int Num_Chars) const;
 
 	inline bool 		IsEmpty() const;
 
 	unsigned short*	CreateUNICODE() const;
-	char* 	CreateMBCS() const; 
+	char* 	CreateMBCS() const;
 
 	inline	const EChar* Data() const;
 	void	SetBufferSize( int );
@@ -143,16 +143,16 @@ public:
 
 #else // K_UNICODE
 
-	// we'll convert string literals for you 
-	
+	// we'll convert string literals for you
+
 	EString( const char* );
-			
+
 	friend EString operator+( const EString&, char* );
 	friend EString operator+( char*, const EString& );
-	
+
 	friend EString operator+( char, const EString& );
 	friend EString operator+( const EString&, char );
-	
+
 	const EString& operator+=( const char* );
 	const EString& operator+=( char );
 
@@ -166,7 +166,7 @@ public:
 
 	bool operator<( const char* ) const;
 	friend bool operator<( const char*, const EString& );
-	
+
 	bool operator>( const char* ) const;
 	friend bool operator>( const char*, const EString& );
 
@@ -181,7 +181,7 @@ public:
 	int Find( char, int Start_Index = EString::INVALID_INDEX) const;
 
 
-#endif // Unicode 
+#endif // Unicode
 
 private:
 
@@ -190,7 +190,7 @@ private:
 
 	// Allocates a specific amount
 	void	Alloc( int Min_Amount );
-	
+
 	// Reallocates if you want to make a change to a shared buffer
 	inline	void	ChecEBuffer();
 	void	ChecEBufferDoRealloc();
@@ -201,13 +201,13 @@ private:
 
 	static  inline  unsigned short*	ToUnicode( unsigned short* Buffer, const unsigned char* p_Str, int Num_Chars  );
 	static	inline	int	StrSize( const EChar* p_Str );
-	
+
 	struct EBuffer
 	{
 		int m_Ref_Count;		// reference count
 		int m_Data_Length;		// Length of String
 		int m_Alloc_Length;	// Length of the Buffer
-	
+
 		inline EChar* Data();
 		inline void Release();
 
@@ -246,7 +246,7 @@ inline void EString::EBuffer::Release()
 		m_Ref_Count --;
 		if ( m_Ref_Count < 0 )
 		{
-			free( (char*)this ); 
+			free( (char*)this );
 		}
 	}
 }
@@ -283,7 +283,7 @@ inline const EString& EString::operator=( const EString& Src )
 		Src.m_pBuffer->m_Ref_Count ++;
 	}
 
-	return *this; 
+	return *this;
 }
 
 /////////////////////////////////////////////////////////////////
@@ -321,13 +321,13 @@ inline const EString& EString::operator+=( EChar Char )
 	Tmp[1] = 0;
 	Insert(  m_pBuffer->m_Data_Length, Tmp );
 
-	return *this;	
+	return *this;
 }
 
 /////////////////////////////////////////////////////////////////
 inline bool EString::operator!=( const EString& Str_To_Compare ) const
 {
-	return !( operator==(Str_To_Compare) ); 
+	return !( operator==(Str_To_Compare) );
 }
 
 /////////////////////////////////////////////////////////////////
@@ -340,13 +340,13 @@ inline bool EString::operator!=( const EChar* p_Str_To_Compare ) const
 inline EString EString::Left( int Num_Chars) const
 {
 	// Bill changed to Num_Chars - 1, this was always returning one character too many
-	return SubString( 0, Num_Chars - 1 ); 
+	return SubString( 0, Num_Chars - 1 );
 }
 
 /////////////////////////////////////////////////////////////////
 inline EString EString::Right( int Num_Chars) const
 {
-	return SubString( m_pBuffer->m_Data_Length - Num_Chars, 
+	return SubString( m_pBuffer->m_Data_Length - Num_Chars,
 		m_pBuffer->m_Data_Length - 1 );
 }
 
@@ -410,7 +410,7 @@ inline EChar& EString::operator[]( int Index )
 inline const EChar& EString::operator[](int Index) const
 {
 	gosASSERT( Index < m_pBuffer->m_Data_Length );
-	
+
 	return *(m_pBuffer->Data() + Index);
 }
 
@@ -418,20 +418,20 @@ inline const EChar& EString::operator[](int Index) const
 inline bool EString::operator<( const EString& Greater_String ) const
 {
 	return ( 0 > Compare( Greater_String, true));
-	
+
 }
 
 /////////////////////////////////////////////////////////////////
-inline bool operator<( const EChar* p_Lesser_String, 
+inline bool operator<( const EChar* p_Lesser_String,
 						const EString& Greater_String )
 {
-	return ( 0 < Greater_String.Compare( p_Lesser_String, true ) ); 
+	return ( 0 < Greater_String.Compare( p_Lesser_String, true ) );
 }
-	
+
 /////////////////////////////////////////////////////////////////
 inline bool EString::operator<( const EChar* p_Greater_String ) const
 {
-	return ( 0 > Compare( p_Greater_String, true ) ); 
+	return ( 0 > Compare( p_Greater_String, true ) );
 }
 
 /////////////////////////////////////////////////////////////////
@@ -441,17 +441,17 @@ inline bool EString::operator<=( const EString& Greater_String ) const
 }
 
 /////////////////////////////////////////////////////////////////
-inline bool operator<=( const EChar* p_Lesser_String, 
+inline bool operator<=( const EChar* p_Lesser_String,
 						const EString& Greater_String )
 {
-	return ( 0 < Greater_String.Compare( p_Lesser_String, true ) ); 
-					 
+	return ( 0 < Greater_String.Compare( p_Lesser_String, true ) );
+
 }
 
 /////////////////////////////////////////////////////////////////
 inline bool EString::operator<=( const EChar* p_Greater_String ) const
 {
-	return ( 1 > Compare( p_Greater_String, true ) ); 
+	return ( 1 > Compare( p_Greater_String, true ) );
 }
 
 
@@ -462,7 +462,7 @@ inline bool EString::operator>( const EString& Lesser_String ) const
 }
 
 /////////////////////////////////////////////////////////////////
-inline bool operator>( const EChar* p_Greater_String, 
+inline bool operator>( const EChar* p_Greater_String,
 					    const EString& Lesser_String )
 {
 	return ( 0 > Lesser_String.Compare( p_Greater_String, true ) );
@@ -481,7 +481,7 @@ inline bool EString::operator>=( const EString& Lesser_String ) const
 }
 
 /////////////////////////////////////////////////////////////////
-inline bool operator>=( const EChar* p_Greater_String, 
+inline bool operator>=( const EChar* p_Greater_String,
 					    const EString& Lesser_String )
 {
 	return ( 1 > Lesser_String.Compare( p_Greater_String, true ) );

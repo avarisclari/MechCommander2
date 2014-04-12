@@ -10,7 +10,7 @@
 #endif
 
 #if !defined(MLR_GOSIMAGEPOOL_HPP)
-	#include <MLR\GOSImagePool.hpp>
+	#include "GOSImagePool.hpp"
 #endif
 
 namespace MidLevelRenderer {
@@ -91,7 +91,7 @@ namespace MidLevelRenderer {
 		void Stop (void);
 		void Restart (void);
 
-		unsigned 
+		unsigned
 			GetNumStoredTextures()
 				{Check_Object(this); return storedTextures;}
 
@@ -122,7 +122,7 @@ namespace MidLevelRenderer {
 
 		int lastHandle;
 		int storedTextures;
-		
+
 		Stuff::StaticArrayOf<MLRTexture*, MLRState::TextureMask+1> textureArray;
 
 		int *freeHandle;

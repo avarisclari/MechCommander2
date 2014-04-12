@@ -13,7 +13,7 @@ struct ButtonData;
 class StaticInfo;
 class FitIniFile;
 
-#include "utilities.h"
+#include "../MCLib/Utilities.h"
 
 #ifndef AFONT_H
 #include "aFont.h"
@@ -33,7 +33,7 @@ struct MoveInfo
 class PauseWindow
 {
 	public:
-		
+
 		PauseWindow();
 		~PauseWindow();
 

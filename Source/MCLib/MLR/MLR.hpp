@@ -8,7 +8,7 @@
 #define MLR_MLR_HPP
 
 #if !defined(STUFF_STUFF_HPP)
-	#include <Stuff\Stuff.hpp>
+	#include "../Stuff/Stuff.hpp"
 #endif
 
 namespace MidLevelRenderer
@@ -162,13 +162,13 @@ namespace MidLevelRenderer
 #define	TO_DO	Abort_Program("Here has work to be done !");
 #undef	MLR_TRACE
 
-#include <MLR\MLRState.hpp>
-#include <MLR\MLRTexture.hpp>
-#include <MLR\MLRTexturePool.hpp>
-#include <MLR\MLRClippingState.hpp>
-#include <MLR\MLRClipper.hpp>
-#include <MLR\MLRSorter.hpp>
-#include <MLR\MLRSortByOrder.hpp>
-#include <MLR\MLRLight.hpp>
-#include <MLR\MLRShape.hpp>
-#include <MLR\MLREffect.hpp>
+#include "MLRState.hpp"
+#include "MLRTexture.hpp"
+#include "MLRTexturePool.hpp"
+#include "MLRClippingState.hpp"
+#include "MLRClipper.hpp"
+#include "MLRSorter.hpp"
+#include "MLRSortByOrder.hpp"
+#include "MLRLight.hpp"
+#include "MLRShape.hpp"
+#include "MLREffect.hpp"

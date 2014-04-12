@@ -29,7 +29,7 @@
 #endif
 
 #ifndef LOGISTICSMECH_H
-#include "logisticsmech.h"
+#include "LogisticsMech.h"
 #endif
 
 #ifndef MULTPLYR_H
@@ -153,27 +153,27 @@ class Mission
 	//Data Members
 	//-------------
 	protected:
-	
+
 		FitIniFilePtr					missionFile;
-										
+
 		long							operationId;		// aka operation id
 		long							missionId;			// aka mission id
-										
+
 		char							missionFileName[80];
 		char							missionScriptName[80];
 		ABLModulePtr					missionBrain;
 		ABLParamPtr						missionParams;
 		SymTableNodePtr					missionBrainCallback;
-										
+
 		unsigned long					numParts;
 		PartPtr							parts;
-										
+
 		bool							active;
 
 		static double					missionTerminationTime;
 
-										
-	public:								
+
+	public:
 
 		static bool						terminationCounterStarted;
 		static unsigned long			terminationResult;
@@ -186,24 +186,24 @@ class Mission
 		unsigned long					duration;
 		bool							warning1;
 		bool							warning2;
-										
+
 		float							actualTime;
 		float							runningTime;
-										
+
 		long 							numSmallStrikes;
 		long 							numLargeStrikes;
 		long 							numSensorStrikes;
 		long 							numCameraStrikes;
-										
+
 		unsigned char					missionTuneNum;
-										
+
 		long							missionScriptHandle;
 		ABLParam						*missionBrainParams;
-		
+
 		MissionInterfaceManagerPtr		missionInterface;
 
 		Stuff::Vector3D					dropZone;
-		
+
 		long							theSkyNumber;
 
 		static bool						statisticsInitialized;
@@ -211,9 +211,9 @@ class Mission
 	//Member Functions
 	//-----------------
 	protected:
-	
+
 	public:
-	
+
 		void init (void)
 		{
 			missionFile = NULL;
@@ -233,23 +233,23 @@ class Mission
 			duration = 0;
 
 			active = FALSE;
-			
-			numSmallStrikes = 0;			
+
+			numSmallStrikes = 0;
 			numLargeStrikes = 0;
 			numSensorStrikes = 0;
 			numCameraStrikes = 0;
-			
+
 			missionTuneNum = 0;
-			
+
 			missionScriptHandle = -1;
-			
+
 			missionInterface = NULL;
 
 			missionFileName[0] = 0;
 
 			missionBrainParams = NULL;
 		}
-		
+
 		Mission (void)
 		{
 			init();
@@ -260,19 +260,19 @@ class Mission
 		void init (char *missionName, long loadType, long dropZoneID, Stuff::Vector3D* dropZoneList, char commandersToLoad[8][3], long numMoversPerCommander);
 
 		static void initBareMinimum();
-		
+
 		static void initTGLForMission();
 		static void initTGLForLogistics();
-		
+
 		void start (void);
 
 		Stuff::Vector3D getDropZone( ) const { return dropZone; }
-		
+
 		long update (void);
 		long render (void);
-		
+
 		void destroy (bool initLogistics = true);
-		
+
 		~Mission (void)
 		{
 			destroy(false);
@@ -280,17 +280,17 @@ class Mission
 
 		long getStatus (void);
 
-		long getNumParts (void) 
+		long getNumParts (void)
 		{
 			return(numParts);
 		}
 
-		PartPtr getPart (long partNumber) 
+		PartPtr getPart (long partNumber)
 		{
 			return(&parts[partNumber]);
 		}
 
-		long getPartTeamId (long partNumber) 
+		long getPartTeamId (long partNumber)
 		{
 			return(parts[partNumber].teamId);
 		}
@@ -307,16 +307,16 @@ class Mission
 		long addMover (MoverInitData* moveSpec);
 		long addMover (MoverInitData* moveSpec, LogisticsMech* mechData);
 		long addMover (MoverInitData* moveSpec, CompressedMech* mechData);
-		
+
 		long removeMover (MoverPtr mover);
 
 		void tradeMover (MoverPtr mover, long newTeamID, long newCommanderID, char* pilotFileName, char* brainFileName);
 
 		void createPartObject (long objectId, MoverPtr mover);
-		
+
 		void createMissionObject (long partId);		//Moves object from holding area to real world.
-		
-		ABLModulePtr getBrain (void) 
+
+		ABLModulePtr getBrain (void)
 		{
 			return(missionBrain);
 		}
@@ -326,31 +326,31 @@ class Mission
 		//-----------------------------------------------------
 		// Objective Routines
 		void startObjectiveTimers (void);
-		
+
 		long setObjectiveTimer (long objectiveNum, float timeLeft);
 		float checkObjectiveTimer (long objectiveNum);
-		
+
 		long setObjectiveStatus (long objectiveNum, ObjectiveStatus status);
 		ObjectiveStatus checkObjectiveStatus (long objectiveNum);
-		
+
 		long setObjectiveType (long objectiveNum, ObjectiveType type);
 		ObjectiveType checkObjectiveType (long objectiveNum);
-		
+
 		void setObjectivePos (long objectiveNum, float realX, float realY, float realZ);
-		
+
 		void setupBonus (void);
-		
+
 		//Checks if any objective has succeeded or failed since we last checked.
 		bool checkObjectiveSuccess (void);
 		bool checkObjectiveFailed (void);
 		//-----------------------------------------------------
 
-		long GetOperationID(void) 
+		long GetOperationID(void)
 		{
 			return operationId;
 		}
 
-		long GetMissionID(void) 
+		long GetMissionID(void)
 		{
 			return missionId;
 		}
@@ -366,7 +366,7 @@ class Mission
 		}
 
 		const char* getMissionFileName(){ return missionFileName; }
-		
+
 		static void initializeStatistics();
 
 		void load (const char *filename);

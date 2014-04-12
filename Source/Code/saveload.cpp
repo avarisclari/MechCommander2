@@ -111,7 +111,7 @@
 #endif
 
 #include "..\resource.h"
-#include <GameOS.hpp>
+#include "../GameOS/include/GameOS.HPP"
 #include <ddraw.h>
 
 //----------------------------------------------------------------------------------------------------
@@ -144,42 +144,42 @@ extern unsigned long missionHeapSize;
 extern float maxVisualRange;
 extern float MaxVisualRadius;
 extern float fireVisualRange;
-extern float WeaponRange[];		   
-extern float DefaultAttackRange;   
+extern float WeaponRange[];
+extern float DefaultAttackRange;
 extern float baseSensorRange;
 extern long visualRangeTable[];
 
-extern unsigned char godMode;	   
-extern unsigned char revealTacMap; 
-extern unsigned char footPrints;   
+extern unsigned char godMode;
+extern unsigned char revealTacMap;
+extern unsigned char footPrints;
 extern bool CantTouchThis;
 
-extern long tonnageDivisor;		   
+extern long tonnageDivisor;
 extern long resourcesPerTonDivided;
 
 extern GameObjectPtr DebugGameObject[];
 
-extern float MineDamage;		   
-extern float MineSplashDamage;	   
-extern float MineSplashRange;	   
-extern long MineExplosion;		   
-extern long MineLayThrottle;	   
-extern long MineSweepThrottle;	   
-extern float StrikeWaitTime;	   
-extern float StrikeTimeToImpact;   
-extern float MineWaitTime;		   
+extern float MineDamage;
+extern float MineSplashDamage;
+extern float MineSplashRange;
+extern long MineExplosion;
+extern long MineLayThrottle;
+extern long MineSweepThrottle;
+extern float StrikeWaitTime;
+extern float StrikeTimeToImpact;
+extern float MineWaitTime;
 
-extern long totalSmokeSpheres;	   
-extern long totalSmokeShapeSize;   
+extern long totalSmokeSpheres;
+extern long totalSmokeShapeSize;
 
-extern long maxFiresBurning;	   
-extern float maxFireBurnTime;	   
+extern long maxFiresBurning;
+extern float maxFireBurnTime;
 
-extern bool force64MB;			   
-extern bool force32Mb;			   
+extern bool force64MB;
+extern bool force32Mb;
 
-extern float InfluenceRadius;	   
-extern float InfluenceTime;		   
+extern float InfluenceRadius;
+extern float InfluenceTime;
 
 extern float BaseHeadShotElevation;
 
@@ -264,7 +264,7 @@ void Mission::save (const char *saveFileName)
 	bool turnOffAsyncMouse = mc2UseAsyncMouse;
 	if ( !mc2UseAsyncMouse )
 		MouseTimerInit();
-	mc2UseAsyncMouse = true;			
+	mc2UseAsyncMouse = true;
 	AsynFunc = ProgressTimer;
 
 	//Get the campaign name for the campaign we are currently playing.
@@ -352,7 +352,7 @@ void Mission::save (const char *saveFileName)
 
 	tempFile.writeBlock("TheSky");
 	tempFile.writeIdLong("SkyNumber"							, theSkyNumber);
-	
+
 	Team::home->objectives.Save( &tempFile );
 
 	loadProgress = 50.0f;
@@ -433,7 +433,7 @@ void Mission::save (const char *saveFileName)
 	// Save ClassID of objects IN the list.
 	// For each object in each list:
 	//		If NULL, save a magic Number to tell me this entry is NULL.
-	//		If NOT NULL, 
+	//		If NOT NULL,
 	// 			Call Save DOWN the heirarchy.
 	//
 	currentPacket = ObjectManager->Save( &saveFile, currentPacket );
@@ -633,7 +633,7 @@ void Mission::load (const char *loadFileName)
 	bool turnOffAsyncMouse = mc2UseAsyncMouse;
 	if ( !mc2UseAsyncMouse )
 		MouseTimerInit();
-	mc2UseAsyncMouse = true;			
+	mc2UseAsyncMouse = true;
 	AsynFunc = ProgressTimer;
 
 	//Open the In-Mission Save packet file.
@@ -688,7 +688,7 @@ void Mission::load (const char *loadFileName)
 
 	//-------------------------------------------
 	//Relationships saved with TEAMs!
-				
+
 	//-------------------------------------------
 	// Always reset turn at scenario start
 	turn = 0;
@@ -701,22 +701,22 @@ void Mission::load (const char *loadFileName)
 	initBareMinimum();
 	loadProgress = 4.0f;
 	initTGLForMission();
-	
+
 	//--------------------------------------------------------------
 	// Start the Mission Heap
 	missionHeap = new UserHeap;
 	gosASSERT(missionHeap != NULL);
-	
+
 	missionHeap->init(missionHeapSize,"MISSION");
-	
+
 	//--------------------------
 	// Load Game System stuff...
 	FullPathFileName fullGameSystemName;
 	fullGameSystemName.init(missionPath, "gamesys", ".fit");
-	
+
 	FitIniFile* gameSystemFile = new FitIniFile;
 	gosASSERT(gameSystemFile != NULL);
-		
+
 	result = gameSystemFile->open(fullGameSystemName);
 	gosASSERT(result == NO_ERR);
 
@@ -780,14 +780,14 @@ void Mission::load (const char *loadFileName)
 	long forestMoveCost;
 	result = gameSystemFile->readIdLong("ForestMoveCost", forestMoveCost);
 	gosASSERT(result == NO_ERR);
-		
+
 	//----------------------------------------------------------------------
 	// Now that we have some base values, load the master component table...
 	if (!MasterComponent::masterList) {
 		FullPathFileName compFileName;
 		compFileName.init(objectPath,"compbas",".csv");
 #ifdef _DEBUG
-		long loadErr = 
+		long loadErr =
 #endif
 			MasterComponent::loadMasterList(compFileName, 255, baseSensorRange);
 		gosASSERT(loadErr == NO_ERR);
@@ -801,23 +801,23 @@ void Mission::load (const char *loadFileName)
 	result = gameSystemFile->readIdUChar("RevealTacMap", revealTacMap);
 	if (result != NO_ERR)
 		revealTacMap = 0;
-		
+
 	result = gameSystemFile->readIdUChar("FootPrints", footPrints);
 	if (result != NO_ERR)
 		footPrints = 1;
 
 	result = gameSystemFile->readIdLong("BonusTonnageDivisor",tonnageDivisor);
 	gosASSERT(result == NO_ERR);
-	
+
 	result = gameSystemFile->readIdLong("BonusPointsPerTon",resourcesPerTonDivided);
 	gosASSERT(result == NO_ERR);
-	
+
 #ifndef FINAL
  	result = gameSystemFile->readIdFloat("CheatHitDamage",CheatHitDamage);
 	if (result != NO_ERR)
 		CheatHitDamage = 5.0f;
 #endif
-	
+
 	//---------------------------------------
 	// Read in difficulty here if it exits.
 	InitDifficultySettings(gameSystemFile);
@@ -837,13 +837,13 @@ void Mission::load (const char *loadFileName)
 
 	result = gameSystemFile->readIdFloat("BaseDamage", MineDamage);
 	gosASSERT(result == NO_ERR);
-		
+
 	result = gameSystemFile->readIdFloat("SplashDamage", MineSplashDamage);
 	gosASSERT(result == NO_ERR);
-		
+
 	result = gameSystemFile->readIdFloat("SplashRange", MineSplashRange);
 	gosASSERT(result == NO_ERR);
-		
+
 	result = gameSystemFile->readIdLong("Explosion", MineExplosion);
 	gosASSERT(result == NO_ERR);
 
@@ -866,7 +866,7 @@ void Mission::load (const char *loadFileName)
 
 	result = gameSystemFile->seekBlock("Smoke");
 	gosASSERT(result == NO_ERR);
-	
+
 	result = gameSystemFile->readIdLong("MaxSmokeSpheres",totalSmokeSpheres);
 	gosASSERT(result == NO_ERR);
 
@@ -875,10 +875,10 @@ void Mission::load (const char *loadFileName)
 
 	result = gameSystemFile->seekBlock("Fire");
 	gosASSERT(result == NO_ERR);
-	
+
 	result = gameSystemFile->readIdLong("MaxFiresBurning", maxFiresBurning);
 	gosASSERT(result == NO_ERR);
-	
+
 	result = gameSystemFile->readIdFloat("MaxFireBurnTime", maxFireBurnTime);
 	gosASSERT(result == NO_ERR);
 
@@ -888,7 +888,7 @@ void Mission::load (const char *loadFileName)
 		STOP(("Mission Data missing from IN-Mission Save"));
 
 	duration = 60;
-	
+
 	FullPathFileName tmpName;
 	tmpName.init(savePath,tmpString,".fti");
 	{
@@ -899,9 +899,9 @@ void Mission::load (const char *loadFileName)
 		MemoryPtr tmpRAM = (MemoryPtr)malloc(fileSz);
 		loadFile.readPacket(currentPacket,tmpRAM);
 		dmyFile.write(tmpRAM,fileSz);
-	
+
 		currentPacket++;
-	
+
 		dmyFile.close();
 		free(tmpRAM);
 		//---------------------------
@@ -987,11 +987,11 @@ void Mission::load (const char *loadFileName)
 		result = missionFile.readIdLong("SkyNumber",theSkyNumber);
 		if (result != NO_ERR)
 			theSkyNumber = DEFAULT_SKY;
-			
+
 		if ((theSkyNumber < 1) || (theSkyNumber > 20))
 			theSkyNumber = DEFAULT_SKY;
 	}
-		
+
 	result = missionFile.seekBlock( "Script" );
 	if (result != NO_ERR)
 		STOP(("Mission ABL Script missing from In-Mission Save"));
@@ -1020,13 +1020,13 @@ void Mission::load (const char *loadFileName)
 
 	FullPathFileName brainFileName;
 	brainFileName.init(missionPath, missionScriptName, ".abl");
-	
+
 	missionScriptHandle = ABLi_preProcess(brainFileName, &numErrors, &numLinesProcessed);
 	gosASSERT(missionScriptHandle >= 0);
-	
+
 	missionBrain = new ABLModule;
 	gosASSERT(missionBrain != NULL);
-		
+
 	missionBrain->init(missionScriptHandle);
 
 	missionBrain->setName("Mission");
@@ -1048,12 +1048,12 @@ void Mission::load (const char *loadFileName)
 	// Startup the Crater Manager.
 	craterManager = (CraterManagerPtr)missionHeap->Malloc(sizeof(CraterManager));
 	gosASSERT(craterManager != NULL);
-		
+
 	result = craterManager->init(1000,20479,"feet");
 	gosASSERT(result == NO_ERR);
-	
+
 	//-----------------------------------------------------------------
-	// Start the object system next.	
+	// Start the object system next.
 	ObjectManager = new GameObjectManager;
 	if (!ObjectManager)
 		Fatal(0, " Mission.init: unable to create ObjectManager ");
@@ -1067,7 +1067,7 @@ void Mission::load (const char *loadFileName)
 	//------------------------------------------------------------
 	// Start the Terrain System
 	FullPathFileName terrainFileName;
-	terrainFileName.init( missionPath, missionFileName, ".pak" ); 
+	terrainFileName.init( missionPath, missionFileName, ".pak" );
 
 	PacketFile pakFile;
 	result = pakFile.open( terrainFileName );
@@ -1127,7 +1127,7 @@ void Mission::load (const char *loadFileName)
 	//----------------------
 	// Load ABL Libraries...
 	// ASS U ME that these are loaded when I call ABLi_Load
-	
+
 	//---------------------------
 	// Load the mission script...
 	//Create a dummy file to read the packet into.
@@ -1145,9 +1145,9 @@ void Mission::load (const char *loadFileName)
 		MemoryPtr tmpRAM = (MemoryPtr)malloc(fileSz);
 		loadFile.readPacket(currentPacket,tmpRAM);
 		dmyFile.write(tmpRAM,fileSz);
-	
+
 		currentPacket++;
-	
+
 		dmyFile.close();
 		free(tmpRAM);
 		//---------------------------
@@ -1159,7 +1159,7 @@ void Mission::load (const char *loadFileName)
 #ifdef USE_ABL_LOAD
 	ABLi_loadEnvironment(&ablFile,true);
 #endif
-		
+
 	ablFile.close();
 	DeleteFile(dmpName);
 
@@ -1189,11 +1189,11 @@ void Mission::load (const char *loadFileName)
 	//-----------------------------------------------------------------
   	// All systems are GO if we reach this point.  Now we need to
 	// parse the scenario file for the Objects we need for this scenario
-	// We then create each object and place it in the world at the 
+	// We then create each object and place it in the world at the
 	// position we read in with the frame we read in.
 	result = missionFile.seekBlock("Parts");
 	gosASSERT(result == NO_ERR);
-		
+
 	result = missionFile.readIdULong("NumParts",numParts);
 	gosASSERT(result == NO_ERR);
 
@@ -1211,7 +1211,7 @@ void Mission::load (const char *loadFileName)
 		// Since we leave part 0 unused, malloc numParts + 1...
 		parts = (PartPtr)missionHeap->Malloc(sizeof(Part) * (numParts + 1));
 		gosASSERT(parts != NULL);
-		
+
 		memset(parts,0,sizeof(Part) * (numParts + 1));
 
 		long i;
@@ -1220,7 +1220,7 @@ void Mission::load (const char *loadFileName)
 		{
 			char partName[12];
 			sprintf(partName,"Part%d",i);
-			
+
 			//------------------------------------------------------------------
 			// Find the object to load
 			result = missionFile.seekBlock(partName);
@@ -1241,7 +1241,7 @@ void Mission::load (const char *loadFileName)
 
 			result = missionFile.readIdString("ObjectProfile", parts[i].profileName, 9);
 			gosASSERT(result == NO_ERR);
-				
+
 			result = missionFile.readIdULong("ObjectVariant", parts[i].variantNum);
 			if (result != NO_ERR)
 				parts[i].variantNum = 0;		//FOR NOW!!!!!!!!!!!!!!!!
@@ -1250,20 +1250,20 @@ void Mission::load (const char *loadFileName)
 
 			result = missionFile.readIdULong("Pilot", parts[i].pilot);
 			gosASSERT(result == NO_ERR,);
-			
+
 			//------------------------------------------------------------------
 			// Read the object's position, initial velocity and rotation.
 			result = missionFile.readIdFloat("PositionX",parts[i].position.x);
 			gosASSERT(result == NO_ERR);
-				
+
 			result = missionFile.readIdFloat("PositionY",parts[i].position.y);
 			gosASSERT(result == NO_ERR);
-				
+
 			parts[i].position.z = -1.0;
 
 			result = missionFile.readIdFloat("Rotation",parts[i].rotation);
 			gosASSERT(result == NO_ERR);
-				
+
 			result = missionFile.readIdChar("TeamId",parts[i].teamId);
 			gosASSERT(result == NO_ERR);
 
@@ -1280,21 +1280,21 @@ void Mission::load (const char *loadFileName)
 			}
 
 			parts[i].gestureId = 2; // this has never changed
-	
+
 			result = missionFile.readIdULong("BaseColor",parts[i].baseColor);
 			if (result != NO_ERR)
 				parts[i].baseColor = 0xffffffff;
-				
+
 			result = missionFile.readIdULong("HighlightColor1",parts[i].highlightColor1);
 			if (result != NO_ERR)
 				parts[i].highlightColor1 = 0xffffffff;
-				
+
 			result = missionFile.readIdULong("HighlightColor2",parts[i].highlightColor2);
 			if (result != NO_ERR)
 				parts[i].highlightColor2 = 0xffffffff;
-				
+
   			parts[i].velocity = 0;
-			
+
 			result = missionFile.readIdLong("Active",parts[i].active);
 			gosASSERT(result == NO_ERR);
 
@@ -1340,7 +1340,7 @@ void Mission::load (const char *loadFileName)
 	// Save ClassID of objects IN the list.
 	// For each object in each list:
 	//		If NULL, save a magic Number to tell me this entry is NULL.
-	//		If NOT NULL, 
+	//		If NOT NULL,
 	// 			Call Save DOWN the heirarchy.
 	//
 	currentPacket = ObjectManager->Load( &loadFile, currentPacket );
@@ -1405,7 +1405,7 @@ void Mission::load (const char *loadFileName)
 	loadProgress = 92.f;
 	weather = new Weather;
 	weather->init(&missionFile);
-	
+
 	loadProgress = 95.0;
  	//---------------------------------------------------------------
 	// Start the Camera and Lists
@@ -1427,29 +1427,29 @@ void Mission::load (const char *loadFileName)
 
 	missionInterface = new MissionInterfaceManager;
 	gosASSERT(missionInterface != NULL);
-	
+
 	missionInterface->initTacMap( &pakFile, 2 );
-	
+
 	FullPathFileName missionScreenName;
 	missionScreenName.init(artPath,"missionScrn",".fit");
-	
+
 	FitIniFile missionLoader;
 	result = missionLoader.open(missionScreenName);
 	gosASSERT(result == NO_ERR);
-	
+
 	missionInterface->init(&missionLoader);
 	missionInterface->initMechs();
 	missionInterface->Load(&missionFile);
 	missionLoader.close();
-	
+
 	//----------------------------------------------------------------------------
 	userInput->setMouseCursor(mState_NORMAL);
 
 	loadProgress = 98.0;
-	
+
 	MechWarrior::initGoalManager(200);
 
-	if (tempSpecialAreaFootPrints) 
+	if (tempSpecialAreaFootPrints)
 	{
 		systemHeap->Free(tempSpecialAreaFootPrints);
 		tempSpecialAreaFootPrints = NULL;
@@ -1475,9 +1475,9 @@ void Mission::load (const char *loadFileName)
 		MemoryPtr tmpRAM = (MemoryPtr)malloc(fileSz);
 		loadFile.readPacket(currentPacket,tmpRAM);
 		dmyFile.write(tmpRAM,fileSz);
-	
+
 		currentPacket++;
-	
+
 		dmyFile.close();
 		free(tmpRAM);
 		//---------------------------

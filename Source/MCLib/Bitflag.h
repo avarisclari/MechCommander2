@@ -10,7 +10,7 @@
 //----------------------------------------------------------------------------------
 // Include Files
 #ifndef DBITFLAG_H
-#include "dbitflag.h"
+#include "Dbitflag.h"
 #endif
 
 #ifndef HEAP_H
@@ -22,7 +22,7 @@
 #endif
 
 #ifndef VFX_H
-#include "vfx.h"
+#include "Vfx.h"
 #endif
 
 //----------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ class BitFlag
 	//Data Members
 	//-------------
 	protected:
-	
+
 		HeapManagerPtr		flagHeap;
 		unsigned char		numBitsPerFlag;
 		unsigned long		rows;
@@ -49,11 +49,11 @@ class BitFlag
 		unsigned long		colWidth;
 		unsigned long		totalFlags;
 		unsigned long		totalRAM;
-		
+
 	//Member Functions
 	//-----------------
 	public:
-	
+
 		void init (void)
 		{
 			flagHeap = NULL;
@@ -63,28 +63,28 @@ class BitFlag
 			divValue = 1;
 			colWidth = 1;
 		}
-		
+
 		BitFlag (void)
 		{
 			init();
 		}
-		
+
 		long init (unsigned long numRows, unsigned long numColumns, unsigned long initialValue = 0);
 		void destroy (void);
-		
+
 		~BitFlag (void)
 		{
 			destroy();
 		}
-	
+
 		void resetAll (unsigned long bits);
-			
+
 		void setFlag (unsigned long r, unsigned long c);
 		void clearFlag (unsigned long r, unsigned long c);
-		
+
 		void setGroup (unsigned long r, unsigned long c, unsigned long length);
 		void clearGroup (unsigned long r, unsigned long c, unsigned long length);
-		
+
 		unsigned char getFlag (unsigned long r, unsigned long c);
 };
 
@@ -94,49 +94,49 @@ class ByteFlag
 	//Data Members
 	//-------------
 	protected:
-	
+
 		HeapManagerPtr		flagHeap;
 		unsigned long		rows;
 		unsigned long		columns;
 		unsigned long		totalFlags;
 		unsigned long		totalRAM;
-		
+
 		PANE				*flagPane;
 		WINDOW				*flagWindow;
-		
+
 	//Member Functions
 	//-----------------
 	public:
-	
+
 		void init (void)
 		{
 			flagHeap = NULL;
 			rows = columns = 0;
-			
+
 			flagPane = NULL;
 			flagWindow = NULL;
 		}
-		
+
 		ByteFlag (void)
 		{
 			init();
 		}
-		
+
 		long init (unsigned long numRows, unsigned long numColumns, unsigned long initialValue = 0);
 		void initTGA (char *tgaFileName);
 
 		void destroy (void);
-		
+
 		~ByteFlag (void)
 		{
 			destroy();
 		}
-	
+
 		MemoryPtr memDump (void)
 		{
 			return (flagHeap->getHeapPtr());
 		}
-	
+
 		long getWidth (void)
 		{
 			return rows;
@@ -148,15 +148,15 @@ class ByteFlag
 		}
 
 		void resetAll (unsigned long byte);
-			
+
 		void setFlag (unsigned long r, unsigned long c);
 		void clearFlag (unsigned long r, unsigned long c);
-		
+
 		void setGroup (unsigned long r, unsigned long c, unsigned long length);
 		void clearGroup (unsigned long r, unsigned long c, unsigned long length);
-		
+
 		unsigned char getFlag (unsigned long r, unsigned long c);
-		
+
 		void setCircle (unsigned long x, unsigned long y, unsigned long radius, unsigned char value);
 		void clearCircle (unsigned long x, unsigned long y, unsigned long radius, unsigned char value);
 };

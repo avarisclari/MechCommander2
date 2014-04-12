@@ -5,11 +5,11 @@
 //----------------------------------------------------------------------------------
 // Include Files
 #ifndef ABL_H
-#include "abl.h"
+#include "../MCLib/Abl.h"
 #endif
 
 #ifndef MCLIB_H
-#include "mclib.h"
+#include "../MCLib/mclib.h"
 #endif
 
 #ifndef MISSION_H
@@ -29,11 +29,11 @@
 #endif
 
 #ifndef SOUNDS_H
-#include "sounds.h"
+#include "../MCLib/Sounds.h"
 #endif
 
 #ifndef COLLSN_H
-#include "collsn.h"
+#include "Collsn.h"
 #endif
 
 #ifndef CMPONENT_H
@@ -61,7 +61,7 @@
 #endif
 
 #ifndef TEAM_H
-#include "team.h"
+#include "Team.h"
 #endif
 
 #ifndef COMNDR_H
@@ -97,11 +97,11 @@
 #endif
 
 #ifndef GAMELOG_H
-#include "gamelog.h"
+#include "../MCLib/gamelog.h"
 #endif
 
 #ifndef MISSIONBEGIN_H
-#include "missionbegin.h"
+#include "MissionBegin.h"
 #endif
 
 #ifndef LOGISTICS_H
@@ -533,7 +533,7 @@ void execGetWarriorStatus (void) {
 	//
 	//		Returns the status of the warrior.
 	//
-	//		PARAMS:	integer				warrior id 
+	//		PARAMS:	integer				warrior id
 	//
 	//		RETURN: integer				status
 	//
@@ -571,7 +571,7 @@ void execGetContacts (void) {
 	long* contactList = ABLi_popIntegerPtr();
 	long contactCriteria = ABLi_popInteger();
 	long sortCriteria = ABLi_popInteger();
-	
+
 	long numContacts = CurObject->getContacts(contactList, contactCriteria, sortCriteria);
 	ABLi_pushInteger(numContacts);
 
@@ -932,7 +932,7 @@ void execGetObjectPosition (void) {
 	coordList[0] = 0.0;
 	coordList[1] = 0.0;
 	coordList[2] = 0.0;
-		
+
 	GameObjectPtr obj = getObject(objectId);
 	if (obj) {
 		Stuff::Vector3D pos = obj->getPosition();
@@ -1077,7 +1077,7 @@ void execGetFireRanges (void) {
 	//		Retrieves the current settings for SHORT, MEDIUM and LONG range,
 	//		as well as MAX WEAPON range
 	//
-	//		PARAMS:	@real[4]			sets the game's current ranges (meters)				
+	//		PARAMS:	@real[4]			sets the game's current ranges (meters)
 	//
 	//		RETURN: none
 	//
@@ -1179,7 +1179,7 @@ void execSetChallenger (void) {
 	long challengerId = ABLi_popInteger();
 
 	long result = NO_ERR;
-	
+
 	if ((challengerId >= MIN_UNIT_PART_ID) && (challengerId <= MAX_UNIT_PART_ID)) {
 		//--------------------------------------------
 		// We have a group.  Act accordingly.
@@ -1327,7 +1327,7 @@ void execGetUnitMates (void) {
 			}
 		}
 	}
-	ABLi_pushInteger(numObjs);		
+	ABLi_pushInteger(numObjs);
 }
 
 //*****************************************************************************
@@ -1355,7 +1355,7 @@ void execGetTacOrder(void) {
 	long objectId = ABLi_popInteger();
 	float* time = ABLi_popRealPtr();
 	long* paramList = ABLi_popIntegerPtr();
-	
+
 	long code = 0;
 	if ((objectId >= MIN_UNIT_PART_ID) && (objectId <= MAX_UNIT_PART_ID)) {
 		//--------------------------------------------
@@ -1378,7 +1378,7 @@ void execGetTacOrder(void) {
 	}
 
 	ABLi_pushInteger(code);
-}	
+}
 
 //*****************************************************************************
 
@@ -1405,7 +1405,7 @@ void execGetLastTacOrder(void) {
 	long objectId = ABLi_popInteger();
 	float* time = ABLi_popRealPtr();
 	long* paramList = ABLi_popIntegerPtr();
-	
+
 	long code = 0;
 	if ((objectId >= MIN_UNIT_PART_ID) && (objectId <= MAX_UNIT_PART_ID)) {
 		//--------------------------------------------
@@ -1422,7 +1422,7 @@ void execGetLastTacOrder(void) {
 	}
 
 	ABLi_pushInteger(code);
-}	
+}
 
 //*****************************************************************************
 
@@ -1568,7 +1568,7 @@ void execGetObjects (void) {
 			}
 			break;
 	}
-	
+
 	ABLi_pushInteger(numObjects);
 }
 
@@ -1623,7 +1623,7 @@ void execOrderMoveTo (void) {
 	location.x = coordList[0];
 	location.y = coordList[1];
 	location.z = coordList[2];
-	
+
 	unsigned long params = TACORDER_PARAM_NONE;
 	if (run)
 		params |= TACORDER_PARAM_RUN;
@@ -1862,7 +1862,7 @@ void execOrderAttackContact (void) {
 
 void execOrderWithdraw(void) {
 
-	//Makes the object(s) passed in withdraw 
+	//Makes the object(s) passed in withdraw
 	//
 	//		PARAMS:	NONE
 	//
@@ -1879,7 +1879,7 @@ void execOrderWithdraw(void) {
 		else
 			ABLi_pokeInteger(-2);
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -1910,11 +1910,11 @@ void execObjectInWithdrawal(void) {
 	else {
 		object1 = getObject(objectId1);
 		if (object1 && !object1->isWithdrawing())
-			result = 0;			
+			result = 0;
 	}
-	
+
 	ABLi_pushInteger(result);
-}	
+}
 
 //*****************************************************************************
 
@@ -2030,7 +2030,7 @@ void execObjectChangeSides (void) {
 	//		PARAMS:	integer, integer
 	//
 	//		Returns: nothing!
-	
+
 	long objectId = ABLi_popInteger();
 	long newObjectSide = ABLi_popInteger();
 
@@ -2058,7 +2058,7 @@ void execDistanceToObject (void) {
 	//		PARAMS:	integer, integer
 	//
 	//		Returns: (real) distance in meters
-	
+
 	long objectId1 = ABLi_popInteger();
 	long objectId2 = ABLi_peekInteger();
 
@@ -2080,10 +2080,10 @@ void execDistanceToObject (void) {
 					continue;
 				Stuff::Vector3D position1 = mover->getPosition();
 				position2.z = position1.z;
-		
+
 				Stuff::Vector3D resultVector;
 				resultVector.Subtract(position2, position1);
-		
+
 				distance = resultVector.GetLength();
 				if (distance < minDistance)
 					minDistance = distance;
@@ -2096,16 +2096,16 @@ void execDistanceToObject (void) {
 			if (object1) {
 				Stuff::Vector3D position1 = object1->getPosition();
 				position2.z = position1.z;
-			
+
 				Stuff::Vector3D resultVector;
 				resultVector.Subtract(position2, position1);
-			
+
 				ABLi_pokeReal(resultVector.GetLength() * metersPerWorldUnit);
 			}
 		}
 	}
 }
-			
+
 //***************************************************************************
 
 void execDistanceToPosition (void) {
@@ -2115,7 +2115,7 @@ void execDistanceToPosition (void) {
 	//		PARAMS:	integer, real[3]
 	//
 	//		Returns: (real) distance in meters
-	
+
 	long objectId = ABLi_popInteger();
 	float* coordList = ABLi_popRealPtr();
 
@@ -2131,7 +2131,7 @@ void execDistanceToPosition (void) {
 
 	if (!_isnan(coordList[1]))
 		position2.y = coordList[1];
-	
+
 	if ((objectId >= MIN_UNIT_PART_ID) && (objectId <= MAX_UNIT_PART_ID)) {
 		//--------------------------------------------
 		// We have a group.  Act accordingly.
@@ -2145,10 +2145,10 @@ void execDistanceToPosition (void) {
 				continue;
 			Stuff::Vector3D position1 = mover->getPosition();
 			position2.z = position1.z;
-		
+
 			Stuff::Vector3D resultVector;
 			resultVector.Subtract(position2, position1);
-		
+
 			distance = resultVector.GetLength();
 			if (distance < minDistance)
 				minDistance = distance;
@@ -2161,14 +2161,14 @@ void execDistanceToPosition (void) {
 		if (obj) {
 			Stuff::Vector3D position1 = obj->getPosition();
 			position2.z = position1.z;
-			
+
 			Stuff::Vector3D resultVector;
 			resultVector.Subtract(position2, position1);
 			ABLi_pokeReal(resultVector.GetLength() * metersPerWorldUnit);
 		}
 	}
 }
-			
+
 //*****************************************************************************
 
 void execObjectSuicide (void) {
@@ -2178,10 +2178,10 @@ void execObjectSuicide (void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: nothing
-	
+
 	//-----------------
 	long objectId = ABLi_popInteger();
-	
+
 	GameObjectPtr object1 = NULL;
 	if ((objectId >= MIN_UNIT_PART_ID) && (objectId <= MAX_UNIT_PART_ID)) {
 		//--------------------------------------------
@@ -2197,7 +2197,7 @@ void execObjectSuicide (void) {
 			object1->setExists(false);
 	}
 }
-			
+
 //***************************************************************************
 
 void execObjectCreate (void) {
@@ -2206,10 +2206,10 @@ void execObjectCreate (void) {
 	//
 	//		PARAMS:	integer
 	//
-	//		Returns: id of object created 
-	
+	//		Returns: id of object created
+
 	long objectId = ABLi_popInteger();
-	
+
 	long result = 0;
 
 	GameObjectPtr object = getObject(objectId);
@@ -2221,7 +2221,7 @@ void execObjectCreate (void) {
 	}
 	ABLi_pushInteger(result);
 }
-			
+
 //***************************************************************************
 
 void execObjectExists (void) {
@@ -2231,7 +2231,7 @@ void execObjectExists (void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: integer
-	
+
 	long objectId = ABLi_peekInteger();
 	ABLi_pokeInteger(0);
 
@@ -2251,7 +2251,7 @@ void execObjectExists (void) {
 			ABLi_pokeInteger(1);
 	}
 }
-			
+
 //***************************************************************************
 
 void execObjectStatus (void) {
@@ -2261,11 +2261,11 @@ void execObjectStatus (void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: integer
-	
+
 	long objectId = ABLi_popInteger();
-	
+
 	long result = -1;
-	
+
 	if ((objectId >= MIN_UNIT_PART_ID) && (objectId <= MAX_UNIT_PART_ID)) {
 		//-------------------------------------------------------
 		// We have a group.  Act accordingly.
@@ -2295,7 +2295,7 @@ void execObjectStatus (void) {
 	}
 	ABLi_pushInteger(result);
 }
-			
+
 //*****************************************************************************
 
 void execObjectStatusCount (void) {
@@ -2310,7 +2310,7 @@ void execObjectStatusCount (void) {
 
 	long objectId = ABLi_popInteger();
 	long* tallyList = ABLi_popIntegerPtr();
-	
+
 	if ((objectId >= MIN_UNIT_PART_ID) && (objectId <= MAX_UNIT_PART_ID)) {
 		//--------------------------------------------
 		// We have a group.  Act accordingly.
@@ -2336,7 +2336,7 @@ void execObjectStatusCount (void) {
 			tallyList[object1->getStatus()]++;
 	}
 }
-			
+
 //*****************************************************************************
 
 void execObjectVisible (void) {
@@ -2346,14 +2346,14 @@ void execObjectVisible (void) {
 	//		PARAMS:	integer, integer
 	//
 	//		Returns: integer
-	
+
 	long objectId1 = ABLi_popInteger();
 	long objectId2 = ABLi_popInteger();
-	
+
 	GameObjectPtr object1 = NULL;
 	GameObjectPtr object2 = getObject(objectId2);
 	long result = 0;
-	
+
 	if (object2) {
 		if ((objectId1 >= MIN_UNIT_PART_ID) && (objectId1 <= MAX_UNIT_PART_ID)) {
 			//--------------------------------------------
@@ -2375,8 +2375,8 @@ void execObjectVisible (void) {
 	}
 
 	ABLi_pushInteger(result);
-}				
-			
+}
+
 //*****************************************************************************
 
 void execObjectTeam (void) {
@@ -2386,14 +2386,14 @@ void execObjectTeam (void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: integer
-	
+
 	long objectId = ABLi_popInteger();
 
 	long result = -1;
 	GameObjectPtr object = getObject(objectId);
 	if (object)
 		result = MIN_TEAM_PART_ID + object->getTeamId();
-	
+
 	ABLi_pushInteger(result);
 }
 
@@ -2403,7 +2403,7 @@ void execObjectCommander (void) {
 
 	long objectId = ABLi_peekInteger();
 	ABLi_pokeInteger(-1);
-	
+
 	if ((objectId >= MIN_UNIT_PART_ID) && (objectId <= MAX_UNIT_PART_ID)) {
 		//-----------------------------------
 		// We have a group.  Act accordingly.
@@ -2424,16 +2424,16 @@ void execObjectClass(void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: integer
-	
+
 	long objectId = ABLi_popInteger();
-	
+
 	long result = -1;
 	GameObjectPtr object = getObject(objectId);
 	if (object)
 		result = object->getObjectClass();
 	ABLi_pushInteger(result);
 }
-			
+
 //*****************************************************************************
 
 void execSetTimer (void) {
@@ -2443,7 +2443,7 @@ void execSetTimer (void) {
 	//		PARAMS:	integer, real
 	//
 	//		Returns: integer (ID of timer created)
-	
+
 	short timerNumber = ABLi_popInteger();
 	float duration = ABLi_popReal();
 
@@ -2457,7 +2457,7 @@ void execSetTimer (void) {
 
 	ABLi_pushInteger(timerNumber);
 }
-			
+
 //*****************************************************************************
 
 void execCheckTimer (void) {
@@ -2467,7 +2467,7 @@ void execCheckTimer (void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: real (time left)
-	
+
 	short timerNumber = ABLi_popInteger();
 
 	float timeLeft = 0.0;
@@ -2482,7 +2482,7 @@ void execCheckTimer (void) {
 
 	ABLi_pushReal(timeLeft);
 }
-			
+
 //*****************************************************************************
 
 void execEndTimer (void) {
@@ -2492,7 +2492,7 @@ void execEndTimer (void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: nothing
-	
+
 	long timerID = ABLi_popInteger();
 
 // NOT REALLY NECESSARY ANYMORE--since the timers have no callback, they just
@@ -2504,7 +2504,7 @@ void execEndTimer (void) {
 		application->RemoveTimer(application,timerId);
 #endif
 }
-	
+
 //*****************************************************************************
 
 void execSetObjectiveTimer (void) {
@@ -2514,7 +2514,7 @@ void execSetObjectiveTimer (void) {
 	//		PARAMS:	integer, real
 	//
 	//		Returns: integer (result)
-	
+
 	long objectiveNum = ABLi_popInteger();
 	float duration = ABLi_popReal();
 
@@ -2530,9 +2530,9 @@ void execCheckObjectiveTimer (void) {
 	//		PARAMS:	integer
 	//
 	//		Returns: real (time left)
-	
+
 	long objectiveNum = ABLi_popInteger();
-	
+
 	ABLi_pushReal(mission->checkObjectiveTimer(objectiveNum));
 }
 
@@ -2548,7 +2548,7 @@ void execSetObjectiveStatus (void) {
 
 	long objectiveNum = ABLi_popInteger();
 	long status = ABLi_popInteger();
-	
+
 	ABLi_pushInteger(mission->setObjectiveStatus(objectiveNum,status));
 }
 
@@ -2563,7 +2563,7 @@ void execCheckObjectiveStatus (void) {
 	//		Returns: integer (status)
 
 	long objectiveNum = ABLi_popInteger();
-	
+
 	ABLi_pushInteger(mission->checkObjectiveStatus(objectiveNum));
 }
 
@@ -2579,7 +2579,7 @@ void execSetObjectiveType (void) {
 
 	long objectiveNum = ABLi_popInteger();
 	long type = ABLi_popInteger();
-	
+
 	ABLi_pushInteger(mission->setObjectiveType(objectiveNum,type));
 }
 
@@ -2594,7 +2594,7 @@ void execCheckObjectiveType (void) {
 	//		Returns: integer (status)
 
 	long objectiveNum = ABLi_popInteger();
-	
+
 	ABLi_pushInteger(mission->checkObjectiveType(objectiveNum));
 }
 
@@ -2612,8 +2612,8 @@ void execPlayDigitalMusic (void) {
 
 	if (soundSystem)
 		soundSystem->playABLDigitalMusic(soundNum);
-		
-	ABLi_pushInteger(0);	
+
+	ABLi_pushInteger(0);
 }
 
 //***************************************************************************
@@ -2641,7 +2641,7 @@ void execPlaySoundEffect(void) {
 	//		Returns: integer (result)
 
 	long soundNum = ABLi_popInteger();
-	
+
 	if (soundSystem)
 		soundSystem->playABLSFX(soundNum);
 	ABLi_pushInteger(0);
@@ -2713,7 +2713,7 @@ void execPlaySpeech (void) {
 	if (pilot)
 		pilot->radioMessage(message, true);
 
-	ABLi_pushInteger(0);		
+	ABLi_pushInteger(0);
 }
 
 //*****************************************************************************
@@ -2730,7 +2730,7 @@ void execPlayBetty (void) {
 	// Get the ID of the pilot whose speech this is
 	long messageIndex = ABLi_popInteger();
 	long result = soundSystem->playBettySample(messageIndex);
-	
+
 	ABLi_pushInteger(result);
 }
 
@@ -2748,52 +2748,52 @@ void execGetMissionWon (void)
 }
 
 //*****************************************************************************
-void execGetMissionLost (void) 
+void execGetMissionLost (void)
 {
-	ABLi_pushBoolean((Mission::terminationResult == mis_PLAYER_LOST_BIG) || 
+	ABLi_pushBoolean((Mission::terminationResult == mis_PLAYER_LOST_BIG) ||
 					(Mission::terminationResult == mis_PLAYER_LOST_SMALL));
 }
 
 //*****************************************************************************
-void execGetObjectiveSuccess (void) 
+void execGetObjectiveSuccess (void)
 {
 	ABLi_pushBoolean(mission->checkObjectiveSuccess());
 }
 
 //*****************************************************************************
-void execGetObjectiveFailed (void) 
+void execGetObjectiveFailed (void)
 {
 	ABLi_pushBoolean(mission->checkObjectiveFailed());
 }
 
 //*****************************************************************************
-void execGetEnemyDestroyed (void) 
+void execGetEnemyDestroyed (void)
 {
 	ABLi_pushBoolean(enemyDestroyed);
 	enemyDestroyed = false;
 }
 
 //*****************************************************************************
-void execGetFriendlyDestroyed (void) 
+void execGetFriendlyDestroyed (void)
 {
 	ABLi_pushBoolean(friendlyDestroyed);
 	friendlyDestroyed = false;
 }
 
 //*****************************************************************************
-void execPlayerInCombat (void) 
+void execPlayerInCombat (void)
 {
 	ABLi_pushBoolean(MechWarrior::anyPlayerInCombat());
 }
 
 //*****************************************************************************
-void execGetSensorsActive (void) 
+void execGetSensorsActive (void)
 {
 	ABLi_pushBoolean(SensorSystemManager::enemyInLOS);
 }
 
 //*****************************************************************************
-void execGetCurrentMusicId (void) 
+void execGetCurrentMusicId (void)
 {
 	ABLi_pushInteger(soundSystem->getCurrentMusicId());
 }
@@ -2849,7 +2849,7 @@ void execSetObjectActive(void) {
 	}
 
 	ABLi_pokeInteger(numActivated);
-}	
+}
 
 //*****************************************************************************
 
@@ -2862,15 +2862,15 @@ void execObjectTypeID (void) {
 	//		Returns: integer (result)
 
 	long objectId1 = ABLi_popInteger();
-	
+
 	long partID = -1;
 	//---------------------------------
 	// Code to make this work goes here
 	GameObjectPtr object1 = getObject(objectId1);
 	if (object1)
 		partID = object1->getObjectType()->whatAmI();
-	ABLi_pushInteger(partID);		
-}	
+	ABLi_pushInteger(partID);
+}
 
 //*****************************************************************************
 
@@ -2884,16 +2884,16 @@ void execGetTerrainObjectPartID (void) {
 
 	long row = ABLi_popInteger();
 	long col = ABLi_popInteger();
-	
+
 	long partID = MIN_TERRAIN_PART_ID + row * MAX_MAP_CELL_WIDTH + col;
 	pushInteger(partID);
-}	
+}
 
 //*****************************************************************************
 
 void execGetWeaponAmmo (void) {
 
-	//Returns number of rounds left based on objectId and weaponId 
+	//Returns number of rounds left based on objectId and weaponId
 	//
 	//		PARAMS:	integer, integer
 	//
@@ -2905,12 +2905,12 @@ void execGetWeaponAmmo (void) {
 	//------------------------------------------------
 	// Code to make this work goes here
 	GameObjectPtr object1 = getObject(objectNum);
-	
+
 	if (object1 && object1->isMover())
 		ABLi_pushInteger(((MoverPtr)object1)->getWeaponShots(weaponNum));
 	else
 		ABLi_pushInteger(-1);
-}	
+}
 
 //*****************************************************************************
 
@@ -2932,7 +2932,7 @@ void execInArea (void) {
 	float* areaCenter = ABLi_popRealPtr();
 	float areaRadius = ABLi_popReal();
 	long minIn = ABLi_peekInteger();
-	
+
 	Stuff::Vector3D center;
 	center.x = areaCenter[0];
 	center.y = areaCenter[1];
@@ -3006,7 +3006,7 @@ void execObjectRemove (void) {
 	//---------------------------------------------------------------------
 
 	long objectId = ABLi_popInteger();
-	
+
 	GameObjectPtr object = getObject(objectId);
 	if (object) {
 		if (object->isMover()) {
@@ -3020,7 +3020,7 @@ void execObjectRemove (void) {
 			else
 				mission->removeMover((MoverPtr)object);
 			ABLi_pushInteger(0);
-			}	
+			}
 		else
 			ABLi_pushInteger(1);
 	}
@@ -3081,9 +3081,9 @@ void execGetSensorsWorking (void) {
 	GameObjectPtr object1 = getObject(objectNum);
 	if (object1 && object1->isMover() && ((MoverPtr)object1)->sensorSystem)
 		result = ((MoverPtr)object1)->sensorSystem->enabled();
-	
+
 	ABLi_pushInteger(result);
-}	
+}
 
 //*****************************************************************************
 
@@ -3104,8 +3104,8 @@ void execGetCurrentBRValue (void) {
 	if (object1)
 		result = object1->getCurCV();
 
-	ABLi_pushInteger(result);		
-}	
+	ABLi_pushInteger(result);
+}
 
 //*****************************************************************************
 
@@ -3125,7 +3125,7 @@ void execSetCurrentBRValue (void) {
 	GameObjectPtr object1 = getObject(objectNum);
 	if (object1)
 		object1->setCurCV(newBRValue);
-}	
+}
 
 //*****************************************************************************
 
@@ -3143,14 +3143,14 @@ void execGetArmorPts (void) {
 	// Code to make this work goes here
 	GameObjectPtr obj = getObject(objectNum);
 	long armorPts = 0;
-	ABLi_pokeInteger(0);	
+	ABLi_pokeInteger(0);
 	if (obj && obj->isMover()) {
 		MoverPtr mover = (MoverPtr)obj;
 		for (long i = 0; i < mover->numArmorLocations; i++)
 			armorPts += mover->armor[i].curArmor;
 		ABLi_pokeInteger(armorPts);
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -3175,7 +3175,7 @@ void execGetMaxArmor (void) {
 			armorPts += mover->armor[i].maxArmor;
 		ABLi_pokeInteger(armorPts);
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -3198,7 +3198,7 @@ void execGetPilotID (void) {
 		if (pilot)
 			ABLi_pokeInteger(pilot->getIndex());
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -3221,7 +3221,7 @@ void execGetPilotWounds (void) {
 		if (pilot)
 			ABLi_pokeReal(pilot->getWounds());
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -3240,14 +3240,14 @@ void execSetPilotWounds (void) {
 	// Code to make this work goes here
 	if (wounds > 6)
 		wounds = 6;
-		
+
 	GameObjectPtr obj = getObject(objectNum);
 	if (obj) {
 		MechWarriorPtr pilot = obj->getPilot();
 		if (pilot)
 			pilot->setWounds(wounds);
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -3281,7 +3281,7 @@ void execGetObjectActive (void) {
 	}
 
 	ABLi_pushInteger(result);
-}	
+}
 
 //***************************************************************************
 
@@ -3307,7 +3307,7 @@ void execGetObjectDamage (void) {
 			dmgResult = floor((obj->getDamage() / dmgLevel) * 100.0);
 		ABLi_pokeInteger((long)dmgResult);
 	}
-}	
+}
 
 //***************************************************************************
 
@@ -3329,7 +3329,7 @@ void execGetObjectDmgPts (void) {
 		long dmgResult = (long)obj->getDamage();
 		ABLi_pokeInteger(dmgResult);
 	}
-}	
+}
 
 //***************************************************************************
 
@@ -3351,7 +3351,7 @@ void execGetObjectMaxDmg (void) {
 		float damage = obj->getDamage();
 		ABLi_pokeInteger((long)damage);
 	}
-}	
+}
 
 //***************************************************************************
 
@@ -3377,13 +3377,13 @@ void execSetObjectDamage (void) {
 		float curDmg = obj->getDamage();
 		float dmgPoints = ((float)dmgPercentage / 100.0) * maxDmg - curDmg;
 		dmgPoints += 1.0f;	//One to be sure.
-		if (dmgPoints > 0.0) 
+		if (dmgPoints > 0.0)
 		{
 			WeaponShotInfo shot;
 			shot.init(NULL, -1, dmgPoints, 0, 0);
-			if (MPlayer) 
+			if (MPlayer)
 			{
-				if (MPlayer->isServer()) 
+				if (MPlayer->isServer())
 				{
 					obj->handleWeaponHit(&shot, true);
 				}
@@ -3392,7 +3392,7 @@ void execSetObjectDamage (void) {
 				obj->handleWeaponHit(&shot);
 		}
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -3411,7 +3411,7 @@ void execGetGlobalValue (void) {
 	ABLi_pokeReal(0.0);
 	if ((variableNum >= 0) && (variableNum < MAX_GLOBAL_MISSION_VALUES))
 		ABLi_pokeReal(globalMissionValues[variableNum]);
-}	
+}
 
 //***************************************************************************
 
@@ -3430,7 +3430,7 @@ void execSetGlobalValue (void) {
 	// Code to make this work goes here
 	if ((variableNum >= 0) && (variableNum < MAX_GLOBAL_MISSION_VALUES))
 		globalMissionValues[variableNum] = value;
-}	
+}
 
 //***************************************************************************
 
@@ -3448,7 +3448,7 @@ void execSetObjectivePos (void) {
 	float Z = ABLi_popReal();
 
 	mission->setObjectivePos(variableNum, X, Y, Z);
-}	
+}
 
 //*****************************************************************************
 
@@ -3474,7 +3474,7 @@ void execSetSensorRange (void) {
 	GameObjectPtr obj = getObject(objectId);
 	if (obj)
 		obj->setSensorRange(range);
-}	
+}
 
 //***************************************************************************
 
@@ -3500,7 +3500,7 @@ void execSetTonnage (void) {
 	GameObjectPtr object = getObject(objectId);
 	if (object)
 		object->setTonnage(tonnage);
-}	
+}
 
 //*****************************************************************************
 
@@ -3526,7 +3526,7 @@ void execSetExplosionDamage (void) {
 	GameObjectPtr obj = getObject(objectId);
 	if (obj)
 		obj->setExplDmg(dmg);
-}	
+}
 
 //*****************************************************************************
 
@@ -3552,7 +3552,7 @@ void execSetExplosionRadius (void) {
 	GameObjectPtr obj = getObject(objectId);
 	if (obj)
 		obj->setExplRad(radius);
-}	
+}
 
 //*****************************************************************************
 
@@ -3564,7 +3564,7 @@ void execSetSalvage (void) {
 	//
 	//		Sets the salvage for a building object.
 	//
-	//		PARAMS:	integer				object id 
+	//		PARAMS:	integer				object id
 	//
 	//				integer				MasterComponentID of salvage
 	//
@@ -3574,9 +3574,9 @@ void execSetSalvage (void) {
 	//
 	//-----------------------------------------------------
 
-	//long objectId = 
+	//long objectId =
 	ABLi_popInteger();
-	//long component = 
+	//long component =
 	ABLi_popInteger();
 	//long itemCount = ABLi_peekInteger();
 
@@ -3601,7 +3601,7 @@ void execSetSalvage (void) {
 		}
 	}
 #endif
-}	
+}
 
 //*****************************************************************************
 
@@ -3613,7 +3613,7 @@ void execSetSalvageStatus (void){
 	//
 	//		Sets a mover on or off the salvage list
 	//
-	//		PARAMS:	integer				object id 
+	//		PARAMS:	integer				object id
 	//
 	//				BOOLEAN				TRUE = on list, FALSE = off
 	//
@@ -3621,7 +3621,7 @@ void execSetSalvageStatus (void){
 	//
 	//-----------------------------------------------------
 
-	//long objectId = 
+	//long objectId =
 	ABLi_popInteger();
 	//bool on = ABLi_peekBoolean();
 
@@ -3635,7 +3635,7 @@ void execSetSalvageStatus (void){
 			ABLi_pokeBoolean(TACMAP->RemoveSalvage(object));
 	}
 #endif
-}	
+}
 
 //*****************************************************************************
 
@@ -3648,7 +3648,7 @@ void execSetAnimation (void) {
 	//		Sets the salvage for a building object.	(Say what?! --jm)
 	//		ALL RIGHT, ALLRIGHT!!!!  Sets the animation State and subState. -fs
 	//
-	//		PARAMS:	integer				object id 
+	//		PARAMS:	integer				object id
 	//
 	//				integer				Animation State
 	//
@@ -3659,9 +3659,9 @@ void execSetAnimation (void) {
 	//-----------------------------------------------------
 
 	long objectId = ABLi_popInteger();
-	//long newState = 
+	//long newState =
 	ABLi_popInteger();
-	//long newSubState = 
+	//long newSubState =
 	ABLi_popInteger();
 
 	GameObjectPtr obj = getObject(objectId);
@@ -3670,7 +3670,7 @@ void execSetAnimation (void) {
 		((BuildingPtr)building)->setAnimState(newState, newSubState);
 #endif
 	}
-}	
+}
 
 //*****************************************************************************
 
@@ -3681,16 +3681,16 @@ void execSetRevealed (void) {
 	//		PARAMS:	integer, real, real[2]
 	//
 	//		Returns: nothing
-	
+
 	long teamID = ABLi_popInteger();
 	float distance = ABLi_popReal();
 	float* coordList = ABLi_popRealPtr();
-	
+
 	Stuff::Vector3D position2;
 	position2.x = coordList[0];
 	position2.y = coordList[1];
 	position2.z = 0.0;
-	
+
 	if (teamID > -1)
 		land->markRadiusSeen(position2,distance,teamID);
 
@@ -3699,7 +3699,7 @@ void execSetRevealed (void) {
 	for (long i = 0; i < Team::numTeams; i++)
 		SensorManager->getTeamSensor(i)->scanBattlefield();
 }
-	
+
 //*****************************************************************************
 
 void execGetSalvage (void) {
@@ -3847,7 +3847,7 @@ void execSetCapturable (void) {
 	//-----------------------------------------------------
 
 	long objectId = ABLi_popInteger();
-	//bool captureable = 
+	//bool captureable =
 	ABLi_popBoolean();
 
 	GameObjectPtr obj = getObject(objectId);
@@ -3867,7 +3867,7 @@ void execIsCaptured (void) {
 	//
 	//	Is Captured function:
 	//
-	//		Returns the number of captured object in the group 
+	//		Returns the number of captured object in the group
 	//		(0 or 1 if called for a separate object)
 	//
 	//		PARAMS:	integer				object ID
@@ -3972,7 +3972,7 @@ void execSetBuildingName (void) {
 	//-----------------------------------------------------
 
 	long objectId = ABLi_popInteger();
-	//long newName = 
+	//long newName =
 	ABLi_popInteger();
 
 	GameObjectPtr obj = getObject(objectId);
@@ -4115,7 +4115,7 @@ void execOrderLoadElementals (void) {
 	//
 	//-----------------------------------------------------
 
-	//long carrierId = 
+	//long carrierId =
 	ABLi_popInteger();
 
 #ifdef USE_ELEMENTALS
@@ -4144,7 +4144,7 @@ void execOrderDeployElementals (void) {
 	//
 	//-----------------------------------------------------
 
-	//long params = 
+	//long params =
 	ABLi_popInteger();
 
 #ifdef USE_ELEMENTALS
@@ -4169,7 +4169,7 @@ void execAddPrisoner (void) {
 	//
 	//-----------------------------------------------------
 
-	//long prisonId = 
+	//long prisonId =
 	ABLi_popInteger();
 	//long prisonerId = ABLi_peekInteger();
 
@@ -4191,7 +4191,7 @@ void execAddPrisoner (void) {
 			if (prison->getObjectClass() == BUILDING)
 			{
 			BuildingPtr bPrison = (BuildingPtr) prison;
-				
+
 				for (i=0; i<MAX_PRISONERS; i++)
 					if (bPrison->prisoners[i] == NULL)
 					{
@@ -4202,7 +4202,7 @@ void execAddPrisoner (void) {
 			if (prison->getObjectClass() == TREEBUILDING)
 			{
 			TreeBuildingPtr tPrison = (TreeBuildingPtr) prison;
-				
+
 				for (i=0; i<MAX_PRISONERS; i++)
 					if (tPrison->prisoners[i] == NULL)
 					{
@@ -4229,7 +4229,7 @@ void execLockGateOpen (void) {
 	//
 	//-----------------------------------------------------
 
-	//long gateID = 
+	//long gateID =
 	ABLi_popInteger();
 
 #ifdef USE_GATES
@@ -4253,7 +4253,7 @@ void execLockGateClosed (void) {
 	//
 	//-----------------------------------------------------
 
-	//long gateID = 
+	//long gateID =
 	ABLi_popInteger();
 
 #ifdef USE_GATES
@@ -4277,7 +4277,7 @@ void execReleaseGateLock (void) {
 	//
 	//-----------------------------------------------------
 
-	//long gateID = 
+	//long gateID =
 	ABLi_popInteger();
 
 #ifdef USE_GATES
@@ -4412,7 +4412,7 @@ void execGetUnitStatus (void) {
 	ABLi_pushReal(0.0);
 	if (obj)
 		ABLi_pokeReal(obj->getStatusRating() * 100.0);
-}	
+}
 
 //*****************************************************************************
 
@@ -4510,7 +4510,7 @@ void execGetFixed (void) {
 	//	   *	9	alignment mismatch (bay and fixee are on different sides.)
 	//	* is checked by -fs on 5/5/97
 	//-----------------------------------------------------
-	
+
 	long fixeeId = ABLi_popInteger();
 	long bayId = ABLi_popInteger();
 	long params = ABLi_popInteger();
@@ -4908,7 +4908,7 @@ void execCoreMoveTo (void) {
 	}
 
 	long result = 0;
-	if (CurWarrior) 
+	if (CurWarrior)
 	{
 		Stuff::Vector3D loc(location[0], location[1], 0.0);
 		result = CurWarrior->coreMoveTo(loc, params);
@@ -5066,7 +5066,7 @@ void execSetPilotState (void) {
 	//-----------------------------------------------------
 
 	unsigned long newStateHandle = ABLi_popInteger();
-	
+
 	long curStateHandle = ABLi_getCurrentState();
 	if (curStateHandle > 0) {
 		ABLi_transState(newStateHandle);
@@ -5113,7 +5113,7 @@ void execGetNextPilotEvent (void) {
 	//-----------------------------------------------------
 
 	long* paramList = ABLi_popIntegerPtr();
-	
+
 	long eventID = CurWarrior->getNextEventHistory(paramList);
 
 	ABLi_pushInteger(eventID);
@@ -5147,9 +5147,9 @@ void execSetTargetPriority (void) {
 	long param1 = ABLi_popInteger();
 	long param2 = ABLi_popInteger();
 	long param3 = ABLi_popInteger();
-	
+
 	long err = CurWarrior->setTargetPriority(index, type, param1, param2, param3);
-	
+
 	ABLi_pushInteger(err);
 }
 
@@ -5171,7 +5171,7 @@ void execSetDebugWindow (void) {
 
 	long windowIndex = ABLi_popInteger();
 	long objectID = ABLi_popInteger();
-	
+
 	GameObjectPtr obj = getObject(objectID);
 	if (obj)
 		DEBUGWINS_setGameObject(windowIndex, obj);
@@ -5183,7 +5183,7 @@ void execSetDebugWindow (void) {
 
 //*****************************************************************************
 
-void execSetMovieMode (void) 
+void execSetMovieMode (void)
 {
 	//-----------------------------------------------------
 	//
@@ -5203,7 +5203,7 @@ void execSetMovieMode (void)
 
 //*****************************************************************************
 
-void execEndMovieMode (void) 
+void execEndMovieMode (void)
 {
 	//-----------------------------------------------------
 	//
@@ -5223,7 +5223,7 @@ void execEndMovieMode (void)
 
 //*****************************************************************************
 
-void execGetGeneralAlarm (void) 
+void execGetGeneralAlarm (void)
 {
 	//-----------------------------------------------------
 	//
@@ -5242,7 +5242,7 @@ void execGetGeneralAlarm (void)
 
 //*****************************************************************************
 
-void execSetGeneralAlarm (void) 
+void execSetGeneralAlarm (void)
 {
 	//-----------------------------------------------------
 	//
@@ -5261,7 +5261,7 @@ void execSetGeneralAlarm (void)
 
 //*****************************************************************************
 
-void execFadeToColor (void) 
+void execFadeToColor (void)
 {
 	//-----------------------------------------------------
 	//
@@ -5277,7 +5277,7 @@ void execFadeToColor (void)
 
 	DWORD fadeColor = ABLi_popInteger();
 	DWORD fadeTime = ABLi_popReal();
-	
+
 	if (eye)
 		eye->fadeToColor(fadeColor,fadeTime);
 }
@@ -5300,7 +5300,7 @@ void execForceMovieEnd (void)
 	DWORD result = 0;
 	if (eye && eye->forceMovieEnd)
 		result = 1;
-		
+
 	ABLi_pushInteger(result);
 }
 
@@ -5310,7 +5310,7 @@ void execGetCameraPosition (void) {
 
 	//-----------------------------------------------------
 	//
-	//	GetCameraPosition 
+	//	GetCameraPosition
 	//
 	//		Sets the value passed in to the camera position.
 	//
@@ -5325,7 +5325,7 @@ void execGetCameraPosition (void) {
 	Stuff::Vector3D result(0.0,0.0,0.0);
 	if (eye)
 		result = eye->getPosition();
-	
+
 	camPos[0] = result.x;
 	camPos[1] = result.y;
 	camPos[2] = result.z;
@@ -5337,7 +5337,7 @@ void execSetCameraPosition(void) {
 
 	//-----------------------------------------------------
 	//
-	//	SetCameraPosition 
+	//	SetCameraPosition
 	//
 	//		Sets the camera position to the value passed in.
 	//
@@ -5353,7 +5353,7 @@ void execSetCameraPosition(void) {
 	result.x = camPos[0];
 	result.y = camPos[1];
 	result.z = camPos[2];
-	
+
  	if (eye)
 		eye->setPosition(result,false);
 }
@@ -5364,7 +5364,7 @@ void execSetCameraGoalPosition (void) {
 
 	//-----------------------------------------------------
 	//
-	//	SetCameraGoalPosition 
+	//	SetCameraGoalPosition
 	//
 	//		Sets the camera position to the value passed in.
 	//
@@ -5382,7 +5382,7 @@ void execSetCameraGoalPosition (void) {
 	result.x = camPos[0];
 	result.y = camPos[1];
 	result.z = camPos[2];
-	
+
  	if (eye) {
 		eye->setGoalPosition(result);
 		eye->setGoalPosTime(time);
@@ -5395,7 +5395,7 @@ void execGetCameraGoalPosition (void) {
 
 	//-----------------------------------------------------
 	//
-	//	GetCameraGoalPosition 
+	//	GetCameraGoalPosition
 	//
 	//		Gets the camera position to the value passed in.
 	//
@@ -5408,10 +5408,10 @@ void execGetCameraGoalPosition (void) {
 	float* camPos = ABLi_popRealPtr();
 
 	Stuff::Vector3D result(0.0,0.0,0.0);
-   
+
  	if (eye)
 		result = eye->getGoalPosition();
-   
+
 	camPos[0] = result.x;
 	camPos[1] = result.y;
 	camPos[2] = result.z;
@@ -5423,7 +5423,7 @@ void execGetCameraRotation (void) {
 
 	//-----------------------------------------------------
 	//
-	//	GetCameraRotation 
+	//	GetCameraRotation
 	//
 	//		Sets the value passed in to the camera Rotation.
 	//
@@ -5438,7 +5438,7 @@ void execGetCameraRotation (void) {
 	Stuff::Vector3D result(0.0,0.0,0.0);
 	if (eye)
 		result = eye->getRotation();
-	
+
 	camRot[0] = result.x;
 	camRot[1] = result.y;
 	camRot[2] = result.z;
@@ -5450,7 +5450,7 @@ void execSetCameraRotation (void) {
 
 	//-----------------------------------------------------
 	//
-	//	SetCameraRotation 
+	//	SetCameraRotation
 	//
 	//		Sets the value passed in to be the camera Rotation.
 	//
@@ -5463,11 +5463,11 @@ void execSetCameraRotation (void) {
 	float* camRot = ABLi_popRealPtr();
 
 	Stuff::Vector3D result(0.0,0.0,0.0);
-	
+
 	result.x = camRot[0];
 	result.y = camRot[1];
 	result.z = camRot[2];
- 	
+
 	if (eye)
 		eye->setRotation(result);
 }
@@ -5478,7 +5478,7 @@ void execSetCameraGoalRotation (void) {
 
 	//-----------------------------------------------------
 	//
-	//	SetCameraGoalRotation 
+	//	SetCameraGoalRotation
 	//
 	//		Sets the camera Rotation to the value passed in.
 	//
@@ -5496,7 +5496,7 @@ void execSetCameraGoalRotation (void) {
 	result.x = camRot[0];
 	result.y = camRot[1];
 	result.z = camRot[2];
-	
+
  	if (eye) {
 		eye->setGoalRotation(result);
 		eye->setGoalRotTime(time);
@@ -5509,7 +5509,7 @@ void execGetCameraGoalRotation (void) {
 
 	//-----------------------------------------------------
 	//
-	//	GetCameraGoalRotation 
+	//	GetCameraGoalRotation
 	//
 	//		Gets the camera Rotation into the value passed in.
 	//
@@ -5522,10 +5522,10 @@ void execGetCameraGoalRotation (void) {
 	float* camRot = ABLi_popRealPtr();
 
 	Stuff::Vector3D result(0.0,0.0,0.0);
-   
+
  	if (eye)
 		result = eye->getGoalRotation();
-   
+
 	camRot[0] = result.x;
 	camRot[1] = result.y;
 	camRot[2] = result.z;
@@ -5548,11 +5548,11 @@ void execGetCameraZoom (void) {
 	//-----------------------------------------------------
 
 	float result = 0.0;
-   
+
  	if (eye)
 		result = eye->getFieldOfView();
-   
-	ABLi_pushReal(result);	
+
+	ABLi_pushReal(result);
 }
 
 //*****************************************************************************
@@ -5598,7 +5598,7 @@ void execGetCameraGoalZoom (void) {
  	if (eye)
 		result = eye->getFieldOfViewGoal();
 
-	ABLi_pushReal(result);	
+	ABLi_pushReal(result);
 }
 
 //*****************************************************************************
@@ -5630,7 +5630,7 @@ void execSetCameraVelocity (void) {
 
 	//-----------------------------------------------------
 	//
-	//	SetCameraVelocity 
+	//	SetCameraVelocity
 	//
 	//		Sets the camera velocity to the value passed in.
 	//
@@ -5646,7 +5646,7 @@ void execSetCameraVelocity (void) {
 	result.x = camVel[0];
 	result.y = camVel[1];
 	result.z = camVel[2];
-	
+
  	if (eye)
 		eye->setVelocity(result);
 }
@@ -5657,7 +5657,7 @@ void execGetCameraVelocity (void) {
 
 	//-----------------------------------------------------
 	//
-	//	GetCameraVelocity 
+	//	GetCameraVelocity
 	//
 	//		gets the camera velocity into the value passed in.
 	//
@@ -5670,10 +5670,10 @@ void execGetCameraVelocity (void) {
 	float* camVel = ABLi_popRealPtr();
 
 	Stuff::Vector3D result(0.0,0.0,0.0);
-   
+
  	if (eye)
 		result = eye->getVelocity();
-   
+
 	camVel[0] = result.x;
 	camVel[1] = result.y;
 	camVel[2] = result.z;
@@ -5685,7 +5685,7 @@ void execSetCameraGoalVelocity (void) {
 
 	//-----------------------------------------------------
 	//
-	//	SetCameraGoalVelocity 
+	//	SetCameraGoalVelocity
 	//
 	//		Sets the camera Velocity Goal to the value passed in.
 	//
@@ -5703,7 +5703,7 @@ void execSetCameraGoalVelocity (void) {
 	result.x = camVel[0];
 	result.y = camVel[1];
 	result.z = camVel[2];
-	
+
  	if (eye) {
 		eye->setGoalVelocity(result);
 		eye->setGoalVelTime(time);
@@ -5716,7 +5716,7 @@ void execGetCameraGoalVelocity (void) {
 
 	//-----------------------------------------------------
 	//
-	//	GetCameraGoalVelocity 
+	//	GetCameraGoalVelocity
 	//
 	//		Sets the camera Velocity Goal into the value passed in.
 	//
@@ -5730,10 +5730,10 @@ void execGetCameraGoalVelocity (void) {
 	float* camVel = ABLi_popRealPtr();
 
 	Stuff::Vector3D result(0.0,0.0,0.0);
-   
+
  	if (eye)
 		result = eye->getGoalVelocity();
-   
+
 	camVel[0] = result.x;
 	camVel[1] = result.y;
 	camVel[2] = result.z;
@@ -5745,7 +5745,7 @@ void execSetCameraLookObject (void) {
 
 	//-----------------------------------------------------
 	//
-	//	SetCameraLookObject 
+	//	SetCameraLookObject
 	//
 	//		Sets the camera Look Object
 	//
@@ -5801,7 +5801,7 @@ void execGetCameraFrameLength (void) {
 	//-----------------------------------------------------
 
 
-	ABLi_pushReal(frameLength);	
+	ABLi_pushReal(frameLength);
 }
 
 //*****************************************************************************
@@ -5811,15 +5811,15 @@ void execAnimationCallout (void)
 	//
 	// Returns a bool.  True if the animation played, false if an animation is running.
 	//
-	
+
 	long buttonId = ABLi_popInteger();
 	bool isButton = ABLi_popBoolean();
 	bool isPressed = ABLi_popBoolean();
 	float timeToScroll = ABLi_popReal();
 	long numFlashes = ABLi_popInteger();
-	
+
 	bool result = mission->missionInterface->startAnimation(buttonId,isButton,isPressed,timeToScroll,numFlashes);
-	
+
 	ABLi_pushBoolean(result);
 }
 
@@ -5832,46 +5832,46 @@ void execTutorialText (void)
 	//
 	// returns nothing.
    	//
-	
+
 	long textId = ABLi_popInteger();
-	
+
 	cLoadString(textId,tutorialMessages[currentMessage],1023);
-	
+
 	mission->missionInterface->setTutorialText(tutorialMessages[currentMessage]);
-	
+
 	currentMessage++;
 	if (currentMessage >= MAX_CHAT_COUNT)
 		currentMessage = 0;
 }
 
 //*****************************************************************************
-void execGUIIsAOEStyle (void) 
+void execGUIIsAOEStyle (void)
 {
 	//Takes NOTHING
 	//
 	// Returns state of GUI.
-	
+
 	ABLi_pushBoolean(mission->missionInterface->isAOEStyle());
 }
 
 //*****************************************************************************
-void execSetInvulnerable (void) 
+void execSetInvulnerable (void)
 {
 	//Takes a bool and sets local team invulnerability to the flag passed in.
 	//
 	// Returns NOTHING.
-	
+
 	bool invulnerableFlag = ABLi_popBoolean();
 	invulnerableON = invulnerableFlag;
 }
 
 //*****************************************************************************
-void execFreezeGUI (void) 
+void execFreezeGUI (void)
 {
 	//Takes a bool and turns mouse input on or off based on flag passed in.
 	//
 	// Returns NOTHING.
-	
+
 	bool guiFlag = ABLi_popBoolean();
 	mission->missionInterface->freezeGUI(guiFlag);
 }
@@ -5907,12 +5907,12 @@ void execLogisticsAnimationCallout (void)
 	//
 	// Returns a bool.  True if the animation played, false if an animation is running.
 	//
-	
+
 	long buttonId = ABLi_popInteger();
 	bool isButton = ABLi_popBoolean();
 	float timeToScroll = ABLi_popReal();
 	long numFlashes = ABLi_popInteger();
-	
+
 	if (logistics && logistics->getMissionBegin())
 	{
 		bool result = logistics->getMissionBegin()->startAnimation(buttonId,isButton,timeToScroll,numFlashes);
@@ -6024,7 +6024,7 @@ void execRequestHelp (void) {
 			calcAttackPlan(numFriendlies, (GameObjectPtr*)friendlies, numEnemies, (GameObjectPtr*)enemies);
 		}
 	}
-	
+
 	ABLi_pushReal(0.0);
 }
 
@@ -6050,7 +6050,7 @@ void execRequestTarget (void) {
 		GameObjectPtr bestTarget = NULL;
 		if (numEnemies > 0)
 			bestTarget = calcBestTarget(CurWarrior->getVehicle(), numFriendlies, friendlies, numEnemies, enemies);
-	
+
 		if (bestTarget)
 			ABLi_pushInteger(bestTarget->getPartId());
 		else
@@ -6124,7 +6124,7 @@ void execMCPrint (void) {
 		case ABL_STACKITEM_BOOLEAN_PTR:
 			sprintf(s, "bool*=%d,%d,%d", value.data.booleanPtr[0], value.data.booleanPtr[1], value.data.booleanPtr[2]);
 			DEBUGWINS_print(s, 0);
-			break;	
+			break;
 	}
 }
 
@@ -6838,12 +6838,12 @@ void initABL (void) {
 	ABLi_addFunction("getnextpilotevent", false, "I", "i", execGetNextPilotEvent);
 	ABLi_addFunction("settargetpriority", false, "iiiii", "i", execSetTargetPriority);
 	ABLi_addFunction("setdebugwindow", false, "ii", "i", execSetDebugWindow);
-	
+
 	ABLi_addFunction("setmoviemode", false, NULL, NULL, execSetMovieMode);
 	ABLi_addFunction("endmoviemode", false, NULL, NULL, execEndMovieMode);
 	ABLi_addFunction("fadetocolor", false, "ir", NULL, execFadeToColor);
 	ABLi_addFunction("forcemovieend", false, NULL, "i", execForceMovieEnd);
-	
+
 	ABLi_addFunction("getcameraposition", false, "R", NULL, execGetCameraPosition);
 	ABLi_addFunction("setcameraposition", false, "R", NULL, execSetCameraPosition);
 	ABLi_addFunction("setcameragoalposition", false, "Rr", NULL, execSetCameraGoalPosition);
@@ -6863,7 +6863,7 @@ void initABL (void) {
 	ABLi_addFunction("setcameralookobject", false, "i", NULL, execSetCameraLookObject);
 	ABLi_addFunction("getcameralookobject", false, NULL, "i", execGetCameraLookObject);
 	ABLi_addFunction("getcameraframelength", false, NULL, "r", execGetCameraFrameLength);
-	
+
 	ABLi_addFunction("getmissionwon", false, NULL, "b", execGetMissionWon);
 	ABLi_addFunction("getmissionlost", false, NULL, "b", execGetMissionLost);
 	ABLi_addFunction("getobjectivesuccess", false, NULL, "b", execGetObjectiveSuccess);
@@ -6874,7 +6874,7 @@ void initABL (void) {
 	ABLi_addFunction("getsensorsactive", false, NULL, "b", execGetSensorsActive);
 	ABLi_addFunction("getcurrentmusicid", false, NULL, "i", execGetCurrentMusicId);
 	ABLi_addFunction("getmissiontune", false, NULL, "i", execGetMissionTuneId);
-	
+
 	ABLi_addFunction("requesthelp", false, "iRrRri", "r", execRequestHelp);
 	ABLi_addFunction("requesttarget", false, "Rr", "i", execRequestTarget);
 	ABLi_addFunction("requestshelter", false, "*", "i", execRequestShelter);
@@ -6894,7 +6894,7 @@ void initABL (void) {
 	ABLi_addFunction("setwillhelp", false, "b", "b", execSetWillHelp);
 	ABLi_addFunction("getlastscan", false, NULL, "i", execGetLastScan);
 	ABLi_addFunction("getmapinfo", false, "I", NULL, execGetMapInfo);
-	
+
 	ABLi_addFunction("getgeneralalarm", false, NULL, "i", execGetGeneralAlarm);
 	ABLi_addFunction("setgeneralalarm", false, "i", NULL, execSetGeneralAlarm);
 
@@ -6917,7 +6917,7 @@ void initABL (void) {
 	ABLi_addFunction("incallout", false, NULL, "b", execInCallout);
 	ABLi_addFunction("setinvulnerable", false, "b", NULL, execSetInvulnerable);
 	ABLi_addFunction("freezegui", false, "b", NULL, execFreezeGUI);
-	
+
 	//static long Godzilla = 120;
 	//static long GodzillaList[5] = {10, 20, 30, 40, 50};
 	//ABLi_registerInteger("godzilla", &Godzilla);

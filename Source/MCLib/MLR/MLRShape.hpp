@@ -6,19 +6,19 @@
 #define MLR_MLRSHAPE_HPP
 
 #if !defined(MLR_MLR_HPP)
-	#include <MLR\MLR.hpp>
+	#include "MLR.hpp"
 #endif
 
 #if !defined(MLR_MLRPRIMITIVE_HPP)
-	#include <MLR\MLRPrimitiveBase.hpp>
+	#include "MLRPrimitiveBase.hpp"
 #endif
 
 #if !defined(MLR_MLRLIGHT_HPP)
-	#include <MLR\MLRLight.hpp>
+	#include "MLRLight.hpp"
 #endif
 
 #if !defined(MLR_GOSVERTEXPOOL_HPP)
-	#include <MLR\GOSVertexPool.hpp>
+	#include "GOSVertexPool.hpp"
 #endif
 
 namespace MidLevelRenderer {
@@ -94,7 +94,7 @@ namespace MidLevelRenderer {
 		int
 			GetNumDrawnTriangles();
 
-	// is to call at begin of every frame 
+	// is to call at begin of every frame
 		void	InitializePrimitives(unsigned char, const MLRState& master, int=0);
 
 	// clips the geometry and fills the data into the vertex pool
@@ -158,7 +158,7 @@ namespace MidLevelRenderer {
 		virtual int
 			GetSize()
 		{
-			Check_Object(this); 
+			Check_Object(this);
 			int ret = allPrimitives.GetSize();
 
 			return ret;

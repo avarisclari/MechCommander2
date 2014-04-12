@@ -10,7 +10,7 @@
 #define ITEM_OUT_OF_RANGE		0xEEEE0002
 
 #ifndef ASCROLL_H
-#include "aScroll.h"
+#include "ASCROLL.H"
 #endif
 
 #ifndef AEDIT_H
@@ -53,10 +53,10 @@ public:
 	virtual bool isChecked() { return false; }
 	virtual void setCheck( bool ){}
 
-	
+
 
 protected:
-	
+
 	State		state;
 };
 
@@ -105,8 +105,8 @@ public:
 	aAnimTextListItem( const aFont& newFont ) : aTextListItem( newFont ){}
 	aAnimTextListItem( long fontResID ) : aTextListItem( fontResID ){}
 
-	aAnimTextListItem( const aAnimTextListItem& src ); 
-	aAnimTextListItem& operator=( const aAnimTextListItem& src ); 
+	aAnimTextListItem( const aAnimTextListItem& src );
+	aAnimTextListItem& operator=( const aAnimTextListItem& src );
 
 	void init( FitIniFile& file, const char* blockName = "Text0" );
 	virtual void render();
@@ -235,10 +235,10 @@ public:
 	aListBox &ListBox() { return listBox; }
 	bool IsExpanded() { return listBox.isShowing(); }
 	void IsExpanded(bool isExpanded);
-	void disable( bool bDisable ){ 
+	void disable( bool bDisable ){
 		if ( bDisable )
 			IsExpanded( 0 );
-		expandButton.showGUIWindow( !bDisable ); 
+		expandButton.showGUIWindow( !bDisable );
 		rects[0].showGUIWindow( !bDisable );  rects[1].showGUIWindow( !bDisable );
 	}
 

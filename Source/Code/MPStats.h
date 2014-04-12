@@ -8,11 +8,11 @@ MPStats.h			: Interface for the MPStats component.
 \*************************************************************************************************/
 
 #ifndef LOGISTICSSCREEN_H
-#include "LogisticsScreen.h"
+#include "../GUI/LogisticsScreen.h"
 #endif
 
 #ifndef MULTPLYR_H
-#include "Multplyr.h"
+#include "multplyr.h"
 #endif
 
 //*************************************************************************************************
@@ -38,7 +38,7 @@ class MPStatsEntry : public LogisticsScreen
 		long	getLossesX();
 		long	overlayColor;
 
-		
+
 
 };
 

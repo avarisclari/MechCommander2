@@ -18,7 +18,7 @@
 #endif
 
 #ifndef DINIFILE_H
-#include "dinifile.h"
+#include "Dinifile.h"
 #endif
 
 #ifndef FILE_H
@@ -76,48 +76,48 @@ class FitIniFile : public File
 	protected:
 		long afterOpen (void);
 		void atClose (void);
-		
+
 		long findNextBlockStart (char *line = NULL, unsigned long lineLen = 0);
 		long countBlocks (void);
-		
+
 		long getNextWord (char *&line, char *buffer, unsigned long bufLen);
 
 		float textToFloat (const char *num);
 		double textToDouble (const char *num);
-		
+
 		long textToLong (const char *num);
 		unsigned long textToULong (const char *num);
-		
+
 		short textToShort (const char *num);
 		unsigned short textToUShort (const char *num);
-		
+
 		char textToChar (const char *num);
 		unsigned char textToUChar (const char *num);
 
 		bool booleanToLong (const char *num);
 
 		float mathToFloat (const char *num);
-		
+
 		long mathToLong (const char *num);
 		unsigned long mathToULong (const char *num);
-		
+
 		short mathToShort (const char *num);
 		unsigned short mathToUShort (const char *num);
-		
+
 		char mathToChar (const char *num);
 		unsigned char mathToUChar (const char *num);
 
 		long floatToText (char *result, float num, unsigned long bufLen);
-		
+
 		long longToTextDec (char *result, long num, unsigned long bufLen);
 		long longToTextHex (char *result, long num, unsigned long bufLen);
 
 		long shortToTextDec (char *result, short num, unsigned long bufLen);
 		long shortToTextHex (char *result, short num, unsigned long bufLen);
 
-		long byteToTextDec (char *result, byte num, unsigned long bufLen);	
+		long byteToTextDec (char *result, byte num, unsigned long bufLen);
 		long byteToTextHex (char *result, byte num, unsigned long bufLen);
-		
+
 		long copyString (char* dest, char *src, unsigned long bufLen);
 
 	public:
@@ -126,7 +126,7 @@ class FitIniFile : public File
 
 		virtual long open (const char* fName, FileMode _mode = READ, long numChildren = 50);
 		virtual long open (FilePtr _parent, unsigned long fileSize, long numChildren = 50);
-		
+
 		virtual long create (char* fName);
 		virtual long createWithCase( char* fName );
 
@@ -142,57 +142,57 @@ class FitIniFile : public File
 
 		long readIdFloat (const char *varName, float &value);
 		long readIdDouble (const char *varName, double &value);
-		
+
 		long readIdBoolean (const char *varName, bool &value);
 		long readIdLong (const char *varName, long &value);
 		long readIdULong (const char *varName, unsigned long &value);
-		
+
 		long readIdShort (const char *varName, short &value);
 		long readIdUShort (const char *varName, unsigned short &value);
-		
+
 		long readIdChar (const char *varName, char &value);
 		long readIdUChar (const char *varName, unsigned char &value);
-		
+
 		long readIdString (const char *varName, char *result, unsigned long bufferSize);
 
 		long getIdStringLength (const char *varName);
-		
+
 		long readIdFloatArray (const char *varName, float *result, unsigned long numElements);
-		
+
 		long readIdLongArray (const char *varName, long *result, unsigned long numElements);
 		long readIdULongArray (const char *varName, unsigned long *result, unsigned long numElements);
-		
+
 		long readIdShortArray (const char *varName, short *result, unsigned long numElements);
 		long readIdUShortArray (const char *varName, unsigned short *result, unsigned long numElements);
-		
+
 		long readIdCharArray (const char *varName, char *result, unsigned long numElements);
 		long readIdUCharArray (const char *varName, unsigned char *result, unsigned long numElements);
-		
+
 		unsigned long getIdFloatArrayElements (const char *varName);
-		
+
 		unsigned long getIdLongArrayElements (const char *varName);
 		unsigned long getIdULongArrayElements (const char *varName);
-											 
+
 		unsigned long getIdShortArrayElements (const char *varName);
 		unsigned long getIdUShortArrayElements (const char *varName);
-		
+
 		unsigned long getIdCharArrayElements (const char *varName);
 		unsigned long getIdUCharArrayElements (const char *varName);
-		
+
 		long writeBlock (const char *blockId);
 
 		long writeIdFloat (const char *varName, float value);
-		
+
 		long writeIdBoolean (const char *varName, bool value);
 		long writeIdLong (const char *varName, long value);
 		long writeIdULong (const char *varName, unsigned long value);
-		
+
 		long writeIdShort (const char *varName, short value);
 		long writeIdUShort (const char *varName, unsigned short value);
-		
+
 		long writeIdChar (const char *varName, char value);
 		long writeIdUChar (const char *varName, unsigned char value);
-		
+
 		long writeIdString (const char *varName, const char *result);
 
 		long writeIdFloatArray (const char *varName, float *array, unsigned long numElements);

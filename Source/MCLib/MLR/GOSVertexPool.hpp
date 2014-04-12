@@ -5,9 +5,9 @@
 #pragma once
 #define MLR_GOSVERTEXPOOL_HPP
 
-#include <MLR\MLR.hpp>
-#include <MLR\GOSVertex.hpp>
-#include <MLR\GOSVertex2UV.hpp>
+#include "MLR.hpp"
+#include "GOSVertex.hpp"
+#include "GOSVertex2UV.hpp"
 
 extern bool MLRVertexLimitReached;
 
@@ -21,28 +21,28 @@ namespace MidLevelRenderer {
 	{
 		public:
 			GOSVertexPool();
-			
+
 			void Reset();
 
 //
 //------------------------------------------------------------------------------------------------------------
 //
-			int GetLength () 
-				{ 
-					Check_Object(this); 
-					return vertices.GetLength()-1; 
+			int GetLength ()
+				{
+					Check_Object(this);
+					return vertices.GetLength()-1;
 				}
 
-			unsigned GetLast () 
-				{ 
-					Check_Object(this); 
-					return lastUsed; 
+			unsigned GetLast ()
+				{
+					Check_Object(this);
+					return lastUsed;
 				}
 
 			int Increase (int add=1)
-				{ 
-					Check_Object(this); 
-					lastUsed += add; 
+				{
+					Check_Object(this);
+					lastUsed += add;
 					Verify(lastUsed<Limits::Max_Number_Vertices_Per_Frame);
 					MLRVertexLimitReached = (lastUsed > (Limits::Max_Number_Vertices_Per_Frame - 2000));
 					return lastUsed;
@@ -50,84 +50,84 @@ namespace MidLevelRenderer {
 
 			GOSVertex*
 				GetActualVertexPool(bool db=false)
-					{ 
-						Check_Object(this); 
+					{
+						Check_Object(this);
 
 						if(db)
 						{
-							return verticesDB.GetData(); 
+							return verticesDB.GetData();
 						}
 						else
 						{
-							return (GOSVertex*)((char*)(vertices.GetData() + lastUsed)+vertexAlignment); 
+							return (GOSVertex*)((char*)(vertices.GetData() + lastUsed)+vertexAlignment);
 						}
 					}
 
 //
 //------------------------------------------------------------------------------------------------------------
 //
-			int GetLength2UV () 
-				{ 
-					Check_Object(this); 
-					return vertices2uv.GetLength()-1; 
+			int GetLength2UV ()
+				{
+					Check_Object(this);
+					return vertices2uv.GetLength()-1;
 				}
 
-			unsigned GetLast2UV () 
-				{ 
-					Check_Object(this); 
-					return lastUsed2uv; 
+			unsigned GetLast2UV ()
+				{
+					Check_Object(this);
+					return lastUsed2uv;
 				}
 
 			int Increase2UV (int add=1)
-				{ 
-					Check_Object(this); 
-					lastUsed2uv += add; 
+				{
+					Check_Object(this);
+					lastUsed2uv += add;
 					Verify(lastUsed2uv<Limits::Max_Number_Vertices_Per_Frame);
 					return lastUsed2uv;
 				}
 
 			GOSVertex2UV*
 				GetActualVertexPool2UV(bool db=false)
-					{ 
-						Check_Object(this); 
+					{
+						Check_Object(this);
 						if(db)
 						{
-							return vertices2uvDB.GetData(); 
+							return vertices2uvDB.GetData();
 						}
 						else
 						{
-							return (GOSVertex2UV*)((char*)(vertices2uv.GetData() + lastUsed2uv)+vertexAlignment); 
+							return (GOSVertex2UV*)((char*)(vertices2uv.GetData() + lastUsed2uv)+vertexAlignment);
 						}
 					}
 
 //
 //------------------------------------------------------------------------------------------------------------
 //
-			unsigned GetLastIndex () 
-				{ 
-					Check_Object(this); 
-					return lastUsedIndex; 
+			unsigned GetLastIndex ()
+				{
+					Check_Object(this);
+					return lastUsedIndex;
 				}
 
 			int IncreaseIndex (int add=1)
-				{ 
-					Check_Object(this); 
-					lastUsedIndex += add; 
+				{
+					Check_Object(this);
+					lastUsedIndex += add;
 					Verify(lastUsedIndex<Limits::Max_Number_Vertices_Per_Frame);
 					return lastUsedIndex;
 				}
 
 			unsigned short*
 				GetActualIndexPool(bool db=false)
-					{ 
-						Check_Object(this); 
+					{
+						Check_Object(this);
 						if(db)
 						{
-							return indicesDB.GetData(); 
+							return indicesDB.GetData();
 						}
 						else
 						{
-							return (unsigned short*)((char*)(indices.GetData() + lastUsedIndex)+indicesAlignment); 
+							return (unsigned short*)((char*)(indices.GetData() + lastUsedIndex)+indicesAlignment);
 						}
 					}
 
@@ -165,13 +165,13 @@ namespace MidLevelRenderer {
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	inline
-		GOSVertexPool::GOSVertexPool() 
-	{ 
+		GOSVertexPool::GOSVertexPool()
+	{
 		Verify(gos_GetCurrentHeap() == Heap);
 		lastUsed = 0;
 		lastUsed2uv = 0;
 		lastUsedIndex = 0;
-		
+
 		gos_PushCurrentHeap(StaticHeap);
 		vertices.SetLength(Limits::Max_Number_Vertices_Per_Frame+4*Limits::Max_Number_ScreenQuads_Per_Frame+1);
 		vertices2uv.SetLength(Limits::Max_Number_Vertices_Per_Frame+4*Limits::Max_Number_ScreenQuads_Per_Frame+1);

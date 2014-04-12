@@ -9,7 +9,7 @@
 
 #include "gosFX.hpp"
 #include "SpinningCloud.hpp"
-#include <MLR\MLR.hpp>
+#include "../MLR/MLR.hpp"
 
 namespace MidLevelRenderer {class MLRShape;}
 
@@ -57,10 +57,10 @@ namespace gosFX
 		void
 			LoadGeometry(Stuff::MemoryStream *stream);
 
-		void 
+		void
 			BuildDefaults();
-	
-		virtual bool 
+
+		virtual bool
 			IsDataValid(bool fix_data=false);
 
 	//-------------------------------------------------------------------------

@@ -11,10 +11,10 @@ class aObject;
 class aTitleWindow;
 class InterfaceObject;
 
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
-#include "EString.h"
-#include "aFont.h"
+#include "../MCLib/EString.h"
+#include "AFONT.H"
 
 #define MAX_CHILDREN 64
 
@@ -67,7 +67,7 @@ typedef enum
 #define FAILED_TO_ALLOCATE_PORT		-9
 #define	USER_INIT_FAILED			-10
 
-#include "utilities.h"
+#include "../MCLib/Utilities.h"
 
 extern long helpTextID;
 extern long helpTextHeaderID;
@@ -77,7 +77,7 @@ extern long helpTextHeaderID;
 class aBaseObject
 {
 public:
-	
+
 	virtual void render(){}
 	virtual void update(){}
 };
@@ -90,7 +90,7 @@ public:
 	virtual ~aObject();
 	aObject( const aObject& src );
 	aObject& operator=( const aObject& src );
-	
+
 	virtual long init(long xPos, long yPos, long w, long h);
 	virtual void destroy();
 
@@ -98,10 +98,10 @@ public:
 	float		height() const;
 	float		x() const;
 	float		y() const ;
-	
+
 	virtual void	moveTo(long xPos, long yPos);
 	virtual void	moveToNoRecurse(long xPos, long yPos);
-	
+
 	void		resize(long w, long h);
 	void		addChild(aObject* c);
 	void		removeChild(aObject* c);
@@ -113,12 +113,12 @@ public:
 	void		setColor(unsigned long color, bool bRecurse = 0); // color the vertices
 
 	void		init( FitIniFile* file, const char* block, DWORD neverFlush = 0 ); // for statics
-	
+
 	aObject*			getParent()
 	{
 		return pParent;			// No Need for this to be virtual!!!!!  Can now check if object has been deleted without crashing!
 	}
-	
+
 	long				numberOfChildren() const;
 	long				globalX() const;
 	long				globalY() const;
@@ -126,23 +126,23 @@ public:
 	long				globalTop() const { return globalY(); }
 	long				globalRight() const;
 	long				globalBottom() const;
-	
+
 	virtual aObject*	findObject(long xPos, long yPos);
 	virtual int			handleMessage( unsigned long, unsigned long ){ return 0; }
 	virtual bool		pointInside(long xPos, long yPos) const;
 	bool				rectIntersect(long top, long left, long bottom, long right) const;
 	bool				rectIntersect(const GUI_RECT& testRect) const;
-	
+
 	aObject*	children();
 	aObject*	child(long w);
 
-	
+
 	virtual void		render();
 	virtual void		render(long x, long y);
 	virtual void		update();
 
 	long getColor(){ return location[0].argb; }
-		
+
 
 	void		showGUIWindow(bool show) {showWindow = show;}
 	bool		isShowing(void) const {return showWindow;}
@@ -159,7 +159,7 @@ public:
 
 	void			setHelpID( int newID ) { helpID = newID; }
 	int				getHelpID() const { return helpID; }
-	
+
 
 	float		left()
 	{
@@ -173,14 +173,14 @@ public:
 	{
 		return x() + width();
 	}
-	
+
 	float		bottom()
 	{
 		return y() + height();
 	}
 
 
-	
+
 protected:
 
 	gos_VERTEX		location[4];
@@ -189,11 +189,11 @@ protected:
 	float		fileWidth;
 	bool		showWindow;
 
-	
+
 	aObject*	pChildren[MAX_CHILDREN];
 	long		pNumberOfChildren;
 	aObject*	pParent;
-	
+
 	int			ID;
 
 	void copyData( const aObject& src );
@@ -206,7 +206,7 @@ protected:
 
 
 //class aRect : public aBaseObject
-/* It may seem wasteful to derive from aObject instead of aBaseObject, but an aRect 
+/* It may seem wasteful to derive from aObject instead of aBaseObject, but an aRect
 needs to able to be a child of an aObject. Perhaps bounding box and parent/child support
 should be part of aBaseObject. */
 class aRect : public aObject
@@ -240,7 +240,7 @@ public:
 
 	virtual void render();
 	virtual void		render(long x, long y);
-	
+
 
 	void	init( FitIniFile* file, const char* header );
 

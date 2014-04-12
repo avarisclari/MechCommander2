@@ -20,8 +20,8 @@
 #include "file.h"
 #endif
 
-#include <stuff\stuff.hpp>
-#include <gameos.hpp>
+#include "Stuff/Stuff.hpp"
+#include "../GameOS/include/GameOS.HPP"
 
 //-------------------------------------------------------------------------------
 // Structs used by layer.
@@ -166,11 +166,11 @@ typedef struct _TG_Light
 {
 	DWORD    				lightType;			//Ambient, directional, etc.
 	bool					active;				//Should this light be considered on?
-	
+
 	protected:
 	DWORD    				aRGB;				//Color
 	DWORD					OEMaRGB;
-	
+
 	public:
 	float					intensity;			//How Bright
 	float    				closeDistance;		//Distance out light is constant
@@ -208,7 +208,7 @@ typedef struct _TG_Light
 	{
 		return aRGB;
 	}
-	
+
 	void SetLightToWorld (Stuff::LinearMatrix4D *l2w)
 	{
 		lightToWorld = *l2w;
@@ -297,10 +297,10 @@ typedef struct _TG_Animation
 	float						tickRate;				//Number of Ticks Per Second.
 	Stuff::UnitQuaternion		*quat;					//Stores animation offset in Quaternion rotation.
 	Stuff::Point3D				*pos;					//Stores Positional offsets if present.  OTHERWISE NULL!!!!!!!!
-	
+
 	void SaveBinaryCopy (File *binFile);
 	void LoadBinaryCopy (File *binFile);
-	
+
 } TG_Animation;
 
 typedef TG_Animation *TG_AnimationPtr;
@@ -318,7 +318,7 @@ typedef struct _TG_ShapeRec
 	TG_AnimationPtr				currentAnimation;		//Animation data being applied to this shape.  OK if NULL
 	_TG_ShapeRec				*parentNode;			//Parent Node.  OK if NULL but only for ROOT node!
 	Stuff::UnitQuaternion		baseRotation;			//Always ZERO unless set by appearance controlling this shape.
-	
+
 	_TG_ShapeRec &operator=(const _TG_ShapeRec &rec)
 	{
 		node 				= rec.node;
@@ -330,7 +330,7 @@ typedef struct _TG_ShapeRec
 
 		return *this;
 	}
-	
+
 } TG_ShapeRec;
 
 typedef TG_ShapeRec *TG_ShapeRecPtr;
@@ -347,7 +347,7 @@ class TG_TypeNode
 		Stuff::Point3D			relativeNodeCenter;
 		char					nodeId[TG_NODE_ID];
 		char					parentId[TG_NODE_ID];
-		
+
 	//---------------------
 	// Member Functions
 	protected:
@@ -355,16 +355,16 @@ class TG_TypeNode
 	public:
 		void *operator new (size_t mySize);
 		void operator delete (void *us);
-			
+
  		virtual void init (void)
 		{
 			nodeId[0] = parentId[0] = '\0';
 			relativeNodeCenter.x = relativeNodeCenter.y = relativeNodeCenter.z = 0.0f;
 			nodeCenter.x = nodeCenter.y = nodeCenter.z = 0.0f;
 		}
-		
+
 		virtual void destroy (void);
-		
+
 		char *getNodeId (void)
 		{
 			return nodeId;
@@ -390,7 +390,7 @@ class TG_TypeNode
 			relativeNodeCenter = nodeCenter;
 			relativeNodeCenter -= parent;
 		}
-		
+
 		virtual void movePosRelativeCenterNode (void)
 		{
 		}
@@ -404,7 +404,7 @@ class TG_TypeNode
 		{
 			return TYPE_NODE;
 		}
-		
+
 		//Function return 0 is OK.  -1 if file is not ASE Format or missing data.
 		//This function simply parses the ASE buffers handed to it.  This allows
 		//users to load the ase file themselves and manage their own memory for it.
@@ -426,7 +426,7 @@ class TG_TypeNode
 		// Files will require user intervention to parse!!
 		virtual long MakeFromHelper (BYTE *aseBuffer, char *filename);
 
-		//Function returns 0 if OK.  -1 if file not found or file not ASE Format.		
+		//Function returns 0 if OK.  -1 if file not found or file not ASE Format.
 		//This function loads the ASE file into the TG_Triangle and TG_Vertex lists.
 		//It allocates memory.  These are straight mallocs at present.
 		//
@@ -473,7 +473,7 @@ class TG_TypeNode
 		virtual void SetLightRGBs (DWORD hPink, DWORD hGreen, DWORD hYellow)
 		{
 		}
-		
+
  		virtual void LoadBinaryCopy (File &binFile);
 		virtual void SaveBinaryCopy (File &binFile);
 
@@ -498,7 +498,7 @@ class TG_TypeShape : public TG_TypeNode
 	friend TG_TypeMultiShape;
 	friend TG_MultiShape;
 	friend TG_Shape;
-	
+
 	//-------------
 	//Data Members
 	protected:
@@ -511,8 +511,8 @@ class TG_TypeShape : public TG_TypeNode
 		TG_TinyTexturePtr		listOfTextures;				//List of texture Structures for this shape.
 
 		DWORD					hotPinkRGB;					//Stores the value for this shape to replace hot Pink With
-		DWORD					hotYellowRGB;				//Stores the value for this shape to replace hot Yellow With 
-		DWORD					hotGreenRGB;            	//Stores the value for this shape to replace hot Green With 
+		DWORD					hotYellowRGB;				//Stores the value for this shape to replace hot Yellow With
+		DWORD					hotGreenRGB;            	//Stores the value for this shape to replace hot Green With
 
 		bool					alphaTestOn;				//Decides if we should draw alphaTest On or not!
 		bool					filterOn;					//Decides if we should filter the shape or not!
@@ -536,12 +536,12 @@ class TG_TypeShape : public TG_TypeNode
 
 			relativeNodeCenter.x = relativeNodeCenter.y = relativeNodeCenter.z = 0.0f;
 			nodeCenter.x = nodeCenter.y = nodeCenter.z = 0.0f;
-			
+
 			hotPinkRGB = 0x00cbf0ff;
 			hotYellowRGB = 0x00FEfF91;
 			hotGreenRGB = 0x000081b6;
 		}
-		
+
 		TG_TypeShape (void)
 		{
 			init();
@@ -558,7 +558,7 @@ class TG_TypeShape : public TG_TypeNode
 		{
 			return numTypeVertices;
 		}
-		
+
  		//Function return 0 is OK.  -1 if file is not ASE Format or missing data.
 		//This function simply parses the ASE buffers handed to it.  This allows
 		//users to load the ase file themselves and manage their own memory for it.
@@ -577,7 +577,7 @@ class TG_TypeShape : public TG_TypeNode
 		// Files will require user intervention to parse!!
 		virtual long MakeFromHelper (BYTE *aseBuffer, char *filename);
 
-		//Function returns 0 if OK.  -1 if file not found or file not ASE Format.		
+		//Function returns 0 if OK.  -1 if file not found or file not ASE Format.
 		//This function loads the ASE file into the TG_Triangle and TG_Vertex lists.
 		//It allocates memory.  These are straight mallocs at present.
 		//
@@ -599,7 +599,7 @@ class TG_TypeShape : public TG_TypeNode
 		virtual void CreateListOfTextures (TG_TexturePtr list, DWORD numTxms);
 
  		virtual void movePosRelativeCenterNode (void);
-		
+
 		//--------------------------------------------------------------
 		// Creates an instance of this shape for the game to muck with.
 		virtual TG_Shape *CreateFrom (void);
@@ -620,12 +620,12 @@ class TG_TypeShape : public TG_TypeNode
 			hotGreenRGB = hGreen;
 			hotYellowRGB = hYellow;
 		}
-		
+
 		virtual long GetNodeType (void)
 		{
 			return SHAPE_NODE;
 		}
-		
+
  		virtual void LoadBinaryCopy (File &binFile);
 		virtual void SaveBinaryCopy (File &binFile);
 };
@@ -645,7 +645,7 @@ class TG_Shape
 	friend TG_TypeShape;
 	friend TG_TypeNode;
 	friend TG_TypeMultiShape;
-	
+
 	//-------------
 	//Data Members
 	protected:
@@ -664,9 +664,9 @@ class TG_Shape
 
 		TG_ShadowVertexPtr		listOfShadowVertices;		//Stores shadow vertex information for the shape.
 															//We just use existing listOfTriangles to draw!
-															
+
 		TG_ShadowVertexTempPtr	listOfShadowTVertices;		//Stores just the Volatile data.  Comes from a pool!!
-															
+
 		DWORDPtr				listOfVisibleShadows;		//Memory holding indices into listOfTriangles
 															//Draw in this order.  First entry with value 0xffffffff
 															//Means all done, no more to draw.
@@ -675,7 +675,7 @@ class TG_Shape
 
 		DWORD					aRGBHighlight;				//Color to add to vertices to make building stand out.
 		DWORD					fogRGB;						//Color to make fog.
-		
+
 		float					shapeScalar;
 
 		bool					lightsOut;
@@ -710,7 +710,7 @@ class TG_Shape
 		static Stuff::Vector3D			rootLightDir[MAX_LIGHTS_IN_WORLD];
 
 		static UserHeapPtr 				tglHeap;		//Stores all TGL data so we don't need to go through the FREE merry go round of GOS!
-		
+
 		static DWORD					lighteningLevel;
 
 	//-----------------
@@ -734,13 +734,13 @@ class TG_Shape
 			listOfVisibleShadows = NULL;
 
 			aRGBHighlight = 0x00000000;
-			
+
 			shapeScalar = 0.0f;
-			
+
 			lightsOut = false;
-			
+
 			noShadow = false;
-			
+
 			recalcShadows = true;
 
 			isWindow = isSpotlight = false;
@@ -748,7 +748,7 @@ class TG_Shape
 			for (long i=0;i<MAX_SHADOWS;i++)
 				shadowsVisible[i] = false;
 		}
-		
+
 		TG_Shape (void)
 		{
 			init();
@@ -775,7 +775,7 @@ class TG_Shape
 		//Function returns 0 if lightList entries are all OK.  -1 otherwise.
 		//
 		long SetLightList (TG_LightPtr *lightList, DWORD nLights);
-		
+
 		//This function sets the fog values for the shape.  Straight fog right now.
 		void SetFogRGB (DWORD fRGB);
 
@@ -810,24 +810,24 @@ class TG_Shape
 		{
 			lightsOut = lightFlag;
 		}
-		
+
 		char * getNodeName (void)
 		{
 			return myType->getNodeId();
 		}
-		
+
 		Stuff::Point3D GetRelativeNodeCenter (void)
 		{
 			return myType->GetRelativeNodeCenter();
 		}
-		
+
 		bool PerPolySelect (float mouseX, float mouseY);
-		
+
 		void SetRecalcShadows (bool flag)
 		{
 			recalcShadows = flag;
 		}
-		
+
 		virtual void ScaleShape (float scaleFactor)
 		{
 			shapeScalar = scaleFactor;
@@ -843,46 +843,46 @@ class TG_VertexPool
 	protected:
 		TG_Vertex 	*tgVertexPool;
 		TG_Vertex 	*nextVertex;
-		
+
 		DWORD		totalVertices;
 		DWORD		numVertices;
-		
+
 	public:
 		TG_VertexPool (void)
 		{
 			tgVertexPool = nextVertex = NULL;
 			totalVertices = numVertices = 0;
 		}
-		
+
 		~TG_VertexPool (void)
 		{
 			destroy();
 		}
-		
+
 		void destroy (void)
 		{
 			TG_Shape::tglHeap->Free(tgVertexPool);
 			tgVertexPool = nextVertex = NULL;
 			totalVertices = numVertices = 0;
 		}
-		
+
 		void init (DWORD maxVertices)
 		{
 			tgVertexPool = (TG_VertexPtr)TG_Shape::tglHeap->Malloc(sizeof(TG_Vertex) * maxVertices);
 			gosASSERT(tgVertexPool != NULL);
-			
+
 			nextVertex = tgVertexPool;
-			
+
 			totalVertices = maxVertices;
 			numVertices = 0;
 		}
-		
+
 		void reset (void)
 		{
 			nextVertex = tgVertexPool;
 			numVertices = 0;
 		}
-		
+
 		TG_VertexPtr getColorsFromPool (DWORD numRequested)
 		{
 			TG_VertexPtr result = NULL;
@@ -892,7 +892,7 @@ class TG_VertexPool
 				result = nextVertex;
 				nextVertex += numRequested;
 			}
-			
+
 			return result;
 		}
 };
@@ -902,46 +902,46 @@ class TG_GOSVertexPool
 	protected:
 		gos_VERTEX 	*gVertexPool;
 		gos_VERTEX 	*nextVertex;
-		
+
 		DWORD		totalVertices;
 		DWORD		numVertices;
-		
+
 	public:
 		TG_GOSVertexPool (void)
 		{
 			gVertexPool = nextVertex = NULL;
 			totalVertices = numVertices = 0;
 		}
-		
+
 		~TG_GOSVertexPool (void)
 		{
 			destroy();
 		}
-		
+
 		void destroy (void)
 		{
 			TG_Shape::tglHeap->Free(gVertexPool);
 			gVertexPool = nextVertex = NULL;
 			totalVertices = numVertices = 0;
 		}
-		
+
 		void init (DWORD maxVertices)
 		{
 			gVertexPool = (gos_VERTEX *)TG_Shape::tglHeap->Malloc(sizeof(gos_VERTEX) * maxVertices);
 			gosASSERT(gVertexPool != NULL);
-			
+
 			nextVertex = gVertexPool;
-			
+
 			totalVertices = maxVertices;
 			numVertices = 0;
 		}
-		
+
 		void reset (void)
 		{
 			nextVertex = gVertexPool;
 			numVertices = 0;
 		}
-		
+
 		gos_VERTEX * getVerticesFromPool (DWORD numRequested)
 		{
 			gos_VERTEX* result = NULL;
@@ -951,7 +951,7 @@ class TG_GOSVertexPool
 				result = nextVertex;
 				nextVertex += numRequested;
 			}
-			
+
 			return result;
 		}
 };
@@ -961,46 +961,46 @@ class TG_TrianglePool
 	protected:
 		TG_Triangle *trianglePool;
 		TG_Triangle	*nextTriangle;
-		
+
 		DWORD		totalTriangles;
 		DWORD		numTriangles;
-		
+
 	public:
 		TG_TrianglePool (void)
 		{
 			trianglePool = nextTriangle = NULL;
 			totalTriangles = numTriangles = 0;
 		}
-		
+
 		~TG_TrianglePool (void)
 		{
 			destroy();
 		}
-		
+
 		void destroy (void)
 		{
 			TG_Shape::tglHeap->Free(trianglePool);
 			trianglePool = nextTriangle = NULL;
 			totalTriangles = numTriangles = 0;
 		}
-		
+
 		void init (DWORD maxTriangles)
 		{
 			trianglePool = (TG_Triangle *)TG_Shape::tglHeap->Malloc(sizeof(TG_Triangle) * maxTriangles);
 			gosASSERT(trianglePool != NULL);
-			
+
 			nextTriangle = trianglePool;
-			
+
 			totalTriangles = maxTriangles;
 			numTriangles = 0;
 		}
-		
+
 		void reset (void)
 		{
 			nextTriangle = trianglePool;
 			numTriangles = 0;
 		}
-		
+
 		TG_Triangle * getTrianglesFromPool (DWORD numRequested)
 		{
 			TG_Triangle* result = NULL;
@@ -1010,7 +1010,7 @@ class TG_TrianglePool
 				result = nextTriangle;
 				nextTriangle += numRequested;
 			}
-			
+
 			return result;
 		}
 };
@@ -1020,46 +1020,46 @@ class TG_ShadowPool
 	protected:
 		TG_ShadowVertexTemp 	*tVertexPool;
 		TG_ShadowVertexTemp 	*nextVertex;
-		
+
 		DWORD					totalVertices;
 		DWORD					numVertices;
-		
+
 	public:
 		TG_ShadowPool (void)
 		{
 			tVertexPool = nextVertex = NULL;
 			totalVertices = numVertices = 0;
 		}
-		
+
 		~TG_ShadowPool (void)
 		{
 			destroy();
 		}
-		
+
 		void destroy (void)
 		{
 			TG_Shape::tglHeap->Free(tVertexPool);
 			tVertexPool = nextVertex = NULL;
 			totalVertices = numVertices = 0;
 		}
-		
+
 		void init (DWORD maxVertices)
 		{
 			tVertexPool = (TG_ShadowVertexTempPtr)TG_Shape::tglHeap->Malloc(sizeof(TG_ShadowVertexTemp) * maxVertices);
 			gosASSERT(tVertexPool != NULL);
-			
+
 			nextVertex = tVertexPool;
-			
+
 			totalVertices = maxVertices;
 			numVertices = 0;
 		}
-		
+
 		void reset (void)
 		{
 			nextVertex = tVertexPool;
 			numVertices = 0;
 		}
-		
+
 		TG_ShadowVertexTempPtr getShadowsFromPool (DWORD numRequested)
 		{
 			TG_ShadowVertexTempPtr result = NULL;
@@ -1069,7 +1069,7 @@ class TG_ShadowPool
 				result = nextVertex;
 				nextVertex += numRequested;
 			}
-			
+
 			return result;
 		}
 };
@@ -1079,46 +1079,46 @@ class TG_DWORDPool
 	protected:
 		DWORD 	*triPool;
 		DWORD	*nextTri;
-		
+
 		DWORD	totalTriangles;
 		DWORD	numTriangles;
-		
+
 	public:
 		TG_DWORDPool (void)
 		{
 			triPool = nextTri = NULL;
 			totalTriangles = numTriangles = 0;
 		}
-		
+
 		~TG_DWORDPool (void)
 		{
 			destroy();
 		}
-		
+
 		void destroy (void)
 		{
 			TG_Shape::tglHeap->Free(triPool);
 			triPool = nextTri = NULL;
 			totalTriangles = numTriangles = 0;
 		}
-		
+
 		void init (DWORD maxTriangles)
 		{
 			triPool = (DWORD *)TG_Shape::tglHeap->Malloc(sizeof(DWORD) * maxTriangles);
 			gosASSERT(triPool != NULL);
-			
+
 			nextTri = triPool;
-			
+
 			totalTriangles = maxTriangles;
 			numTriangles = 0;
 		}
-		
+
 		void reset (void)
 		{
 			nextTri = triPool;
 			numTriangles = 0;
 		}
-		
+
 		DWORD * getFacesFromPool (DWORD numRequested)
 		{
 			DWORD* result = NULL;
@@ -1128,7 +1128,7 @@ class TG_DWORDPool
 				result = nextTri;
 				nextTri += numRequested;
 			}
-			
+
 			return result;
 		}
 };

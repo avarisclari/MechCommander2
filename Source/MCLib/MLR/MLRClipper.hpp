@@ -6,23 +6,23 @@
 #define MLR_MLRCLIPPER_HPP
 
 #if !defined(MLR_MLR_HPP)
-	#include <MLR\MLR.hpp>
+	#include "MLR.hpp"
 #endif
 
 #if !defined(MLR_MLRSORTER_HPP)
-	#include <MLR\MLRSorter.hpp>
+	#include "MLRSorter.hpp"
 #endif
 
 #if !defined(MLR_MLRLIGHT_HPP)
-	#include <MLR\MLRLight.hpp>
+	#include "MLRLight.hpp"
 #endif
 
 #if !defined(MLR_MLRSHAPE_HPP)
-	#include <MLR\MLRShape.hpp>
+	#include "MLRShape.hpp"
 #endif
 
 #if !defined(MLR_GOSVERTEXPOOL_HPP)
-	#include <MLR\GOSVertexPool.hpp>
+	#include "GOSVertexPool.hpp>
 #endif
 
 namespace MidLevelRenderer {
@@ -154,11 +154,11 @@ namespace MidLevelRenderer {
 
 //	add another effect
 		void DrawEffect (DrawEffectInformation*);
-		
+
 //	starts the action
 		void RenderNow ()
 			{ Check_Object(this); sorter->RenderNow(); }
-    
+
 //	clear the film
 		void Clear (unsigned int flags);
 
@@ -168,7 +168,7 @@ namespace MidLevelRenderer {
 // statistics and time
 		unsigned int GetFrameRate () const
 			{ Check_Object(this); return frameRate; }
-		void SetTime (Stuff::Scalar t) 
+		void SetTime (Stuff::Scalar t)
 			{ Check_Object(this); nowTime = t; }
 		Stuff::Scalar GetTime () const
 			{ Check_Object(this); return nowTime; }
@@ -227,7 +227,7 @@ namespace MidLevelRenderer {
 // this is the film
 		AndyDisplay *display;
 
-// this defines the sort order of the draw 
+// this defines the sort order of the draw
 		MLRSorter *sorter;
 
 		GOSVertexPool allVerticesToDraw;

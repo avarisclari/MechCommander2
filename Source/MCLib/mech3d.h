@@ -26,7 +26,7 @@
 #include "msl.h"
 #endif
 
-#include <gosFX\gosfxheaders.hpp>
+#include "GOSFX/gosFXHeaders.hpp"
 //-------------------------------------------------------------------------------
 // Structs used by layer.
 //
@@ -108,7 +108,7 @@ class Mech3DAppearanceType: public AppearanceType
 		TG_TypeMultiShapePtr		mechShadowShape;
 		float						lodDistance[MAX_LODS];
 		TG_AnimateShapePtr			mechAnim[MAX_MECH_ANIMATIONS];
-		
+
 		TG_TypeMultiShapePtr		leftArm;
 		TG_TypeMultiShapePtr		rightArm;
 
@@ -121,7 +121,7 @@ class Mech3DAppearanceType: public AppearanceType
 		long						textureSide;					//Size of texture edge in pixels
 
 		GestureData					gestures[MaxGestures];
-		
+
 		long						numSmokeNodes;
 		long						numJumpNodes;
 		long						numWeaponNodes;
@@ -143,15 +143,15 @@ class Mech3DAppearanceType: public AppearanceType
 
 	public:
 
-		void init (void) 
+		void init (void)
 		{
 			long i=0;
 			for (i=0;i<MAX_LODS;i++)
 			{
 				mechShape[i] = NULL;
-				lodDistance[i] = 0.0f;			
+				lodDistance[i] = 0.0f;
 			}
-		
+
 			for (i=0;i<MAX_MECH_ANIMATIONS;i++)
 				mechAnim[i] = NULL;
 
@@ -160,34 +160,34 @@ class Mech3DAppearanceType: public AppearanceType
 			shadowScalar = 0;								//For stupid shadows if we need to draw them.
 
 			textureSide = 128;								//For stupid shadows if we need to draw them.
-			
+
 			nodeData = NULL;
 			numSmokeNodes = numWeaponNodes = numJumpNodes = 0;
 
 			mechShadowShape = NULL;
 		}
 
-		Mech3DAppearanceType (void) 
+		Mech3DAppearanceType (void)
 		{
 			init();
 		}
 
 		void destroy (void);
-		
+
 		~Mech3DAppearanceType (void)
 		{
 			destroy();
 		}
-		
+
 		virtual void init (char *fileName);
-		
+
 		long getTotalNodes (void)
 		{
 			return numSmokeNodes + numWeaponNodes + numJumpNodes + numFootNodes;
 		}
 
 		void setAnimation (TG_MultiShapePtr shape, DWORD animationNum);
-		
+
 		float getStartVel (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MaxGestures))
@@ -195,7 +195,7 @@ class Mech3DAppearanceType: public AppearanceType
 
 			return 0.0f;
 		}
-		
+
 		float getEndVel (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MaxGestures))
@@ -224,7 +224,7 @@ class Mech3DAppearanceType: public AppearanceType
 		{
 			return (gestures[GestureJump].frameStart & 0x0000ffff);
 		}
-		
+
 		long getJumpTakeoffFrame (void)
 		{
 			return (gestures[GestureJump].frameStart >> 16);
@@ -294,16 +294,16 @@ class Mech3DAppearance: public ObjectAppearance
 	protected:
 
 		Mech3DAppearanceTypePtr		mechType;
-		
+
 		TG_MultiShapePtr			mechShape;
 		TG_MultiShapePtr			mechShadowShape;
 		TG_MultiShapePtr			sensorSquareShape;
 		TG_MultiShapePtr			sensorTriangleShape;
 		float						sensorSpin;
- 
+
 		TG_MultiShapePtr			leftArm;
 		TG_MultiShapePtr			rightArm;
-		
+
 		Stuff::Vector3D				leftArmPos;
 		Stuff::Vector3D				rightArmPos;
 
@@ -314,7 +314,7 @@ class Mech3DAppearance: public ObjectAppearance
 
 		float						frameNum;
 		float						mechFrameRate;
-		
+
 		float						torsoRotation;
 		float						leftArmRotation;
 		float						rightArmRotation;
@@ -352,17 +352,17 @@ class Mech3DAppearance: public ObjectAppearance
 
 		TG_LightPtr					pointLight;
 		DWORD						lightId;
-		
+
 		float						idleTime;				//Elapsed time since I've done something.
 															//If it gets larger then X, play the idle animation.
-															
+
 		Stuff::Vector3D				jumpDestination;
 		Stuff::Vector3D				jumpVelocity;			//Real velocity vector now.  Just plug into mech velocity.
 		float						hazeFactor;
-		
+
 		long						*nodeUsed;				//Used to stagger the weapon nodes for firing.
 		float						*nodeRecycle;			//Used for ripple fire to find out if the node has fired recently.
-		
+
 		Stuff::Vector3D				footPos[2];				//Used to store previous frame foot positions.
 															//For foot poofs and footprints.
    		//NEW  GOS FX
@@ -382,30 +382,30 @@ class Mech3DAppearance: public ObjectAppearance
 
 		Stuff::Point3D				leftShoulderPos;
 		Stuff::Point3D				rightShoulderPos;
-				
+
 		long						currentRightPoof;
 		long						currentLeftPoof;
-		
+
 		long						leftFootPoofDraw[MAX_DUST_POOFS];
 		long						rightFootPoofDraw[MAX_DUST_POOFS];
-		
+
 		Stuff::Point3D				lFootPosition[MAX_DUST_POOFS];
 		Stuff::Point3D				rFootPosition[MAX_DUST_POOFS];
 		bool						rightFootDone0;
 		bool						leftFootDone0;
 		bool						rightFootDone1;
 		bool						leftFootDone1;
-		
+
 		bool						inCombatMode;
-		
+
 		long						isSmoking;
 		bool						isWaking;
 		bool						isDusting;
 		bool						fallDust;
 		bool						isHelicopter;
-		
+
 		float						OBBRadius;
-		
+
 		DWORD						localTextureHandle;
 		float						baseRootNodeHeight;
 
@@ -437,13 +437,13 @@ class Mech3DAppearance: public ObjectAppearance
 		long						rightArmNodeIndex;
 		long						lightCircleNodeIndex;
 		float						baseRootNodeDifference;
-		
+
 	public:
 		static PaintSchemataPtr		paintSchemata;
 		static DWORD				numPaintSchemata;
 
 	public:
-		
+
 		Mech3DAppearance (void)
 		{
 			init();
@@ -505,11 +505,11 @@ class Mech3DAppearance: public ObjectAppearance
 		{
 			return fallen;
 		}
-		
+
 		virtual bool isMouseOver (float px, float py);
-		
+
 		virtual bool recalcBounds (void);
-		
+
 		virtual void setBrake (bool brake)
 		{
 			forceStop = brake;
@@ -559,7 +559,7 @@ class Mech3DAppearance: public ObjectAppearance
 
 			if (oldStateGoal == stateGoal)
 				return(0);
-		
+
 			if (currentStateGoal == stateGoal)
 				return(0);
 
@@ -570,16 +570,16 @@ class Mech3DAppearance: public ObjectAppearance
 				return 0;
 
 			 if ((currentGestureId == GestureHitFront) ||
-				 (currentGestureId == GestureHitBack) || 
-				 (currentGestureId == GestureHitLeft) || 
+				 (currentGestureId == GestureHitBack) ||
+				 (currentGestureId == GestureHitLeft) ||
 				 (currentGestureId == GestureHitRight))
 			 {
 				 return 0;
 			 }
- 					  
+
 			if ((stateGoal == MECH_STATE_JUMPING) && !jumpSetup)
 				return 0;
-				
+
 			//---------------------------------------------------------------
 			// If we are still on our way to something, check if the current
 			// Gesture will allow a change IMMEDIATELY.  Set the appropriate
@@ -594,7 +594,7 @@ class Mech3DAppearance: public ObjectAppearance
 			oncePerFrame = true;
 			return -1;
 		}
-		
+
 		virtual long getFrameNumber (long partNum)
 		{
 			return frameNum;
@@ -632,7 +632,7 @@ class Mech3DAppearance: public ObjectAppearance
 		{
 			return jumpVelocity;
 		}
-		
+
 		virtual float getVelocityMagnitude (void)
 		{
 			if (jumpAirborne)
@@ -655,7 +655,7 @@ class Mech3DAppearance: public ObjectAppearance
 		void debugUpdate (long whichOne);
 
 		void setJustDoIt (void);
-		
+
 		void clearJustDoIt (void);
 
 		virtual void setObjectNameId (long objId)
@@ -678,33 +678,33 @@ class Mech3DAppearance: public ObjectAppearance
 		//--------------------------------------------
 		// Once site Objects are in place, go get 'em
 		virtual void setWeaponNodeUsed (long nodeId);
-		
+
 		virtual Stuff::Vector3D getWeaponNodePosition (long nodeId);
-		
+
 		virtual Stuff::Vector3D getNodePosition (long nodeId);
-		
+
 		virtual Stuff::Vector3D getNodeNamePosition (char *nodeName);
-		
+
 		virtual long getWeaponNode (long weapontype);
-		
+
 		virtual long getLowestWeaponNode (void);
-		
+
 		virtual float getWeaponNodeRecycle (long node);
-		
+
 		virtual void resetWeaponNodes (void);
-		
+
 		virtual void setWeaponNodeRecycle(long nodeId, float time);
-		
+
  		virtual void setSingleStepMode (void)
 		{
 			singleStepMode ^= true;
 		}
-		
+
 		virtual void setPrevFrame (void)
 		{
 			prevStep = true;
 		}
-		
+
 		virtual void setNextFrame (void)
 		{
 			nextStep = true;
@@ -714,36 +714,36 @@ class Mech3DAppearance: public ObjectAppearance
 		{
 			sensorLevel = lvl;
 		}
-		
+
 		//------------------------------------------------------------------------------------------
 		//Puts mech into hit mode IF and ONLY IF the mech is standing, walking, running or limping.
 		// NO OTHER GESTURE IS VALID!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		virtual void hitFront (void);
-	
+
 		virtual void hitBack (void);
-		
+
 		virtual void hitLeft (void);
 
 		virtual void hitRight (void);
-		
+
 		virtual void blowLeftArm (void);
-		
+
 		virtual void blowRightArm (void);
-		
+
 		virtual void setObjStatus (long oStatus);
 
 		virtual bool PerPolySelect (long mouseX, long mouseY);
-		
+
 		virtual Stuff::Point3D getRootNodeCenter (void)
 		{
 			Stuff::Point3D result = mechShape->GetRootNodeCenter();
 			return result;
 		}
-		
+
 		virtual void setAlphaValue (BYTE aVal)
 		{
 			mechShape->SetAlphaValue(aVal);
-			
+
 			//Sensor shape fades in opposite direction from mover
 			sensorSquareShape->SetAlphaValue(0xff - aVal);
 			sensorTriangleShape->SetAlphaValue(0xff - aVal);
@@ -753,14 +753,14 @@ class Mech3DAppearance: public ObjectAppearance
 		{
 			strcpy( mechName, pName );
 		}
-		
+
 		virtual void startSmoking (long smokeLvl);
 		virtual void startWaterWake (void);
 		virtual void stopWaterWake (void);
 		virtual void playEjection (void);
 
 		void copyTo (MechAppearanceData *data);
-		void copyFrom (MechAppearanceData *data); 
+		void copyFrom (MechAppearanceData *data);
 
 		bool leftArmRecalc (void);
 		bool rightArmRecalc (void);

@@ -170,16 +170,16 @@ namespace Stuff {
                     mov         edx, Source1.entries
 					push        esi
 					mov         esi, Source2.entries
-					
+
 					mov         eax, f
 
 					fld         dword ptr [edx]			//	s1[0][0]
 					fmul        dword ptr [esi]			//	s2[0][0]	M0,1
 
-					fld         dword ptr [edx+010h]	//	s1[0][1]
+					fld         dword ptr [edx+010 h]	//	s1[0][1]
 					fmul        dword ptr [esi+4]		//	s2[1][0]	M0,2
-					
-					fld         dword ptr [edx+020h]	//	s1[0][2]
+
+					fld         dword ptr [edx+020 h]	//	s1[0][2]
 					fmul        dword ptr [esi+8]		//	s2[2][0]	M0,3
 
 					fxch		st(2)
@@ -191,13 +191,13 @@ namespace Stuff {
 					fxch		st(2)
 					faddp       st(1),st				//				A0,2
 
-					fld         dword ptr [edx+14h]		//	s1[1][1]
+					fld         dword ptr [edx+14 h]		//	s1[1][1]
 					fmul        dword ptr [esi+4]		//	s2[1][0]	M1,2
-					
+
 					fxch		st(1)
 					fstp        dword ptr [eax]			//	[0][0]		S0
 
-					fld         dword ptr [edx+24h]		//	s1[1][2]
+					fld         dword ptr [edx+24 h]		//	s1[1][2]
 					fmul        dword ptr [esi+8]		//	s2[2][0]	M1,3
 
 					fxch		st(2)
@@ -209,31 +209,31 @@ namespace Stuff {
 					fxch		st(2)
 					faddp       st(1),st				//				A1,2
 
-					fld         dword ptr [edx+018h]	//	s1[2][1]
+					fld         dword ptr [edx+18 h]	//	s1[2][1]
 					fmul        dword ptr [esi+4]		//	s2[1][0]	M2,2
 
 					fxch		st(1)
 					fstp        dword ptr [eax+4]		//	[1][0]		S1
 
-					fld         dword ptr [edx+28h]		//	s1[2][2]
+					fld         dword ptr [edx+28 h]		//	s1[2][2]
 					fmul        dword ptr [esi+8]		//	s2[2][0]	M2,3
-					
+
 					fxch		st(2)
 					faddp       st(1),st				//				A2,1
 
-					fld         dword ptr [edx+0ch]		//	s1[3][0]
+					fld         dword ptr [edx+0 ch]		//	s1[3][0]
 					fmul        dword ptr [esi]			//	s2[0][0]	M3,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A2,2
 
-					fld         dword ptr [edx+1ch]		//	s1[3][1]
+					fld         dword ptr [edx+1 ch]		//	s1[3][1]
 					fmul        dword ptr [esi+4]		//	s2[1][0]	M3,2
 
 					fxch		st(1)
 					fstp        dword ptr [eax+8]		//	[2][0]		S2
 
-					fld         dword ptr [edx+2ch]		//	s1[3][2]
+					fld         dword ptr [edx+2 ch]		//	s1[3][2]
 					fmul        dword ptr [esi+8]		//	s2[2][0]	M3,3
 
 					fxch		st(2)
@@ -242,22 +242,22 @@ namespace Stuff {
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 					fld         dword ptr [edx]			//	s1[0][0]
-					fmul        dword ptr [esi+010h]	//	s2[0][1]	M0,1
+					fmul        dword ptr [esi+010 h]	//	s2[0][1]	M0,1
 
 					fxch		st(2)
 					faddp		st(1),st				//				A3,2
 
-					fld         dword ptr [edx+010h]	//	s1[0][1]
-					fmul        dword ptr [esi+014h]	//	s2[1][1]	M0,2
+					fld         dword ptr [edx+010 h]	//	s1[0][1]
+					fmul        dword ptr [esi+014 h]	//	s2[1][1]	M0,2
 
 					fxch		st(1)
-					fadd        dword ptr [esi+0Ch]		//	s2[3][0]	A3,3
-					
-					fld         dword ptr [edx+020h]	//	s1[0][2]
-					fmul        dword ptr [esi+018h]	//	s2[2][1]	M0,3
+					fadd        dword ptr [esi+0 Ch]		//	s2[3][0]	A3,3
+
+					fld         dword ptr [edx+020 h]	//	s1[0][2]
+					fmul        dword ptr [esi+18 h]	//	s2[2][1]	M0,3
 
 					fxch		st(1)
-					fstp        dword ptr [eax+0Ch]		//	[3][0]		S3
+					fstp        dword ptr [eax+0 Ch]		//	[3][0]		S3
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
@@ -265,55 +265,55 @@ namespace Stuff {
 					faddp       st(1),st				//				A0,1
 
 					fld         dword ptr [edx+4]		//	s1[1][0]
-					fmul        dword ptr [esi+010h]	//	s2[0][1]	M1,1
+					fmul        dword ptr [esi+010 h]	//	s2[0][1]	M1,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A0,2
 
-					fld         dword ptr [edx+014h]	//	s1[1][1]
-					fmul        dword ptr [esi+014h]	//	s2[1][1]	M1,2
-					
-					fxch		st(1)
-					fstp        dword ptr [eax+010h]	//	[0][1]		S0
+					fld         dword ptr [edx+014 h]	//	s1[1][1]
+					fmul        dword ptr [esi+014 h]	//	s2[1][1]	M1,2
 
-					fld         dword ptr [edx+024h]	//	s1[1][2]
-					fmul        dword ptr [esi+018h]	//	s2[2][1]	M1,3
+					fxch		st(1)
+					fstp        dword ptr [eax+010 h]	//	[0][1]		S0
+
+					fld         dword ptr [edx+024 h]	//	s1[1][2]
+					fmul        dword ptr [esi+18 h]	//	s2[2][1]	M1,3
 
 					fxch		st(2)
 					faddp       st(1),st				//				A1,1
 
 					fld         dword ptr [edx+8]		//	s1[2][0]
-					fmul        dword ptr [esi+010h]	//	s2[0][1]	M2,1
+					fmul        dword ptr [esi+010 h]	//	s2[0][1]	M2,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A1,2
 
-					fld         dword ptr [edx+018h]	//	s1[2][1]
-					fmul        dword ptr [esi+014h]	//	s2[1][1]	M2,2
+					fld         dword ptr [edx+18 h]	//	s1[2][1]
+					fmul        dword ptr [esi+014 h]	//	s2[1][1]	M2,2
 
 					fxch		st(1)
-					fstp        dword ptr [eax+014h]	//	[1][1]		S1
+					fstp        dword ptr [eax+014 h]	//	[1][1]		S1
 
-					fld         dword ptr [edx+028h]	//	s1[2][2]
-					fmul        dword ptr [esi+018h]	//	s2[2][1]	M2,3
-					
+					fld         dword ptr [edx+28 h]	//	s1[2][2]
+					fmul        dword ptr [esi+18 h]	//	s2[2][1]	M2,3
+
 					fxch		st(2)
 					faddp       st(1),st				//				A2,1
 
-					fld         dword ptr [edx+0ch]		//	s1[3][0]
-					fmul        dword ptr [esi+010h]	//	s2[0][1]	M3,1
+					fld         dword ptr [edx+0 ch]		//	s1[3][0]
+					fmul        dword ptr [esi+010 h]	//	s2[0][1]	M3,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A2,2
 
-					fld         dword ptr [edx+01ch]	//	s1[3][1]
-					fmul        dword ptr [esi+014h]	//	s2[1][1]	M3,2
+					fld         dword ptr [edx+01 ch]	//	s1[3][1]
+					fmul        dword ptr [esi+014 h]	//	s2[1][1]	M3,2
 
 					fxch		st(1)
-					fstp        dword ptr [eax+018h]	//	[2][1]		S2
+					fstp        dword ptr [eax+18 h]	//	[2][1]		S2
 
-					fld         dword ptr [edx+02ch]	//	s1[3][2]
-					fmul        dword ptr [esi+018h]	//	s2[2][1]	M3,3
+					fld         dword ptr [edx+02 ch]	//	s1[3][2]
+					fmul        dword ptr [esi+18 h]	//	s2[2][1]	M3,3
 
 					fxch		st(2)
 					faddp       st(1),st				//				A3,1
@@ -321,22 +321,22 @@ namespace Stuff {
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 					fld         dword ptr [edx]			//	s1[0][0]
-					fmul        dword ptr [esi+020h]	//	s2[0][2]	M0,1
+					fmul        dword ptr [esi+020 h]	//	s2[0][2]	M0,1
 
 					fxch		st(2)
 					faddp		st(1),st				//				A3,2
 
-					fld         dword ptr [edx+010h]	//	s1[0][1]
-					fmul        dword ptr [esi+024h]	//	s2[1][2]	M0,2
+					fld         dword ptr [edx+010 h]	//	s1[0][1]
+					fmul        dword ptr [esi+024 h]	//	s2[1][2]	M0,2
 
 					fxch		st(1)
-					fadd        dword ptr [esi+01Ch]	//	s2[3][1]	A3,3
-					
-					fld         dword ptr [edx+020h]	//	s1[0][2]
-					fmul        dword ptr [esi+028h]	//	s2[2][2]	M0,3
+					fadd        dword ptr [esi+01 Ch]	//	s2[3][1]	A3,3
+
+					fld         dword ptr [edx+020 h]	//	s1[0][2]
+					fmul        dword ptr [esi+28 h]	//	s2[2][2]	M0,3
 
 					fxch		st(1)
-					fstp        dword ptr [eax+01Ch]	//	[3][1]		S3
+					fstp        dword ptr [eax+01 Ch]	//	[3][1]		S3
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
@@ -344,55 +344,55 @@ namespace Stuff {
 					faddp       st(1),st				//				A0,1
 
 					fld         dword ptr [edx+4]		//	s1[1][0]
-					fmul        dword ptr [esi+020h]	//	s2[0][2]	M1,1
+					fmul        dword ptr [esi+020 h]	//	s2[0][2]	M1,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A0,2
 
-					fld         dword ptr [edx+014h]	//	s1[1][1]
-					fmul        dword ptr [esi+024h]	//	s2[1][2]	M1,2
-					
-					fxch		st(1)
-					fstp        dword ptr [eax+020h]	//	[0][2]		S0
+					fld         dword ptr [edx+014 h]	//	s1[1][1]
+					fmul        dword ptr [esi+024 h]	//	s2[1][2]	M1,2
 
-					fld         dword ptr [edx+024h]	//	s1[1][2]
-					fmul        dword ptr [esi+028h]	//	s2[2][2]	M1,3
+					fxch		st(1)
+					fstp        dword ptr [eax+020 h]	//	[0][2]		S0
+
+					fld         dword ptr [edx+024 h]	//	s1[1][2]
+					fmul        dword ptr [esi+28 h]	//	s2[2][2]	M1,3
 
 					fxch		st(2)
 					faddp       st(1),st				//				A1,1
 
 					fld         dword ptr [edx+8]		//	s1[2][0]
-					fmul        dword ptr [esi+020h]	//	s2[0][2]	M2,1
+					fmul        dword ptr [esi+020 h]	//	s2[0][2]	M2,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A1,2
 
-					fld         dword ptr [edx+018h]	//	s1[2][1]
-					fmul        dword ptr [esi+024h]	//	s2[1][2]	M2,2
+					fld         dword ptr [edx+18 h]	//	s1[2][1]
+					fmul        dword ptr [esi+024 h]	//	s2[1][2]	M2,2
 
 					fxch		st(1)
-					fstp        dword ptr [eax+024h]	//	[1][2]		S1
+					fstp        dword ptr [eax+024 h]	//	[1][2]		S1
 
-					fld         dword ptr [edx+028h]	//	s1[2][2]
-					fmul        dword ptr [esi+028h]	//	s2[2][2]	M2,3
-					
+					fld         dword ptr [edx+28 h]	//	s1[2][2]
+					fmul        dword ptr [esi+28 h]	//	s2[2][2]	M2,3
+
 					fxch		st(2)
 					faddp       st(1),st				//				A2,1
 
-					fld         dword ptr [edx+0ch]		//	s1[3][0]
-					fmul        dword ptr [esi+020h]	//	s2[0][2]	M3,1
+					fld         dword ptr [edx+0 ch]		//	s1[3][0]
+					fmul        dword ptr [esi+020 h]	//	s2[0][2]	M3,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A2,2
 
-					fld         dword ptr [edx+01ch]	//	s1[3][1]
-					fmul        dword ptr [esi+024h]	//	s2[1][2]	M3,2
+					fld         dword ptr [edx+01 ch]	//	s1[3][1]
+					fmul        dword ptr [esi+024 h]	//	s2[1][2]	M3,2
 
 					fxch		st(1)
-					fstp        dword ptr [eax+028h]	//	[2][2]		S2
+					fstp        dword ptr [eax+28 h]	//	[2][2]		S2
 
-					fld         dword ptr [edx+02ch]	//	s1[3][2]
-					fmul        dword ptr [esi+028h]	//	s2[2][2]	M3,3
+					fld         dword ptr [edx+02 ch]	//	s1[3][2]
+					fmul        dword ptr [esi+28 h]	//	s2[2][2]	M3,3
 
 					fxch		st(2)
 					faddp       st(1),st				//				A3,1
@@ -400,22 +400,22 @@ namespace Stuff {
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 					fld         dword ptr [edx]			//	s1[0][0]
-					fmul        dword ptr [esi+030h]	//	s2[0][3]	M0,1
+					fmul        dword ptr [esi+030 h]	//	s2[0][3]	M0,1
 
 					fxch		st(2)
 					faddp		st(1),st				//				A3,2
 
-					fld         dword ptr [edx+010h]	//	s1[0][1]
-					fmul        dword ptr [esi+034h]	//	s2[1][3]	M0,2
+					fld         dword ptr [edx+010 h]	//	s1[0][1]
+					fmul        dword ptr [esi+034 h]	//	s2[1][3]	M0,2
 
 					fxch		st(1)
-					fadd        dword ptr [esi+02Ch]	//	s2[3][2]	A3,3
-					
-					fld         dword ptr [edx+020h]	//	s1[0][2]
-					fmul        dword ptr [esi+038h]	//	s2[2][3]	M0,3
+					fadd        dword ptr [esi+02 Ch]	//	s2[3][2]	A3,3
+
+					fld         dword ptr [edx+020 h]	//	s1[0][2]
+					fmul        dword ptr [esi+38 h]	//	s2[2][3]	M0,3
 
 					fxch		st(1)
-					fstp        dword ptr [eax+02Ch]	//	[3][2]		S3
+					fstp        dword ptr [eax+02 Ch]	//	[3][2]		S3
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
@@ -423,63 +423,63 @@ namespace Stuff {
 					faddp       st(1),st				//				A0,1
 
 					fld         dword ptr [edx+4]		//	s1[1][0]
-					fmul        dword ptr [esi+030h]	//	s2[0][3]	M1,1
+					fmul        dword ptr [esi+030 h]	//	s2[0][3]	M1,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A0,2
 
-					fld         dword ptr [edx+014h]	//	s1[1][1]
-					fmul        dword ptr [esi+034h]	//	s2[1][3]	M1,2
-					
-					fxch		st(1)
-					fstp        dword ptr [eax+030h]	//	[0][3]		S0
+					fld         dword ptr [edx+014 h]	//	s1[1][1]
+					fmul        dword ptr [esi+034 h]	//	s2[1][3]	M1,2
 
-					fld         dword ptr [edx+024h]	//	s1[1][2]
-					fmul        dword ptr [esi+038h]	//	s2[2][3]	M1,3
+					fxch		st(1)
+					fstp        dword ptr [eax+030 h]	//	[0][3]		S0
+
+					fld         dword ptr [edx+024 h]	//	s1[1][2]
+					fmul        dword ptr [esi+38 h]	//	s2[2][3]	M1,3
 
 					fxch		st(2)
 					faddp       st(1),st				//				A1,1
 
 					fld         dword ptr [edx+8]		//	s1[2][0]
-					fmul        dword ptr [esi+030h]	//	s2[0][3]	M2,1
+					fmul        dword ptr [esi+030 h]	//	s2[0][3]	M2,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A1,2
 
-					fld         dword ptr [edx+018h]	//	s1[2][1]
-					fmul        dword ptr [esi+034h]	//	s2[1][3]	M2,2
+					fld         dword ptr [edx+18 h]	//	s1[2][1]
+					fmul        dword ptr [esi+034 h]	//	s2[1][3]	M2,2
 
 					fxch		st(1)
-					fstp        dword ptr [eax+034h]	//	[1][3]		S1
+					fstp        dword ptr [eax+034 h]	//	[1][3]		S1
 
-					fld         dword ptr [edx+028h]	//	s1[2][2]
-					fmul        dword ptr [esi+038h]	//	s2[2][3]	M2,3
-					
+					fld         dword ptr [edx+28 h]	//	s1[2][2]
+					fmul        dword ptr [esi+38 h]	//	s2[2][3]	M2,3
+
 					fxch		st(2)
 					faddp       st(1),st				//				A2,1
 
-					fld         dword ptr [edx+0ch]		//	s1[3][0]
-					fmul        dword ptr [esi+030h]	//	s2[0][3]	M3,1
+					fld         dword ptr [edx+0 ch]		//	s1[3][0]
+					fmul        dword ptr [esi+030 h]	//	s2[0][3]	M3,1
 
 					fxch		st(2)
 					faddp       st(1),st				//				A2,2
 
-					fld         dword ptr [edx+01ch]	//	s1[3][1]
-					fmul        dword ptr [esi+034h]	//	s2[1][3]	M3,2
+					fld         dword ptr [edx+01 ch]	//	s1[3][1]
+					fmul        dword ptr [esi+034 h]	//	s2[1][3]	M3,2
 
 					fxch		st(1)
-					fstp        dword ptr [eax+038h]	//	[2][3]		S2
+					fstp        dword ptr [eax+38 h]	//	[2][3]		S2
 
-					fld         dword ptr [edx+02ch]	//	s1[3][2]
-					fmul        dword ptr [esi+038h]	//	s2[2][3]	M3,3
+					fld         dword ptr [edx+02 ch]	//	s1[3][2]
+					fmul        dword ptr [esi+38 h]	//	s2[2][3]	M3,3
 
 					fxch		st(2)
 					faddp       st(1),st				//				A3,1
 
 					faddp		st(1),st				//				A3,2
-					fadd        dword ptr [esi+03Ch]	//	s2[3][3]	A3,3
-					
-					fstp        dword ptr [eax+03Ch]	//	[3][3]		S3
+					fadd        dword ptr [esi+03 Ch]	//	s2[3][3]	A3,3
+
+					fstp        dword ptr [eax+03 Ch]	//	[3][3]		S3
 
 					pop         esi
 				}

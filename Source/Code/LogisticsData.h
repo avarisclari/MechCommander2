@@ -8,8 +8,8 @@ LogisticsData.h			: Interface for the LogisticsData component.  This thing holds
 //===========================================================================//
 \*************************************************************************************************/
 
-#include "stuff\stuff.hpp"
-#include <EList.h>
+#include "../MCLib/Stuff/Stuff.hpp"
+#include "../MCLib/EList.h"
 
 #include "LogisticsMech.h"
 #include "LogisticsComponent.h"
@@ -47,7 +47,7 @@ public:
 	int					getVariantsInInventory( LogisticsVariant* pVar, bool bIncludeForceGroup );
 	int					getPlayerVariantNames( const char**, int& count );
 	int					getChassisVariants( const LogisticsChassis* pChassis, LogisticsVariant** pVar, int& count );
-	
+
 	LogisticsVariant*	getVariant( int ID );
 	LogisticsVariant*	getVariant( const char* mechName );
 	LogisticsVariant*	getVariant( const char* pCSVFileNaem, int VariantNum );
@@ -73,7 +73,7 @@ public:
 	void				removeMechsInForceGroup(); // takes mechs that are in the force group out of the inventory
 	void				addMechToInventory( LogisticsVariant* pVar,
 											int addToForceGroup, LogisticsPilot*,
-											unsigned long color1 = 0xffffffff, 
+											unsigned long color1 = 0xffffffff,
 											unsigned long color2 = 0xffffffff,
 											unsigned long color3 = 0xffffffff);
 	void				removeMechFromInventory( const char* mechName, const char* pilotName );
@@ -123,7 +123,7 @@ public:
 	int					sellMech( LogisticsMech* pVar );
 	int					getEncyclopediaMechs( const LogisticsVariant**, int& count );
 	int					getHelicopters( const LogisticsVariant**, int& count );
-	
+
 	int					getVehicles( const LogisticsVehicle**, int& count );
 	LogisticsVehicle*	getVehicle( const char* pName );
 
@@ -179,7 +179,7 @@ public:
 	void				setNewWeaponsAcknowledged(){ bNewWeapons = 0; }
 	void				setNewMechsAcknowledged(){ bNewMechs = 0; }
 
-	void				addNewBonusPurchaseFile( const char* pFileName ); 
+	void				addNewBonusPurchaseFile( const char* pFileName );
 	void				appendAvailability(const char* pFileName, bool* availableArray );
 
 	bool				skipLogistics();
@@ -227,27 +227,27 @@ private:
 	typedef EList< LogisticsMech*, LogisticsMech* >					MECH_LIST;
 	typedef EList< LogisticsVehicle*, LogisticsVehicle* >			VEHICLE_LIST;
 	typedef EList< Building, const Building& >						BUILDING_LIST;
-	
+
 	VARIANT_LIST									variants;
 	MECH_LIST										inventory;
 	COMPONENT_LIST									components;
 	PILOT_LIST										pilots;
 	VEHICLE_LIST									vehicles;
 	BUILDING_LIST									buildings;
-	
+
 	LogisticsMissionInfo*							missionInfo;
-	
+
 
 	LogisticsMech*									currentlyModifiedMech;
 	LogisticsVariant*								oldVariant;
-	
-	
+
+
 	int												resourcePoints; // C-Bills for buying mechs
 
 	long	loadVariant( FitIniFile& file );
 
 
-	
+
 
 	// HELPERS
 	void RegisterFunctions();
@@ -265,7 +265,7 @@ private:
 
 
 
-	
+
 
 };
 

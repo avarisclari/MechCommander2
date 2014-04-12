@@ -29,7 +29,7 @@
 #endif
 
 #ifndef DABLDBUG_H
-#include "dabldbug.h"
+#include "Dabldbug.h"
 #endif
 
 #ifndef ABLSCAN_H
@@ -70,7 +70,7 @@ class UserFile {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-			
+
 		void init (void) {
 			handle = -1;
 			inUse = false;
@@ -179,7 +179,7 @@ class ABLModule {
 
 		void* operator new (size_t mySize);
 		void operator delete (void* us);
-			
+
 		void init (void) {
 			id = -1;
 			name[0] = NULL;
@@ -203,9 +203,9 @@ class ABLModule {
 		}
 
 		long init (long moduleHandle);
-		
+
 		void write (ABLFile* moduleFile);
-		
+
 		void read (ABLFile* moduleFile);
 
 		long getId (void) {
@@ -320,7 +320,7 @@ class ABLModule {
 		float getReal (void) {
 			return(returnVal.real);
 		}
-		
+
 		long getInteger (void) {
 			return(returnVal.integer);
 		}
@@ -330,13 +330,13 @@ class ABLModule {
 		long getStaticInteger (char* name);
 
 		long setStaticReal (char* name, float value);
-		
+
 		float getStaticReal (char* name);
 
 		long setStaticIntegerArray (char* name, long size, long* values);
 
 		long getStaticIntegerArray (char* name, long size, long* values);
-		
+
 		long setStaticRealArray (char* name, long size, float* values);
 
 		long getStaticRealArray (char* name, long size, float* values);

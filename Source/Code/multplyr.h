@@ -66,8 +66,8 @@
 //#include <sessionmanager.h>
 //#endif
 
-#include <windows.h>
-//#include <stdio.h>
+//#include <windows.h>
+#include <stdio.h>
 
 //***************************************************************************
 typedef void *NETPLAYER;
@@ -349,7 +349,7 @@ class WorldChunk {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			type = -1;
 			tileRC[0] = -1;
@@ -418,15 +418,15 @@ class WorldChunk {
 class MCMSG_DeployForce: public FIGuaranteedMessageHeader
 {
 	private:
-		
-	// Keep the constructor private because we don't want 
-	// anyone to call it when there is an undefined size 
+
+	// Keep the constructor private because we don't want
+	// anyone to call it when there is an undefined size
 	// for the class.
 	MCMSG_DeployForce();
-	
+
 	unsigned char dataFlags;
 
-	enum 
+	enum
 	{
 		PartTypeBit	= 0,
 		TeamBit,
@@ -438,7 +438,7 @@ class MCMSG_DeployForce: public FIGuaranteedMessageHeader
 		SlotBits2
 	};
 
-	enum 
+	enum
 	{
 		PartTypeFlag = 1 << PartTypeBit,
 		TeamFlag = 1 << TeamBit,
@@ -487,7 +487,7 @@ class MCMSG_DeployForce: public FIGuaranteedMessageHeader
 			dataFlags |= PartTypeFlag;
 		}
 
-		
+
 		void SetVariant(int variant)
 		{
 			if (variant > 3)
@@ -534,7 +534,7 @@ class MCMSG_DeployForce: public FIGuaranteedMessageHeader
 		{
 			return (dataFlags & TeamFlag);
 		}
-		
+
 		BOOL IsMech()
 		{
 			return (dataFlags & PartTypeFlag);
@@ -570,7 +570,7 @@ class MCMSG_JoinTeam:public FIGuaranteedMessageHeader
 /*
 class MCMSG_RemoveForce:public FIGuaranteedMessageHeader
 {
-	public:	
+	public:
 		void Init()
 		{
 			FIGuaranteedMessageHeader::Init();
@@ -612,7 +612,7 @@ class MCMSG_PlayerCID {
 		unsigned char		type;
 		char				commanderID;
 		unsigned char		subType;
-		
+
 	public:
 
 		MCMSG_PlayerCID (void) {
@@ -725,13 +725,13 @@ class MCMSG_Chat {
 	//GUARANTEED
 
 	public:
-	
+
 		unsigned char		type;
 		bool				allPlayers;
 		bool				isDeadChat;
 		bool				hideName;
 		char				string[];
-	
+
 	public:
 
 		MCMSG_Chat (void) {
@@ -754,7 +754,7 @@ class MCMSG_PlayerCheckIn {
 	//GUARANTEED
 
 	public:
-	
+
 		unsigned char		type;
 		char				commanderID;
 
@@ -827,7 +827,7 @@ class MCMSG_StartMission {
 
 		unsigned char	type;
 		long			huh;
-	
+
 
 	public:
 
@@ -1412,7 +1412,7 @@ class MultiPlayer {
 		unsigned long		serverOrder[MAX_MC_PLAYERS];
 		long				reinforcements[MAX_MC_PLAYERS][2];	// index 0 = current reinforcement, index 1 = current recoverery
 		char				reinforcementPilot[MAX_MC_PLAYERS][32];
-		
+
 		bool				isMPlayerGame;
 		long				badSessionCounter;
 		float				warpFactor;
@@ -1447,16 +1447,16 @@ class MultiPlayer {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-		
+
 		void init (void);
 
 		long setup (void);
 
-		// initUpdateFrequencies initializes the update frequencies from the 
+		// initUpdateFrequencies initializes the update frequencies from the
 		// prefs.cfg file if the entries exist.  Otherwise, it uses defaults.
 		void initUpdateFrequencies (void);
 
-		// initStartupParameters is called by both init() and 
+		// initStartupParameters is called by both init() and
 		// leaveSession()
 		void initStartupParameters (bool fresh);
 
@@ -1466,7 +1466,7 @@ class MultiPlayer {
 		MultiPlayer (void) {
 			init();
 		}
-		
+
 		void destroy (void);
 
 		~MultiPlayer (void) {
@@ -1547,7 +1547,7 @@ class MultiPlayer {
 		long closeSession (void);
 
 		void logMessage (NETMESSAGE* message, bool sent);
-		
+
 		long bootPlayer (NETPLAYER bootedPlayer);
 
 		void sendMessage (NETPLAYER player,
@@ -1706,9 +1706,9 @@ class MultiPlayer {
 		void handleReadyForBattle (NETPLAYER sender, MCMSG_PlayerCheckIn* msg);
 
 		void handleStartMission (NETPLAYER sender);
-		
+
 		void handleEndMission (NETPLAYER sender, MCMSG_EndMission* msg);
-		
+
 		void handleReinforcement (NETPLAYER sender, MCMSG_Reinforcement* msg);
 
 		void handleNewServer (NETPLAYER sender, MCMSG_NewServer* msg);
@@ -1720,7 +1720,7 @@ class MultiPlayer {
 		void handlePlayerOrder (NETPLAYER sender, MCMSG_PlayerOrder* msg);
 
 		void handlePlayerMoverGroup (NETPLAYER sender, MCMSG_PlayerMoverGroup* msg);
-		
+
 		void handlePlayerArtillery (NETPLAYER sender, MCMSG_PlayerArtillery* msg);
 
 		void handleMoverUpdate (NETPLAYER sender, MCMSG_MoverUpdate* msg);
@@ -1784,7 +1784,7 @@ class MultiPlayer {
 								   long point);
 
 		void sendPlayerArtillery (long strikeType, Stuff::Vector3D location, long seconds);
-			
+
 		long sendPing(void);
 
 		void sendMoverUpdate (void);

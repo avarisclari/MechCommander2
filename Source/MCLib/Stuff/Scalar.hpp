@@ -81,7 +81,7 @@ namespace Stuff {
 
 	DWORD
 		Scaled_Float_To_Bits(float in, float min, float max, int bits);
-	
+
 	float
 		Scaled_Float_From_Bits(DWORD in, float min, float max, int bits);
 
@@ -91,7 +91,7 @@ namespace Stuff {
 	int
 		Scaled_Int_From_Bits(DWORD in, int min, int max, int bits);
 
-	
+
 
 	int
 		Round(Scalar value);
@@ -108,7 +108,7 @@ namespace Stuff {
 			// __int32 i = (AsInt32(f) >> 1) + (INT32_FLOAT_ONE >> 1);
 					mov         eax, f
 					sar         eax, 1
-					add         eax, 1FC00000h
+					add         eax, 1 FC00000h
 					mov			temp,eax
 				}
 				return temp;

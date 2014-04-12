@@ -20,7 +20,7 @@
 #endif
 
 #ifndef DOBJTYPE_H
-#include "dobjtype.h"
+#include "Dobjtype.h"
 #endif
 
 #ifndef DAPPEAR_H
@@ -56,7 +56,7 @@
 #endif
 
 #ifndef STUFF_HPP
-#include <stuff\stuff.hpp>
+#include "../MCLib/Stuff/Stuff.hpp"
 #endif
 
 extern float metersPerWorldUnit;
@@ -91,7 +91,7 @@ typedef struct _WeaponShotInfo {
 	float				entryAngle;			// angle from which target was hit
 
 	void init (GameObjectWatchID _attackerWID, long _masterId, float _damage, long _hitLocation, float _entryAngle);
-	
+
 	void setDamage (float _damage);
 
 	void setEntryAngle (float _entryAngle);
@@ -99,7 +99,7 @@ typedef struct _WeaponShotInfo {
 	void operator = (_WeaponShotInfo copy) {
 		init(copy.attackerWID, copy.masterId, copy.damage, copy.hitLocation, copy.entryAngle);
 	}
-	
+
 } WeaponShotInfo;
 
 //---------------------------------------------------------------------------
@@ -115,7 +115,7 @@ typedef struct _SalvageItem {
 class WeaponFireChunk {
 
 	public:
-		
+
 		char				targetType;
 		long				targetId;
 		long				targetCell[2];
@@ -134,7 +134,7 @@ class WeaponFireChunk {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			targetType = 0;
 			targetId = 0;
@@ -215,7 +215,7 @@ class WeaponHitChunk {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			targetType = 0;
 			targetId = 0;
@@ -266,42 +266,42 @@ class WeaponHitChunk {
 
 		bool valid (long from);
 };
- 
+
 //------------------------------------------------------------------------------------------
 typedef struct _GameObjectData
 {
 	long						objectTypeNum;
-	ObjectClass					objectClass;		
-	GameObjectHandle			handle;				
-	long						partId;				
-	unsigned long				watchID;			
+	ObjectClass					objectClass;
+	GameObjectHandle			handle;
+	long						partId;
+	unsigned long				watchID;
 
 	GameObjectTypeHandle		typeHandle;
-	Stuff::Vector3D				position;			
-	unsigned short				cellPositionRow;	
+	Stuff::Vector3D				position;
+	unsigned short				cellPositionRow;
 	unsigned short				cellPositionCol;
-	long						d_vertexNum;		
-	unsigned long				flags;				
-	unsigned short				debugFlags;			
-	unsigned char				status;				
+	long						d_vertexNum;
+	unsigned long				flags;
+	unsigned short				debugFlags;
+	unsigned char				status;
 
-	float						tonnage;			
-	float			   			rotation;			
+	float						tonnage;
+	float			   			rotation;
 	char						appearanceTypeID[256];
 	GameObjectWatchID			collisionFreeFromWID;
 	float						collisionFreeTime;
-	Stuff::Vector4D				screenPos;			
-	long						windowsVisible;		
-	float						explRadius;			
-	float						explDamage;			
+	Stuff::Vector4D				screenPos;
+	long						windowsVisible;
+	float						explRadius;
+	float						explDamage;
 	short						maxCV;
 	short						curCV;
 	short						threatRating;
-	float						lastFrameTime;		
+	float						lastFrameTime;
 	unsigned char				blipFrame;
 	unsigned char				numAttackers;
 
-	long						drawFlags;			
+	long						drawFlags;
 } GameObjectData;
 
 class GameObject {
@@ -321,7 +321,7 @@ class GameObject {
 		unsigned long				flags;				//See GAMEOBJECT_FLAGS_ defines
 		unsigned short				debugFlags;			// use ONLY for debugging purposes...
 		unsigned char				status;				//Am I normal, disabled, destroyed, etc..?
-	
+
 		float						tonnage;			//How hefty am I?
 		float			   			rotation;			//everything's base facing
 		AppearancePtr				appearance;
@@ -353,7 +353,7 @@ class GameObject {
 		virtual void set (GameObject copy);
 
 		virtual void init (bool create);
-	
+
 		GameObject (void) {
 			init(true);
 		}
@@ -363,7 +363,7 @@ class GameObject {
 		virtual ~GameObject (void) {
 			destroy();
 		}
-		
+
 		ObjectClass getObjectClass (void) {
 			return(objectClass);
 		}
@@ -374,7 +374,7 @@ class GameObject {
 
 		virtual void render (void) {
 		}
-		
+
 		virtual void renderShadows (void) {
 		}
 
@@ -384,11 +384,11 @@ class GameObject {
 		virtual AppearancePtr getAppearance (void) {
 			return(appearance);
 		}
-		
+
 		virtual bool underPlayerControl (void) {
 			return (false);
 		}
-		
+
 		virtual long getGroupId (void) {
 			return(-1);
 		}
@@ -396,7 +396,7 @@ class GameObject {
 		virtual void setPartId (long newPartId) {
 			partId = newPartId;
 		}
-		
+
 		long getPartId (void) {
 			return(partId);
 		}
@@ -431,7 +431,7 @@ class GameObject {
 
 		virtual void handleStaticCollision (void) {
 		}
-		
+
 		virtual void getBlockAndVertexNumber (long &blockNum, long &vertexNum);
 
 		virtual long getTypeHandle (void) {
@@ -439,7 +439,7 @@ class GameObject {
 		}
 
 		virtual ObjectTypePtr getObjectType (void);
-		
+
 		virtual void init (bool create, ObjectTypePtr _type);
 
 		virtual long init (FitIniFile* objProfile) {
@@ -472,7 +472,7 @@ class GameObject {
 		{
 			return 0.0f;
 		}
-		
+
 		virtual long getTeamId (void) {
 			return(-1);
 		}
@@ -481,7 +481,7 @@ class GameObject {
 		{
 			return d_vertexNum;
 		}
-		
+
 		virtual long setTeamId (long _teamId, bool setup) {
 			return(NO_ERR);
 		}
@@ -515,18 +515,18 @@ class GameObject {
 		}
 
 		virtual Stuff::Vector3D relativePosition (float angle, float distance, unsigned long flags);
-		
-		virtual Stuff::Vector3D getPositionFromHS (long weaponType) 
+
+		virtual Stuff::Vector3D getPositionFromHS (long weaponType)
 		{
 			//-----------------------------------------
 			// No hot spots with regular game objects.
 			// just return position.
 			return(position);
 		}
-		
+
 		virtual void setPosition (const Stuff::Vector3D& newPosition, bool calcPositions = true);
-		
-		virtual void setTerrainPosition (const Stuff::Vector3D& position, 
+
+		virtual void setTerrainPosition (const Stuff::Vector3D& position,
 			const Stuff::Vector2DOf<long>& numbers){}
 
 		virtual Stuff::Vector3D getVelocity (void) {
@@ -534,11 +534,11 @@ class GameObject {
 			result.Zero();
 			return(result);
 		}
-		
+
 		virtual Stuff::Vector4D getScreenPos (long whichOne) {
 			return(screenPos);
 		}
-		
+
 		virtual void setVelocity (Stuff::Vector3D &newVelocity) {
 		}
 
@@ -550,12 +550,12 @@ class GameObject {
 			return(0);
 		}
 
-		virtual float getRotation (void) 
+		virtual float getRotation (void)
 		{
 			return(rotation);
 		}
 
-		virtual void setRotation (float rot) 
+		virtual void setRotation (float rot)
 		{
 			rotation = rot;
 		}
@@ -567,8 +567,8 @@ class GameObject {
 		virtual void rotate (float yaw, float pitch)
 		{
 		}
-		
-		virtual Stuff::Vector3D getRotationVector (void) 
+
+		virtual Stuff::Vector3D getRotationVector (void)
 		{
 			Stuff::Vector3D rotationVec;
 			rotationVec.x = 0.0f;
@@ -577,7 +577,7 @@ class GameObject {
 			Rotate(rotationVec, -rotation);
 			return(rotationVec);
 		}
-		
+
 		virtual bool calcAdjacentAreaCell (long moveLevel, long areaID, long& adjRow, long& adjCol) {
 			return(false);
 		}
@@ -587,7 +587,7 @@ class GameObject {
 		}
 
 		//NEVER call this with forceStatus UNLESS you are recovering a mech!!!
-		void setStatus (long newStatus, bool forceStatus = false) 
+		void setStatus (long newStatus, bool forceStatus = false)
 		{
 			if (((status != OBJECT_STATUS_DESTROYED) && (status != OBJECT_STATUS_DISABLED)) || forceStatus)
 				status = newStatus;
@@ -626,14 +626,14 @@ class GameObject {
 		bool getTangible (void) {
 			return((flags & OBJECT_FLAG_TANGIBLE) != 0);
 		}
-		
+
 		void setTangible (bool set) {
 			if (set)
 				flags |= OBJECT_FLAG_TANGIBLE;
 			else
 				flags &= (OBJECT_FLAG_TANGIBLE ^ 0xFFFFFFFF);
 		}
-		
+
 		virtual void setCommanderId (long _commanderId) {
 		}
 
@@ -650,7 +650,7 @@ class GameObject {
 		{
 			return NO_ERR;
 		}
-		
+
 		virtual float distanceFrom (Stuff::Vector3D goal);
 
 		virtual long cellDistanceFrom (Stuff::Vector3D goal);
@@ -667,20 +667,20 @@ class GameObject {
 		virtual bool lineOfSight (Stuff::Vector3D point, bool checkVisibleBits = true);
 
 		virtual bool lineOfSight (GameObjectPtr target, float startExtRad = 0.0f, bool checkVisibleBits = true);
-	
+
 		virtual float relFacingTo (Stuff::Vector3D goal, long bodyLocation = -1);
 
-		virtual float relViewFacingTo (Stuff::Vector3D goal) 
+		virtual float relViewFacingTo (Stuff::Vector3D goal)
 		{
 			return(GameObject::relFacingTo(goal));
 		}
 
-		virtual long openStatusWindow (long x, long y, long w, long h) 
+		virtual long openStatusWindow (long x, long y, long w, long h)
 		{
 			return(NO_ERR);
 		}
 
-		virtual long closeStatusWindow (void) 
+		virtual long closeStatusWindow (void)
 		{
 			return(NO_ERR);
 		}
@@ -693,15 +693,15 @@ class GameObject {
 		virtual void orderWithdraw (void) {
 			//Does nothing until this is a mover.
 		}
-		
+
 		virtual bool isWithdrawing (void) {
 			return(false);
 		}
-		
+
 		virtual float getExtentRadius (void);
 
 		virtual void setExtentRadius (float newRadius);
-		
+
 		virtual bool isBuilding(void) {
 			return(false);
 		}
@@ -731,12 +731,12 @@ class GameObject {
 		{
 			return false;
 		}
-		
+
 		virtual bool isSpecialBuilding(void)
 		{
 			return false;
 		}
-		
+
  		virtual bool isLit (void)
 		{
 			return false;
@@ -744,9 +744,9 @@ class GameObject {
 
 		virtual void setPowerSupply (GameObjectPtr power)
 		{
-		
+
 		}
-		
+
 		//----------------------
 		// DEBUG FLAGS functions
 
@@ -792,7 +792,7 @@ class GameObject {
 		virtual bool getSelected(void) {
 			return ((flags & OBJECT_FLAG_SELECTED) != 0);
 		}
-		
+
 		virtual bool isSelected (void) {
 			return (getSelected());
 		}
@@ -879,7 +879,7 @@ class GameObject {
 		{
 			return drawFlags & DRAW_COLORED;
 		}
-		
+
 		virtual void setObscured (bool set) {
 			if (set)
 				flags |= OBJECT_FLAG_OBSCURED;
@@ -950,7 +950,7 @@ class GameObject {
 		virtual bool isCaptured (void) {
 			return(getCaptured());
 		}
-		
+
 		virtual void setTonnage (float _tonnage) {
 			tonnage = _tonnage;
 		}
@@ -984,15 +984,15 @@ class GameObject {
 		virtual void damageObject (float dmgAmount) {
 			//damage += dmgAmount;
 		}
-		
+
 		virtual void setExplDmg (float newDmg) {
 			explDamage = newDmg;
 		}
-		
+
 		virtual void setExplRad (float newRad) {
 			explRadius = newRad;
 		}
-		
+
 		virtual float getExplDmg (void) {
 			return(explDamage);
 		}
@@ -1014,15 +1014,15 @@ class GameObject {
 
 		virtual void setSalvage (SalvageItemPtr newSalvage) {
 		}
-				
+
 		virtual SalvageItemPtr getSalvage (void) {
 			return(NULL);
 		}
-		
+
 		virtual long getWindowsVisible (void) {
 			return(windowsVisible);
 		}
-		
+
 		virtual long getCaptureBlocker (GameObjectPtr capturingMover, GameObjectPtr* blockerList = NULL);
 
 		virtual long kill (void);
@@ -1054,7 +1054,7 @@ class GameObject {
 		virtual long getMaxCV (void) {
 			return(maxCV);
 		}
-		
+
 		virtual void setCurCV (long newCV) {
 			curCV = newCV;
 		}
@@ -1090,12 +1090,12 @@ class GameObject {
 		{
 			salvage = newSalvage;
 		}
-		
+
 		virtual SalvageItemPtr getSalvage (void)
 		{
 			return salvage;
 		}
-	
+
 #endif
 		virtual bool isFriendly (GameObjectPtr obj);
 
@@ -1125,26 +1125,26 @@ class GameObject {
 		}
 
 		virtual long getDescription(){ return -1; }
-		
+
 		virtual bool isOnGUI (void)
 		{
 			return false;
 		}
-		
+
 		virtual void setOnGUI (bool onGui)
 		{
 		}
-		
+
 		virtual float getLOSFactor (void)
 		{
 			return 1.0f;
 		}
-		
+
 		virtual bool isLookoutTower (void)
 		{
 			return false;
 		}
-		
+
 		virtual void Save (PacketFilePtr file, long packetNum);
 
 		void Load (GameObjectData *data);

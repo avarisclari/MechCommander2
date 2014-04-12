@@ -9,7 +9,7 @@
 
 #include "gosFX.hpp"
 #include "SpinningCloud.hpp"
-#include <MLR\MLR.hpp>
+#include "../MLR/MLR.hpp"
 
 namespace MidLevelRenderer {class MLRTriangleCloud;}
 
@@ -45,10 +45,10 @@ namespace gosFX
 		void
 			Save(Stuff::MemoryStream *stream);
 
-		void 
+		void
 			BuildDefaults();
 
-		bool 
+		bool
 			IsDataValid(bool fix_data=false);
 
 	//-------------------------------------------------------------------------

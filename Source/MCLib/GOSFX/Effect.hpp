@@ -8,7 +8,7 @@
 #pragma once
 
 #include "gosFX.hpp"
-#include <MLR\MLR.hpp>
+#include "../MLR/MLR.hpp"
 
 namespace MidLevelRenderer
 {
@@ -102,10 +102,10 @@ namespace gosFX
 		virtual void
 			Save(Stuff::MemoryStream *stream);
 
-		virtual void 
+		virtual void
 			BuildDefaults();
-	
-		virtual bool 
+
+		virtual bool
 			IsDataValid(bool fix_data=false);
 
 		Stuff::RegisteredClass::ClassID
@@ -391,7 +391,7 @@ namespace gosFX
 			specificationFactory(spec_factory)
 				{}
 
-		Effect::Factory 
+		Effect::Factory
 			effectFactory;
 		Effect::Specification::Factory
 			specificationFactory;

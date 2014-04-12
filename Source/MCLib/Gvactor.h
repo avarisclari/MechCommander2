@@ -29,7 +29,7 @@
 #include "ObjectAppearance.h"
 #endif
 
-#include <gosFX\gosfxheaders.hpp>
+#include "GOSFX/gosFXHeaders.hpp"
 //**************************************************************************************
 #ifndef NO_ERR
 #define NO_ERR						0
@@ -48,34 +48,34 @@
 class GVAppearanceType : public AppearanceType
 {
 	public:
-	
+
 		TG_TypeMultiShapePtr		gvShape[MAX_LODS];
 		float						lodDistance[MAX_LODS];
-		
+
 		TG_TypeMultiShapePtr		gvShadowShape;
-		
+
  		TG_TypeMultiShapePtr		gvDmgShape;
-		
+
 		char						destructEffect[60];
-		
+
 		TG_AnimateShapePtr			gvAnimData[MAX_GV_ANIMATIONS];
 		bool						gvAnimLoop[MAX_GV_ANIMATIONS];
 		bool						gvReverse[MAX_GV_ANIMATIONS];
 		bool						gvRandom[MAX_GV_ANIMATIONS];
 		long						gvStartF[MAX_GV_ANIMATIONS];
- 		
+
 		char						rotationalNodeId[TG_NODE_ID];
-		
+
 		long						numSmokeNodes;		//Where damage smoke comes from.
 		long						numWeaponNodes;		//Where weapons fire from.
 		long						numFootNodes;		//Where dust trail, contrail comes out of.
 		NodeData					*nodeData;
-		
+
 		static TG_TypeMultiShapePtr	SensorTriangleShape;
 		static TG_TypeMultiShapePtr	SensorCircleShape;
-		
+
 	public:
-	
+
 		void init (void)
 		{
 			long i=0;
@@ -84,9 +84,9 @@ class GVAppearanceType : public AppearanceType
 				gvShape[i] = NULL;
 				lodDistance[i] = 0.0f;
 			}
-			
+
 			gvShadowShape = NULL;
-			
+
 			gvDmgShape = NULL;
 
 			for (i=0;i<MAX_GV_ANIMATIONS;i++)
@@ -95,12 +95,12 @@ class GVAppearanceType : public AppearanceType
 				gvAnimLoop[i] = false;
 				gvReverse[i] = false;
 				gvRandom[i] = false;
-				gvStartF[i] = 0;			
+				gvStartF[i] = 0;
 			}
-				
+
 			destructEffect[0] = 0;
 		}
-	
+
 		GVAppearanceType (void)
 		{
 			init();
@@ -112,11 +112,11 @@ class GVAppearanceType : public AppearanceType
 		}
 
 		virtual void init (char *fileName);
-		
+
 		virtual void destroy (void);
-		
+
 		void setAnimation (TG_MultiShapePtr shape, DWORD animationNum);
-		
+
 		long getNumFrames (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MAX_GV_ANIMATIONS) && (gvAnimData[animationNum]))
@@ -140,7 +140,7 @@ class GVAppearanceType : public AppearanceType
 
 			return false;
 		}
-		
+
 		bool isLooped (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MAX_GV_ANIMATIONS) && (gvAnimData[animationNum]))
@@ -148,7 +148,7 @@ class GVAppearanceType : public AppearanceType
 
 			return false;
 		}
-		
+
 		bool isRandom (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MAX_GV_ANIMATIONS) && (gvAnimData[animationNum]))
@@ -156,7 +156,7 @@ class GVAppearanceType : public AppearanceType
 
 			return false;
 		}
-		
+
 		long getTotalNodes (void)
 		{
 			return numSmokeNodes + numWeaponNodes + numFootNodes;
@@ -174,16 +174,16 @@ class GVAppearance : public ObjectAppearance
 	public:
 
 		GVAppearanceType*							appearType;
-		
+
 		TG_MultiShapePtr							gvShape;
 		TG_MultiShapePtr							gvShadowShape;
-		
+
 		TG_MultiShapePtr							sensorCircleShape;
 		TG_MultiShapePtr							sensorTriangleShape;
 		float										sensorSpin;
-									
+
 		long										objectNameId;
-	
+
 		float										turretRotation;
 		float										pitch;
 		float										roll;
@@ -193,7 +193,7 @@ class GVAppearance : public ObjectAppearance
 		long										sensorLevel;
 		float										hazeFactor;
 		long										status;
-			
+
    		gosFX::Effect								*destructFX;
    		gosFX::Effect								*waterWake;
    		gosFX::Effect								*dustCloud;
@@ -202,9 +202,9 @@ class GVAppearance : public ObjectAppearance
 		bool										isActivitying;
 		bool										movedThisFrame;
 		bool										dustCloudStart;
-		
+
 		float										OBBRadius;
-		
+
 		long										gvAnimationState;
 		float										currentFrame;
 		float										gvFrameRate;
@@ -213,14 +213,14 @@ class GVAppearance : public ObjectAppearance
 		bool										setFirstFrame;
 		bool										canTransition;
 		bool										isInfantry;
-		
+
 		long										currentLOD;
-		
+
  		long										*nodeUsed;				//Used to stagger the weapon nodes for firing.
 		float										*nodeRecycle;			//Used for ripple fire to find out if the node has fired recently.
-		
+
 		DWORD										localTextureHandle;
-		
+
 		DWORD										psRed;
 		DWORD										psBlue;
 		DWORD										psGreen;
@@ -230,7 +230,7 @@ class GVAppearance : public ObjectAppearance
 		float										currentFlash;
 		bool										drawFlash;
 		DWORD										flashColor;
-		
+
 		long										rotationalNodeIndex;
 		long										dustNodeIndex;
 		long										activityNodeIndex;
@@ -253,18 +253,18 @@ class GVAppearance : public ObjectAppearance
 
 		virtual long update (bool animate = true);
 		void updateGeometry (void);
-		
+
 		virtual long render (long depthFixup = 0);
 
 		virtual long renderShadows (void);
-		
+
 		virtual void destroy (void);
 
 		virtual unsigned long getAppearanceClass (void)
 		{
 			return VEHICLE_APPR_TYPE;
 		}
-	
+
 		~GVAppearance (void)
 		{
 			destroy();
@@ -277,24 +277,24 @@ class GVAppearance : public ObjectAppearance
 		virtual void getPaintScheme (DWORD &red, DWORD &green, DWORD &blue);
 
 		virtual void resetPaintScheme (DWORD red, DWORD green, DWORD blue);
-		
+
  		virtual bool recalcBounds (void);
 
 		virtual void flashBuilding (float duration, float flashDuration, DWORD color);
 
-		
+
 		void setFadeTable (MemoryPtr fTable)
 		{
 			fadeTable = fTable;
 		}
-		
+
 		virtual void setObjectNameId (long objId)
 		{
 			objectNameId = objId;
 		}
 
 		virtual bool isMouseOver (float px, float py);
-		
+
 		virtual void setObjectParameters (Stuff::Vector3D &pos, float rot, long selected, long team, long homeRelations);
 
 		virtual void setMoverParameters (float turretRot, float lArmRot = 0.0f, float rArmRot = 0.0f, bool isAirborne = false);
@@ -305,18 +305,18 @@ class GVAppearance : public ObjectAppearance
 		{
 			sensorLevel = lvl;
 		}
-		
+
 		virtual void setObjStatus (long oStatus);
-		
+
 		virtual bool playDestruction (void);
-		
+
 		virtual bool getInTransition (void)
 		{
 			return (canTransition == false);
 		}
 
 		virtual void setGesture (unsigned long gestureId);
-		
+
 		virtual long getCurrentGestureId (void)
 		{
 			return gvAnimationState;
@@ -325,33 +325,33 @@ class GVAppearance : public ObjectAppearance
 		//--------------------------------------------
 		// Once site Objects are in place, go get 'em
 		virtual void setWeaponNodeUsed (long nodeId);
-		
+
 		virtual Stuff::Vector3D getWeaponNodePosition (long nodeId);
-		
+
 		virtual Stuff::Vector3D getSmokeNodePosition (long nodeId);
-		
+
 		virtual Stuff::Vector3D getDustNodePosition (long nodeId);
-		
+
 		virtual long getWeaponNode (long weapontype);
-		
+
 		virtual float getWeaponNodeRecycle (long node);
 
 		virtual long getLowestWeaponNode (void);
-		
+
 		virtual Stuff::Vector3D getNodeNamePosition (char *nodeName);
-		
+
  		virtual bool PerPolySelect (long mouseX, long mouseY);
-		
+
 		virtual Stuff::Point3D getRootNodeCenter (void)
 		{
 			Stuff::Point3D result = gvShape->GetRootNodeCenter();
 			return result;
 		}
-		
+
 		virtual void setAlphaValue (BYTE aVal)
 		{
 			gvShape->SetAlphaValue(aVal);
-			
+
 			//Sensor shape fades in opposite direction from mover
 			sensorCircleShape->SetAlphaValue(0xff - aVal);
 			sensorTriangleShape->SetAlphaValue(0xff - aVal);
@@ -361,10 +361,10 @@ class GVAppearance : public ObjectAppearance
 		{
 			gvShape->ScaleShape(scaleFactor);
 		}
-		
+
 		virtual void startWaterWake (void);
 		virtual void stopWaterWake (void);
-		
+
 		virtual void startActivity (long effectId, bool loop);
 		virtual void stopActivity (void);
 

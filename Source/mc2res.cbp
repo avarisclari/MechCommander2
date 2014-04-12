@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="mc2res" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="./Debug/mc2res" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-D_USRDLL" />
+					<Add option="-DRESOURCES_EXPORTS" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</ResourceCompiler>
+				<ExtraCommands>
+					<Add after="copy Debug\mc2res.dll Editor\Debug\mc2res.dll" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="./Release/mc2res" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-D_USRDLL" />
+					<Add option="-DRESOURCES_EXPORTS" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</ResourceCompiler>
+				<ExtraCommands>
+					<Add after="copy Release\mc2res.dll Editor\Release\mc2res.dll" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Profile Win32">
+				<Option output="./Profile/mc2res" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Profile" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-D_USRDLL" />
+					<Add option="-DRESOURCES_EXPORTS" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(VCInstallDir)PlatformSDK/Include/mfc" />
+				</ResourceCompiler>
+				<ExtraCommands>
+					<Add after="copy profile\mc2res.dll editor\profile\mc2res.dll&#x0D;&#x0A;" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Unit filename="Script1.rc" />
+		<Unit filename="mc2res.cpp" />
+		<Unit filename="mechcommander2.ico" />
+		<Unit filename="resource.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

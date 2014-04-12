@@ -28,7 +28,7 @@
 #endif
 
 #ifndef OBJTYPE_H
-#include "objtype.h"
+#include "Objtype.h"
 #endif
 
 #ifndef MOVE_H
@@ -40,7 +40,7 @@
 #endif
 
 #ifndef CMPONENT_H
-#include "cmponent.h"
+#include "../MCLib/cmponent.h"
 #endif
 
 #ifndef WARRIOR_H
@@ -170,7 +170,7 @@ class MoveChunk {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			stepPos[0][0] = 0xFFFFFFFF;
 			stepPos[0][1] = 0xFFFFFFFF;
@@ -244,13 +244,13 @@ class MoverDynamics {
 			max = copy.max;
 			//cur = copy.cur;
 		}
-		
+
 		virtual void init (void);
 
 		MoverDynamics (void) {
 			init();
 		}
-			
+
 		virtual void destroy (void) {
 		}
 
@@ -263,7 +263,7 @@ class MoverDynamics {
 		virtual void init (CSVFilePtr dynamicsFile);
 
 		virtual void init (FitIniFilePtr dynamicsFile);
-													
+
 		void setType (DynamicsType newType) {
 			type = newType;
 		}
@@ -296,7 +296,7 @@ typedef union {
 		float	rotate;
 	} elemental;
 	struct {
-		char	throttle;			
+		char	throttle;
 		float	rotate;
 		float	rotateTurret;
 		char	gestureGoal;
@@ -304,7 +304,7 @@ typedef union {
 		bool	isWalking;
 	} groundVehicle;
 	struct {
-		char	throttle;			
+		char	throttle;
 		float	rotate;				//aka mechYaw
 		float	facingRotate;		//Direction mech is FACING, NOT MOVING!!!!!
 		float	rotateTorso;
@@ -341,7 +341,7 @@ class MoverControl {
 		MoverControl (void) {
 			init();
 		}
-			
+
 		virtual void destroy (void) {
 		}
 
@@ -543,7 +543,7 @@ class StatusChunk {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-		
+
 		void init (void) {
 			bodyState = 0;
 			targetType = 0;
@@ -597,10 +597,10 @@ typedef struct _MoverData : public GameObjectData
 {
 	bool				killed;
 	bool				lost;
-	Stuff::Vector3D		positionNormal;						
-	Stuff::Vector3D		velocity;							
-	char				name[MAXLEN_MOVER_NAME];			
-	unsigned char		chassis;							
+	Stuff::Vector3D		positionNormal;
+	Stuff::Vector3D		velocity;
+	char				name[MAXLEN_MOVER_NAME];
+	unsigned char		chassis;
 	bool				startDisabled;
 	float				creationTime;
 
@@ -610,46 +610,46 @@ typedef struct _MoverData : public GameObjectData
 
 	long				lastMapCell[2];
 
-	float				damageRateTally;					
-	float				damageRateCheckTime;				
-	float				pilotCheckDamageTally;				
+	float				damageRateTally;
+	float				damageRateCheckTime;
+	float				pilotCheckDamageTally;
 
-	BodyLocation		body[MAX_MOVER_BODY_LOCATIONS];		
-	char				numBodyLocations;					
+	BodyLocation		body[MAX_MOVER_BODY_LOCATIONS];
+	char				numBodyLocations;
 	long				fieldedCV;
 
-	long				attackRange;						
+	long				attackRange;
 
-	ArmorLocation		armor[MAX_MOVER_ARMOR_LOCATIONS];	
+	ArmorLocation		armor[MAX_MOVER_ARMOR_LOCATIONS];
 	char				numArmorLocations;
-	char				longName[MAXLEN_MECH_LONGNAME];		
+	char				longName[MAXLEN_MECH_LONGNAME];
 
 	InventoryItem		inventory[MAX_MOVER_INVENTORY_ITEMS];
 	unsigned char		numOther;
 	unsigned char		numWeapons;
 	unsigned char		numAmmos;
-	AmmoTally			ammoTypeTotal[MAX_AMMO_TYPES];	
-	char				numAmmoTypes;					
+	AmmoTally			ammoTypeTotal[MAX_AMMO_TYPES];
+	char				numAmmoTypes;
 	long				pilotHandle;
 
-	unsigned char		cockpit;										
-	unsigned char		engine;											
-	unsigned char		lifeSupport;									
-	unsigned char		sensor;											
-	unsigned char		ecm;											
-	unsigned char		probe;											
-	unsigned char		jumpJets;										
-	unsigned char		nullSignature;									
-	float				maxWeaponEffectiveness;							
-	float				weaponEffectiveness;							
+	unsigned char		cockpit;
+	unsigned char		engine;
+	unsigned char		lifeSupport;
+	unsigned char		sensor;
+	unsigned char		ecm;
+	unsigned char		probe;
+	unsigned char		jumpJets;
+	unsigned char		nullSignature;
+	float				maxWeaponEffectiveness;
+	float				weaponEffectiveness;
 
-	float				minRange;										
-	float				maxRange;										
-	float				optimalRange;									
-	long				numFunctionalWeapons;							
+	float				minRange;
+	float				maxRange;
+	float				optimalRange;
+	long				numFunctionalWeapons;
 
-	char				numAntiMissileSystems;							
-	unsigned char		antiMissileSystem[MAX_ANTI_MISSILE_SYSTEMS];	
+	char				numAntiMissileSystems;
+	unsigned char		antiMissileSystem[MAX_ANTI_MISSILE_SYSTEMS];
 
 	float				engineBlowTime;
 	float				maxMoveSpeed;
@@ -660,41 +660,41 @@ typedef struct _MoverData : public GameObjectData
 	char				teamId;
 	char				groupId;
 	long				squadId;
-	long				selectionIndex;					
-	long				teamRosterIndex;				
+	long				selectionIndex;
+	long				teamRosterIndex;
 	char				commanderId;
-	long				unitGroup;						
-														
-	long				iconPictureIndex;				
-	bool				suppressionFire;				
+	long				unitGroup;
+
+	long				iconPictureIndex;
+	bool				suppressionFire;
 
 	long				pilotCheckModifier;
 	long				prevPilotCheckModifier;
 	long				prevPilotCheckDelta;
 	float				prevPilotCheckUpdate;
-	bool				failedPilotingCheck;			
-	float				lastWeaponEffectivenessCalc;	
-	float				lastOptimalRangeCalc;			
+	bool				failedPilotingCheck;
+	float				lastWeaponEffectivenessCalc;
+	float				lastOptimalRangeCalc;
 	GameObjectWatchID	challengerWID;
 
 	char				lastGesture;
 
-	MoverControl		control;						
-	MoverDynamics		dynamics;						
+	MoverControl		control;
+	MoverDynamics		dynamics;
 
 	long				numWeaponHitsHandled;
-	float				timeLeft;						
+	float				timeLeft;
 	bool				exploding;
 	bool				withdrawing;
 
-	float				yieldTimeLeft;					
-	Stuff::Vector3D		lastValidPosition;				
-	char				pivotDirection;					
-	float				lastHustleTime;					
+	float				yieldTimeLeft;
+	Stuff::Vector3D		lastValidPosition;
+	char				pivotDirection;
+	float				lastHustleTime;
 
 	bool				salvageVehicle;
 
-	float				markDistanceMoved;				
+	float				markDistanceMoved;
 
 	GameObjectWatchID	refitBuddyWID;
 	GameObjectWatchID	recoverBuddyWID;
@@ -715,21 +715,21 @@ typedef struct _MoverData : public GameObjectData
 
 	float				timeSinceMoving;
 
-	float 				timeSinceFiredLast;				
+	float 				timeSinceFiredLast;
 
 	GameObjectWatchID	lastMovingTargetWID;
 
-	bool 				mechSalvage;					
+	bool 				mechSalvage;
 
-	Stuff::Vector3D		teleportPosition;				
+	Stuff::Vector3D		teleportPosition;
 	long				debugPage;
 
-	bool				pathLocks;						
-	bool				isOnGui;						
+	bool				pathLocks;
+	bool				isOnGui;
 
-	long				conStat;						
-	float				fadeTime;						
-	BYTE				alphaValue;						
+	long				conStat;
+	float				fadeTime;
+	BYTE				alphaValue;
 	long				causeOfDeath;
 
 	long				lowestWeaponNodeID;
@@ -753,7 +753,7 @@ class Mover : public GameObject {
 
 	//------------
 	//Data Members
-	
+
 	public:
 
 		Stuff::Vector3D		positionNormal;						// normal to terrain at current position
@@ -770,7 +770,7 @@ class Mover : public GameObject {
 		bool				followRoads;
 
 		long				lastMapCell[2];
-		
+
 		float				damageRateTally;					// damage points taken since last check
 		float				damageRateCheckTime;				// time (in game time) of next damage check
 		float				pilotCheckDamageTally;				// damage points taken since last pilot check
@@ -811,7 +811,7 @@ class Mover : public GameObject {
 		unsigned char		nullSignature;									// null signature inventory index
 		float				maxWeaponEffectiveness;							// max total damage possible
 		float				weaponEffectiveness;							// basically, total damage possible
-		
+
 		float				minRange;										// current min attack range
 		float				maxRange;										// current max attack range
 		float				optimalRange;									// current optimum attack range
@@ -841,7 +841,7 @@ class Mover : public GameObject {
 		bool				suppressionFire;				// is this guy permanently shooting at ground
 		char				prevTeamId;
 		char				prevCommanderId;
-		
+
 
 		// Update Info
 		long				pilotCheckModifier;
@@ -860,7 +860,7 @@ class Mover : public GameObject {
 //		AppearancePtr		appearance;						// pointer to the Actor which is the appearance.
 		MoverControl		control;						// control settings for this mover
 		MoverDynamics		dynamics;						// dynamics settings for this mover
-		
+
 		// Network
 		//DWORD				netPlayerId;
 		char				netPlayerName[MAXLEN_NET_PLAYER_NAME];	// netPlayerName is the player who owns this mover
@@ -881,7 +881,7 @@ class Mover : public GameObject {
 		float				timeLeft;						// How long before we return FALSE to update.
 		bool				exploding;
 		bool				withdrawing;
-	
+
 		float				yieldTimeLeft;					// How much time do I have left to wait
 		Stuff::Vector3D		lastValidPosition;				// Last valid move path point I've been to
 		char				pivotDirection;					// Used in pivotTo(): -1 = not pivoting
@@ -891,7 +891,7 @@ class Mover : public GameObject {
 		static SortListPtr	sortList;
 
 		bool				salvageVehicle;
-		
+
 		float				markDistanceMoved;				//Used to track distance object has moved since last mark of terrain visible.
 
 		GameObjectWatchID	refitBuddyWID;
@@ -941,7 +941,7 @@ class Mover : public GameObject {
 		static long			IndirectFireWeapons[20];
 		static long			AreaEffectWeapons[20];
 		static unsigned long holdFireIconHandle;
-		
+
 		static TriggerAreaManager* triggerAreaMgr;
 
 
@@ -968,7 +968,7 @@ class Mover : public GameObject {
 		Mover (void) {
 			init(true);
 		}
-			
+
 		virtual void destroy (void);
 
 		virtual void init (bool create, ObjectTypePtr objType) {
@@ -1017,7 +1017,7 @@ class Mover : public GameObject {
 		virtual void setPartId (long newPartId);
 
 		virtual void setPosition (Stuff::Vector3D& newPosition);
-		
+
 		virtual void setTeleportPosition (Stuff::Vector3D& newPos);
 
 		ContactInfoPtr getContactInfo (void) {
@@ -1067,10 +1067,10 @@ class Mover : public GameObject {
 		virtual void rotate (float angle);
 
 		virtual void rotate (float angle, float facingAngle);
-		
+
 		virtual void setAwake (bool state);
 
-		virtual bool isMarine(void) 
+		virtual bool isMarine(void)
 		{
 			return(pathLocks == false);
 		}
@@ -1078,7 +1078,7 @@ class Mover : public GameObject {
 		void drawWaypointPath();
 
 		void updateDrawWaypointPath();
-		
+
 //		virtual frame_of_ref getFrame (void)
 //		{
 //			return(frame);
@@ -1096,14 +1096,14 @@ class Mover : public GameObject {
 //		{
 //			frame = newFrame;
 //		}
-		
+
 		virtual Stuff::Vector3D relativePosition (float angle, float radius, unsigned long flags);
 
 		long calcLineOfSightView (long range);
-		
+
 		virtual void setSensorRange (float range);
-		
-		virtual Stuff::Vector3D getRotationVector (void) 
+
+		virtual Stuff::Vector3D getRotationVector (void)
 		{
 			Stuff::Vector3D rotationVec;
 			rotationVec.x = 0.0f;
@@ -1212,7 +1212,7 @@ class Mover : public GameObject {
 		}
 
 		virtual long setTeamId (long _teamId, bool setup);
-		
+
 		virtual long getTeamId (void) {
 			return(teamId);
 		}
@@ -1244,7 +1244,7 @@ class Mover : public GameObject {
 		}
 
 		virtual CommanderPtr getCommander (void);
-		
+
 		virtual MechWarriorPtr getPilot (void) {
 			return(pilot);
 		}
@@ -1432,7 +1432,7 @@ class Mover : public GameObject {
 		{
 			return (0.0);
 		}
-		
+
 		//ContactWatchPtr addContactWatch (GameObjectPtr who, ContactRecPtr contact) {
 		//	return(contactWatches.add(who, contact));
 		//}
@@ -1442,7 +1442,7 @@ class Mover : public GameObject {
 		//}
 
 		void setChallenger (GameObjectPtr challenger);
-		
+
 		GameObjectPtr getChallenger (void);
 
 /*		void addContact (ContactRecPtr contact) {
@@ -1468,7 +1468,7 @@ class Mover : public GameObject {
 						  long numValidAreas,
 						  short* validAreas,
 						  unsigned long moveParams);
-								   
+
 
 		virtual long calcMovePath (MovePathPtr path,
 								   long pathType,
@@ -1504,11 +1504,11 @@ class Mover : public GameObject {
 		virtual long getWeaponsInRange (long* list, long listSize, float orderFireRange);
 
 		virtual long getWeaponShots (long weaponIndex);
-		
+
 		virtual bool getWeaponIndirectFire (long weaponIndex);
 
 		virtual bool getWeaponAreaEffect (long weaponIndex);
-		
+
 		virtual float getWeaponAmmoLevel (long weaponIndex);
 
 		bool	getWeaponIsEnergy( long weaponIndx );
@@ -1544,7 +1544,7 @@ class Mover : public GameObject {
 		}
 
 		bool hasNonAreaWeapon (void);
-	
+
 		virtual long getAmmoType (long ammoTypeIndex) {
 			return(ammoTypeTotal[ammoTypeIndex].masterId);
 		}
@@ -1564,7 +1564,7 @@ class Mover : public GameObject {
 		virtual void deductWeaponShot (long weaponIndex, long ammoAmount = 1);
 
 		virtual bool needsRefit(void);
-		
+
 		virtual long sortWeapons (long* weaponList, long* valueList, long listSize, long sortType, bool skillCheck);
 
 		virtual float calcAttackChance (GameObjectPtr target, long aimLocation, float targetTime, long weaponIndex, float modifiers, long* range, Stuff::Vector3D* targetPoint = NULL);
@@ -1588,7 +1588,7 @@ class Mover : public GameObject {
 		virtual void disable (unsigned long cause);
 
 		virtual void shutDown (void);
-		
+
 		virtual void startUp (void);
 
 		virtual void destroyBodyLocation (long location) {}
@@ -1640,11 +1640,11 @@ class Mover : public GameObject {
 		virtual bool canPowerUp (void) {
 			return(true);
 		}
-		
+
 		virtual bool canMove (void) {
 			return(true);
 		}
-		
+
 		virtual bool canJump (void) {
 			return(false);
 		}
@@ -1693,7 +1693,7 @@ class Mover : public GameObject {
 			return(-1);
 		}
 
-		virtual Stuff::Vector3D getPositionFromHS (long weaponType) 
+		virtual Stuff::Vector3D getPositionFromHS (long weaponType)
 		{
 			Stuff::Vector3D pos;
 			pos.Zero();
@@ -1703,15 +1703,15 @@ class Mover : public GameObject {
 		virtual float getGestureStopDistance (void) {
 			return 0.0;
 		}
-		
+
 		virtual bool handleEjection (void);
 
 		virtual bool isWithdrawing (void);
-		
+
 		virtual bool underPlayerControl (void) {
 			return (true);
 		}
-		
+
 		~Mover (void) {
 			destroy();
 		}
@@ -1726,7 +1726,7 @@ class Mover : public GameObject {
 
 		virtual SensorSystem* getSensorSystem(){ return sensorSystem; }
 
-		
+
 		static long loadGameSystem (FitIniFilePtr mechFile, float visualRange);
 
 		bool isCloseToFirstTacOrder( Stuff::Vector3D& pos );
@@ -1743,19 +1743,19 @@ class Mover : public GameObject {
 
 		virtual void startShutDown (void)
 		{
-		
+
 		}
-		
+
 		virtual bool isMech (void)
 		{
 			return false;
 		}
-		
+
 		virtual bool isVehicle (void)
 		{
 			return false;
 		}
-		
+
 		virtual bool isGuardTower (void)
 		{
 			return false;
@@ -1765,12 +1765,12 @@ class Mover : public GameObject {
 		{
 			return isOnGui;
 		}
-		
+
 		virtual void setOnGUI (bool onGui)
 		{
 			isOnGui = onGui;
 		}
-		
+
 		virtual void Save (PacketFilePtr file, long packetNum);
 
 		void CopyTo (MoverData *data);

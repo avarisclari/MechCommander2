@@ -125,60 +125,60 @@ namespace Stuff {
 					mov         edx, matrix
 					push        esi
 					mov         esi, obb.localToParent
-					
+
 					mov         eax, f
 
 					fld         dword ptr [edx+4]		//	m[1][0]
-					fmul        dword ptr [esi+01ch]	//	obb.localToParent(3,1)
-					
+					fmul        dword ptr [esi+01 ch]	//	obb.localToParent(3,1)
+
 					fld         dword ptr [edx+8]		//	m[2][0]
-					fmul        dword ptr [esi+02Ch]	//	obb.localToParent(3,2)
+					fmul        dword ptr [esi+02 Ch]	//	obb.localToParent(3,2)
 
 					fxch		st(1)
-					fadd        dword ptr [edx+0Ch]		//	m[3][0]
-					
+					fadd        dword ptr [edx+0 Ch]		//	m[3][0]
+
 					fld         dword ptr [edx]			//	m[0][0]
-					fmul        dword ptr [esi+0Ch]		//	obb.localToParent(3,0)
+					fmul        dword ptr [esi+0 Ch]		//	obb.localToParent(3,0)
 
 					fxch		st(2)
 					faddp       st(1),st
 
-					fld         dword ptr [edx+14h]		//	m[1][1]
-					fmul        dword ptr [esi+01ch]	//	obb.localToParent(3,1)
+					fld         dword ptr [edx+14 h]		//	m[1][1]
+					fmul        dword ptr [esi+01 ch]	//	obb.localToParent(3,1)
 
 					fxch		st(2)
 					faddp       st(1),st
 
-					fld         dword ptr [edx+18h]		//	m[2][1]
-					fmul        dword ptr [esi+02ch]	//	obb.localToParent(3,2)
-					
+					fld         dword ptr [edx+18 h]		//	m[2][1]
+					fmul        dword ptr [esi+02 ch]	//	obb.localToParent(3,2)
+
 					fxch		st(1)
-					fstp        dword ptr [eax+0ch]		//	localToParent(3,0)
+					fstp        dword ptr [eax+0 ch]		//	localToParent(3,0)
 
-					fadd        dword ptr [edx+1Ch]		//	m[3][1]
+					fadd        dword ptr [edx+1 Ch]		//	m[3][1]
 
-					fld         dword ptr [edx+10h]		//	m[0][1]
-					fmul        dword ptr [esi+0ch]		//	obb.localToParent(3,0)
-
-					fxch		st(2)
-					faddp       st(1),st
-
-					fld         dword ptr [edx+24h]		//	m[1][2]
-					fmul        dword ptr [esi+01ch]	//	obb.localToParent(3,1)
+					fld         dword ptr [edx+10 h]		//	m[0][1]
+					fmul        dword ptr [esi+0 ch]		//	obb.localToParent(3,0)
 
 					fxch		st(2)
 					faddp       st(1),st
 
-					fld         dword ptr [edx+28h]		//	m[2][2]
-					fmul        dword ptr [esi+02ch]	//	obb.localToParent(3,2)
-					
+					fld         dword ptr [edx+24 h]		//	m[1][2]
+					fmul        dword ptr [esi+01 ch]	//	obb.localToParent(3,1)
+
+					fxch		st(2)
+					faddp       st(1),st
+
+					fld         dword ptr [edx+28 h]		//	m[2][2]
+					fmul        dword ptr [esi+02 ch]	//	obb.localToParent(3,2)
+
 					fxch		st(1)
-					fstp        dword ptr [eax+01ch]	//	localToParent(3,1)
+					fstp        dword ptr [eax+01 ch]	//	localToParent(3,1)
 
-					fadd        dword ptr [edx+2Ch]		//	m[3][2]
-					
-					fld         dword ptr [edx+20h]		//	m[0][2]
-					fmul        dword ptr [esi+0ch]		//	obb.localToParent(3,0)
+					fadd        dword ptr [edx+2 Ch]		//	m[3][2]
+
+					fld         dword ptr [edx+20 h]		//	m[0][2]
+					fmul        dword ptr [esi+0 ch]		//	obb.localToParent(3,0)
 
 					fxch		st(2)
 					faddp       st(1),st
@@ -187,7 +187,7 @@ namespace Stuff {
 
 					faddp       st(1),st
 
-					fstp        dword ptr [eax+02ch]	//	localToParent(3,2)
+					fstp        dword ptr [eax+02 ch]	//	localToParent(3,2)
 				}
 #else
 				localToParent(3,0) =

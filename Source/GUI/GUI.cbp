@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GUI" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release Win32">
+				<Option output="./Release/GUI" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="mlr" />
+					<Add directory="../GameOS/include" />
+					<Add directory="../mclib" />
+					<Add directory="../code" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="mlr" />
+					<Add directory="../GameOS/include" />
+					<Add directory="../mclib" />
+					<Add directory="../code" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Debug Win32">
+				<Option output="./Debug/GUI" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_ARMOR" />
+					<Add option="-DLAB_ONLY" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add directory="mlr" />
+					<Add directory="../GameOS/include" />
+					<Add directory="../mclib" />
+					<Add directory="../code" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="mlr" />
+					<Add directory="../GameOS/include" />
+					<Add directory="../mclib" />
+					<Add directory="../code" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Profile Win32">
+				<Option output="./Profile/GUI" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="profile" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DNDEBUG" />
+					<Add option="-DLAB_ONLY" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-DWIN32" />
+					<Add option="-DNOMINMAX" />
+					<Add option="-W" />
+					<Add option="-O3" />
+					<Add directory="mlr" />
+					<Add directory="../GameOS/include" />
+					<Add directory="../mclib" />
+					<Add directory="../code" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="mlr" />
+					<Add directory="../GameOS/include" />
+					<Add directory="../mclib" />
+					<Add directory="../code" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="AANIM.CPP" />
+		<Unit filename="AANIM.H" />
+		<Unit filename="ABUTTON.CPP" />
+		<Unit filename="ABUTTON.H" />
+		<Unit filename="AFONT.CPP" />
+		<Unit filename="AFONT.H" />
+		<Unit filename="ALISTBOX.CPP" />
+		<Unit filename="ALISTBOX.H" />
+		<Unit filename="ASCROLL.CPP" />
+		<Unit filename="ASCROLL.H" />
+		<Unit filename="ASYSTEM.CPP" />
+		<Unit filename="ASYSTEM.H" />
+		<Unit filename="LogisticsScreen.cpp" />
+		<Unit filename="LogisticsScreen.h" />
+		<Unit filename="aEdit.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

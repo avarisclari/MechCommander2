@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <Stuff\Stuff.hpp>
+#include "../Stuff/Stuff.hpp"
 
 namespace gosFX
 {

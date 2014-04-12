@@ -6,8 +6,8 @@
 #define ASCROLL_H
 
 
-#include "aSystem.h"
-#include "aButton.h"
+#include "ASYSTEM.H"
+#include "ABUTTON.H"
 
 class mcScrollButton : public aAnimButton
 {
@@ -42,7 +42,7 @@ public:
 	void			ScrollPageUp(void);
 	void			ScrollDown(void);
 	void			ScrollPageDown(void);
-	void			SetScroll( long newScrollPos );	
+	void			SetScroll( long newScrollPos );
 	void			Enable( bool enable );
 
 protected:
@@ -73,7 +73,7 @@ private:
 
 	aAnimation		orangeInfo[4];
 	aAnimation		greenInfo[4];
-	
+
 };
 
 

@@ -5,9 +5,9 @@
 #pragma once
 #define MLR_GOSVERTEX_HPP
 
-#include <MLR\MLR.hpp>
-#include <Stuff\Scalar.hpp>
-#include <GameOS.hpp>
+#include "MLR.hpp"
+#include "../Stuff/Scalar.hpp"
+#include "../../GameOS/include/GameOS.HPP"
 
 namespace MidLevelRenderer {
 
@@ -144,7 +144,7 @@ namespace MidLevelRenderer {
 	};
 
 	typedef Stuff::Vector2DOf<Stuff::Scalar> Vector2DScalar;
-	
+
 	const float float_cheat = 12582912.0f/256.0f;
 	const float One_Over_256 = 1.0f/256.0f;
 
@@ -168,7 +168,7 @@ void
 	Stuff::Scalar *f = &x;
 	_asm {
 		mov         edx, m
-		
+
 		mov         eax, _v
 
 		fld			dword ptr [eax]			//	v.x
@@ -177,56 +177,56 @@ void
 
 		mov         eax, f
 
-		fld         dword ptr [edx+34h]		//	m[1][3]
+		fld         dword ptr [edx+34 h]		//	m[1][3]
 		fmul        st, st(2)				//	v.y
-		
-		fld         dword ptr [edx+38h]		//	m[2][3]
+
+		fld         dword ptr [edx+38 h]		//	m[2][3]
 		fmul        st, st(2)				//	v.z
 
 		fxch		st(1)
-		fadd        dword ptr [edx+3Ch]		//	m[3][3]
-		
-		fld         dword ptr [edx+30h]		//	m[0][3]
+		fadd        dword ptr [edx+3 Ch]		//	m[3][3]
+
+		fld         dword ptr [edx+30 h]		//	m[0][3]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+14h]		//	m[1][1]
+		fld         dword ptr [edx+14 h]		//	m[1][1]
 		fmul        st, st(4)				//	v.y
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+18h]		//	m[2][1]
+		fld         dword ptr [edx+18 h]		//	m[2][1]
 		fmul        st, st(3)				//	v.z
-		
+
 		fxch		st(1)
-		fstp        dword ptr [eax+0Ch]		//	w
+		fstp        dword ptr [eax+0 Ch]		//	w
 
-		fadd        dword ptr [edx+1Ch]		//	m[3][1]
+		fadd        dword ptr [edx+1 Ch]		//	m[3][1]
 
-		fld         dword ptr [edx+10h]		//	m[0][1]
+		fld         dword ptr [edx+10 h]		//	m[0][1]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+24h]		//	m[1][2]
+		fld         dword ptr [edx+24 h]		//	m[1][2]
 		fmul        st, st(4)				//	v.y
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+28h]		//	m[2][2]
+		fld         dword ptr [edx+28 h]		//	m[2][2]
 		fmul        st, st(3)				//	v.z
-		
+
 		fxch		st(1)
 		fstp        dword ptr [eax+4]		//	y
 
-		fadd        dword ptr [edx+2Ch]		//	m[3][2]
-		
-		fld         dword ptr [edx+20h]		//	m[0][2]
+		fadd        dword ptr [edx+2 Ch]		//	m[3][2]
+
+		fld         dword ptr [edx+20 h]		//	m[0][2]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
@@ -244,11 +244,11 @@ void
 		fxch		st(1)
 		fstp        dword ptr [eax+8]		//	z
 
-		fadd        dword ptr [edx+0Ch]		//	m[3][0]
-		
+		fadd        dword ptr [edx+0 Ch]		//	m[3][0]
+
 		fld         dword ptr [edx]			//	m[0][0]
 		fmul        st, st(5)				//	v.x
-		
+
 		fxch		st(2)
 		faddp       st(1),st
 
@@ -272,7 +272,7 @@ void
 	z = v.x*m(0,2) + v.y*m(1,2) + v.z*m(2,2) + m(3,2);
 	rhw = v.x*m(0,3) + v.y*m(1,3) + v.z*m(2,3) + m(3,3);
 #endif
-	
+
 #if 0	//USE_ASSEMBLER_CODE
 	_asm {
 ;		gos_vertices[0].w = 1.0f/coords[offset].w;
@@ -280,9 +280,9 @@ void
 		mov         ecx, f
 		fld1
 
-		fdiv        dword ptr [ecx+0Ch]
+		fdiv        dword ptr [ecx+0 Ch]
 
-		fst			dword ptr [ecx+0Ch]
+		fst			dword ptr [ecx+0 Ch]
 
 ;		gos_vertices[0].x = coords[offset].x * gos_vertices[0].w;
 		fld         st(0)
@@ -332,7 +332,7 @@ void
 	Verify(x >= 0.0f);
 	Verify(y >= 0.0f);
 	Verify(z >= 0.0f);
-		
+
 	Verify(x <= 1.0f);
 	Verify(y <= 1.0f);
 	Verify(z < 1.0f);
@@ -354,9 +354,9 @@ void
 
 			mov		esi, dword ptr [color]
 
-			fld		dword ptr [esi + 0Ch]
+			fld		dword ptr [esi + 0 Ch]
 
-			mov		ecx, dword ptr [esi + 0Ch]
+			mov		ecx, dword ptr [esi + 0 Ch]
 
 			fadd	st, st(1)
 
@@ -370,7 +370,7 @@ void
 			mov		ebx, f
 			and		ebx, eax
 
-			test	ebx, 0000ff00h
+			test	ebx, 0000 ff00h
 
 			seta	cl
 
@@ -378,7 +378,7 @@ void
 			sub		eax, ecx
 
 			or		ebx, eax
-			and		ebx, 000000ffh
+			and		ebx, 000000 ffh
 
 			mov		argb, ebx
 
@@ -397,7 +397,7 @@ void
 			mov		ebx, f
 			and		ebx, eax
 
-			test	ebx, 0000ff00h
+			test	ebx, 0000 ff00h
 
 			seta	cl
 
@@ -405,7 +405,7 @@ void
 			sub		eax, ecx
 
 			or		ebx, eax
-			and		ebx, 000000ffh
+			and		ebx, 000000 ffh
 
 			mov		ecx, argb
 			shl		ecx, 8
@@ -428,7 +428,7 @@ void
 			mov		ebx, f
 			and		ebx, eax
 
-			test	ebx, 0000ff00h
+			test	ebx, 0000 ff00h
 
 			seta	cl
 
@@ -436,7 +436,7 @@ void
 			sub		eax, ecx
 
 			or		ebx, eax
-			and		ebx, 000000ffh
+			and		ebx, 000000 ffh
 
 			mov		ecx, argb
 			shl		ecx, 8
@@ -459,7 +459,7 @@ void
 			mov		ebx, f
 			and		ebx, eax
 
-			test	ebx, 0000ff00h
+			test	ebx, 0000 ff00h
 
 			seta	cl
 
@@ -467,7 +467,7 @@ void
 			sub		eax, ecx
 
 			or		ebx, eax
-			and		ebx, 000000ffh
+			and		ebx, 000000 ffh
 
 			mov		ecx, argb
 			shl		ecx, 8
@@ -563,23 +563,23 @@ void
 	#define I_SAY_YES_TO_COLOR
 	#define I_SAY_YES_TO_TEXTURE
 	#define I_SAY_YES_TO_DWORD_COLOR
-	#include <MLR\GOSVertexManipulation.hpp>
+	#include "../MLR/GOSVertexManipulation.hpp"
 
 	#undef I_SAY_YES_TO_DWORD_COLOR
-	#include <MLR\GOSVertexManipulation.hpp>
+	#include "../MLR/GOSVertexManipulation.hpp"
 
 	#undef I_SAY_YES_TO_COLOR
-	#include <MLR\GOSVertexManipulation.hpp>
+	#include "../MLR/GOSVertexManipulation.hpp"
 
 	#define I_SAY_YES_TO_COLOR
 	#undef I_SAY_YES_TO_TEXTURE
-	#include <MLR\GOSVertexManipulation.hpp>
+	#include "../MLR/GOSVertexManipulation.hpp"
 
 	#define I_SAY_YES_TO_DWORD_COLOR
-	#include <MLR\GOSVertexManipulation.hpp>
+	#include "../MLR/GOSVertexManipulation.hpp"
 
 	#undef I_SAY_YES_TO_COLOR
-	#include <MLR\GOSVertexManipulation.hpp>
+	#include "../MLR/GOSVertexManipulation.hpp"
 
 	#define MLR_GOSVERTEXMANIPULATION_HPP
 

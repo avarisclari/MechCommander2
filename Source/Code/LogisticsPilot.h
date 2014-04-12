@@ -14,8 +14,8 @@ class ForceGroupIcon;
 CLASS DESCRIPTION
 LogisticsPilot:
 **************************************************************************************************/
-#include "EString.h"
-#include "EList.h"
+#include "../MCLib/EString.h"
+#include "../MCLib/EList.h"
 #include "warrior.h"
 
 #define MAX_MISSIONS		50
@@ -78,7 +78,7 @@ class LogisticsPilot
 		void		setUsed( bool bUsed ){ bIsUsed = bUsed; }
 		int			getNewGunnery() const { return newGunnery; }
 		int			getNewPiloting() const { return newPiloting; }
-		
+
 		void		setDead();
 		bool		isAvailable(){ return (bAvailable&&!bDead); } // depends on purchasing file .... maybe should put dead checks and stuff
 		void		setAvailable( bool available ) { bAvailable = available; }
@@ -112,7 +112,7 @@ class LogisticsPilot
 
 		void		clearIcons();
 
-		
+
 		unsigned long	id;
 		EList< ForceGroupIcon*, ForceGroupIcon* >	killedIcons;
 

@@ -5,9 +5,9 @@
 #ifndef ABUTTON_H
 #define ABUTTON_H
 
-#include "aSystem.h"
-#include "aFont.h"
-#include "aAnim.h"
+#include "ASYSTEM.H"
+#include "AFONT.H"
+#include "AANIM.H"
 
 
 class FitIniFile;
@@ -23,7 +23,7 @@ public:
 	virtual void	render();
 
 	void	init( FitIniFile& file, const char* headerName, HGOSFONT3D font = 0 );
-	
+
 	aButton& operator=( const aButton& src);
 	aButton( const aButton& src);
 
@@ -32,19 +32,19 @@ public:
 	void	setHoldTime( float newTime ) { holdTime = newTime; }
 
 	virtual bool		pointInside(long xPos, long yPos) const;
-	
 
-	
+
+
 	void press( bool );
 	void toggle();
-	
+
 	void disable( bool );
 	bool isEnabled();
 	bool isPressed() { return state == PRESSED; }
 	void makeAmbiguous( bool bAmbiguous );
 	void setSinglePress(){ singlePress = true; }
 	void setMessageOnRelease() { messageOnRelease = true; }
-	
+
 	void hide( bool );
 
 	int getID();
@@ -65,9 +65,9 @@ public:
 		HIDDEN
 	};
 
-	
 
-	
+
+
 protected:
 
 	struct	aButtonData
@@ -79,7 +79,7 @@ protected:
 		long			textSize; // for ttf
 
 		char			fileName[32];
-		long			stateCoords[5][2];	
+		long			stateCoords[5][2];
 		long			textureWidth;
 		long			textureHeight;
 		int				fileWidth;
@@ -96,19 +96,19 @@ protected:
 	bool			toggleButton;
 	bool			singlePress;
 	bool			messageOnRelease;
-	float			holdTime;		
+	float			holdTime;
 
 	long			clickSFX;
 	long			highlightSFX;
 	long			disabledSFX;
-	
+
 
 	static void makeUVs( gos_VERTEX* vertices, int State, aButtonData& data );
 
 	private:
 		void	copyData( const aButton& src );
 
-	
+
 };
 
 class aAnimButton : public aButton

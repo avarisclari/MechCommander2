@@ -23,7 +23,7 @@
 #endif
 
 #include "..\resource.h"
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
 //-----------------------------------------------------------------------
 const DWORD MAX_TEXTURE_WIDTH 	= 256;
@@ -120,7 +120,7 @@ bool MC2Movie::update (void)
 
 			return true;
 		}
-	
+
 		return false;
 	}
 
@@ -128,7 +128,7 @@ bool MC2Movie::update (void)
 }
 
 //-----------------------------------------------------------------------
-//Actually moves frame data from MC2 to surface and/or texture(s) 
+//Actually moves frame data from MC2 to surface and/or texture(s)
 void MC2Movie::BltMovieFrame (void)
 {
 }

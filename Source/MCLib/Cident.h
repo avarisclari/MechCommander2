@@ -17,7 +17,7 @@
 #endif
 
 #ifndef DIDENT_H
-#include "dident.h"
+#include "Dident.h"
 #endif
 
 #include <string.h>

@@ -7,7 +7,7 @@ LogisticsComponent.cpp			: Implementation of the LogisticsComponent component.
 \*************************************************************************************************/
 
 #include "LogisticsComponent.h"
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 #include "Cmponent.h"
 
 #include "..\resource.h"
@@ -24,7 +24,7 @@ float LogisticsComponent::MAX_RECYCLE = 10.75f;
 float LogisticsComponent::MAX_RANGE = 3.f;
 
 
-/*char* LogisticsComponent::ComponentFormString[NUM_COMPONENT_FORMS] = 
+/*char* LogisticsComponent::ComponentFormString[NUM_COMPONENT_FORMS] =
 {
 	"Simple",
 	"Cockpit",
@@ -52,7 +52,7 @@ LogisticsComponent::LogisticsComponent()
 {
 	name = NULL;
 	ID = -1;
-	flavorText = NULL;		
+	flavorText = NULL;
 	bHead = bTorso = bLegs = 0;
 	iconFileName = 0;
 	pictureFileName = 0;
@@ -129,17 +129,17 @@ int LogisticsComponent::init( char* dataLine )
 	// we need to figure out where things can go
 	extractString( pLine, pBuffer, 1024 );
 	bHead = stricmp( pBuffer, "Yes" ) ? false : true;
-	
+
 	extractString( pLine, pBuffer, 1024 );
 	bTorso = stricmp( pBuffer, "Yes" ) ? false : true;
-	
+
 	// ignore the next 4 columns
 	for ( i = 0; i < 4; ++i )
 		extractString( pLine, pBuffer, 1024 );
-	
+
 	extractString( pLine, pBuffer, 1024 );
 	bLegs = stricmp( pBuffer, "Yes" ) ? false : true;
-	
+
 	// ignore the next 4 columns
 	for ( i = 0; i < 4; ++i )
 		extractString( pLine, pBuffer, 1024 );
@@ -167,7 +167,7 @@ int LogisticsComponent::init( char* dataLine )
 	helpStringID = extractInt( pLine );
 	iconX = extractInt( pLine );
 	iconY = extractInt( pLine );
-	
+
 	char nameBuffer[256];
 	cLoadString( stringID, nameBuffer, 256 );
 

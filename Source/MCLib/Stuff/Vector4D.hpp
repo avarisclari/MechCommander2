@@ -214,7 +214,7 @@ namespace Stuff {
 					Check_Pointer(this); Check_Object(&v1); Check_Object(&v2);
 					Verify(!Small_Enough(v1.x)); Verify(!Small_Enough(v1.y));
 					Verify(!Small_Enough(v1.z)); Verify(!Small_Enough(v1.w));
-					x = v1.x / v2.x; y = v1.y / v2.y; z = v1.z / v2.z; 
+					x = v1.x / v2.x; y = v1.y / v2.y; z = v1.z / v2.z;
 					w = v1.w / v2.w; return *this;
 				}
 		Vector4D&
@@ -257,7 +257,7 @@ namespace Stuff {
 				Scalar *f = &x;
 				_asm {
 		mov         edx, m
-		
+
 		mov         eax, v
 
 		fld			dword ptr [eax]			//	v.x
@@ -266,56 +266,56 @@ namespace Stuff {
 
 		mov         eax, f
 
-		fld         dword ptr [edx+34h]		//	m[1][3]
+		fld         dword ptr [edx+34 h]		//	m[1][3]
 		fmul        st, st(2)				//	v.y
-		
-		fld         dword ptr [edx+38h]		//	m[2][3]
+
+		fld         dword ptr [edx+38 h]		//	m[2][3]
 		fmul        st, st(2)				//	v.z
 
 		fxch		st(1)
-		fadd        dword ptr [edx+3Ch]		//	m[3][3]
-		
-		fld         dword ptr [edx+30h]		//	m[0][3]
+		fadd        dword ptr [edx+3 Ch]		//	m[3][3]
+
+		fld         dword ptr [edx+30 h]		//	m[0][3]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+14h]		//	m[1][1]
+		fld         dword ptr [edx+14 h]		//	m[1][1]
 		fmul        st, st(4)				//	v.y
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+18h]		//	m[2][1]
+		fld         dword ptr [edx+18 h]		//	m[2][1]
 		fmul        st, st(3)				//	v.z
-		
+
 		fxch		st(1)
-		fstp        dword ptr [eax+0Ch]		//	w
+		fstp        dword ptr [eax+0 Ch]		//	w
 
-		fadd        dword ptr [edx+1Ch]		//	m[3][1]
+		fadd        dword ptr [edx+1 Ch]		//	m[3][1]
 
-		fld         dword ptr [edx+10h]		//	m[0][1]
+		fld         dword ptr [edx+10 h]		//	m[0][1]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+24h]		//	m[1][2]
+		fld         dword ptr [edx+24 h]		//	m[1][2]
 		fmul        st, st(4)				//	v.y
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+28h]		//	m[2][2]
+		fld         dword ptr [edx+28 h]		//	m[2][2]
 		fmul        st, st(3)				//	v.z
-		
+
 		fxch		st(1)
 		fstp        dword ptr [eax+4]		//	y
 
-		fadd        dword ptr [edx+2Ch]		//	m[3][2]
-		
-		fld         dword ptr [edx+20h]		//	m[0][2]
+		fadd        dword ptr [edx+2 Ch]		//	m[3][2]
+
+		fld         dword ptr [edx+20 h]		//	m[0][2]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
@@ -333,11 +333,11 @@ namespace Stuff {
 		fxch		st(1)
 		fstp        dword ptr [eax+8]		//	z
 
-		fadd        dword ptr [edx+0Ch]		//	m[3][0]
-		
+		fadd        dword ptr [edx+0 Ch]		//	m[3][0]
+
 		fld         dword ptr [edx]			//	m[0][0]
 		fmul        st, st(5)				//	v.x
-		
+
 		fxch		st(2)
 		faddp       st(1),st
 
@@ -365,7 +365,7 @@ namespace Stuff {
 			const Matrix4D &m,
 			int *clipper
 		);
-/*
+
 			{
 				Check_Pointer(this);
 				Check_Object(&v);
@@ -375,7 +375,7 @@ namespace Stuff {
 				Scalar *f = &x;
 				_asm {
 		mov         edx, m
-		
+
 		mov         eax, v
 
 		fld			dword ptr [eax]			//	v.x
@@ -384,56 +384,56 @@ namespace Stuff {
 
 		mov         eax, f
 
-		fld         dword ptr [edx+34h]		//	m[1][3]
+		fld         dword ptr [edx+34 h]		//	m[1][3]
 		fmul        st, st(2)				//	v.y
-		
-		fld         dword ptr [edx+38h]		//	m[2][3]
+
+		fld         dword ptr [edx+38 h]		//	m[2][3]
 		fmul        st, st(2)				//	v.z
 
 		fxch		st(1)
-		fadd        dword ptr [edx+3Ch]		//	m[3][3]
-		
-		fld         dword ptr [edx+30h]		//	m[0][3]
+		fadd        dword ptr [edx+3 Ch]		//	m[3][3]
+
+		fld         dword ptr [edx+30 h]		//	m[0][3]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+14h]		//	m[1][1]
+		fld         dword ptr [edx+14 h]		//	m[1][1]
 		fmul        st, st(4)				//	v.y
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+18h]		//	m[2][1]
+		fld         dword ptr [edx+18 h]		//	m[2][1]
 		fmul        st, st(3)				//	v.z
-		
+
 		fxch		st(1)
-		fstp        dword ptr [eax+0Ch]		//	w
+		fstp        dword ptr [eax+0 Ch]		//	w
 
-		fadd        dword ptr [edx+1Ch]		//	m[3][1]
+		fadd        dword ptr [edx+1 Ch]		//	m[3][1]
 
-		fld         dword ptr [edx+10h]		//	m[0][1]
+		fld         dword ptr [edx+10 h]		//	m[0][1]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+24h]		//	m[1][2]
+		fld         dword ptr [edx+24 h]		//	m[1][2]
 		fmul        st, st(4)				//	v.y
 
 		fxch		st(2)
 		faddp       st(1),st
 
-		fld         dword ptr [edx+28h]		//	m[2][2]
+		fld         dword ptr [edx+28 h]		//	m[2][2]
 		fmul        st, st(3)				//	v.z
-		
+
 		fxch		st(1)
 		fstp        dword ptr [eax+4]		//	y
 
-		fadd        dword ptr [edx+2Ch]		//	m[3][2]
-		
-		fld         dword ptr [edx+20h]		//	m[0][2]
+		fadd        dword ptr [edx+2 Ch]		//	m[3][2]
+
+		fld         dword ptr [edx+20 h]		//	m[0][2]
 		fmul        st, st(5)				//	v.x
 
 		fxch		st(2)
@@ -451,11 +451,11 @@ namespace Stuff {
 		fxch		st(1)
 		fstp        dword ptr [eax+8]		//	z
 
-		fadd        dword ptr [edx+0Ch]		//	m[3][0]
-		
+		fadd        dword ptr [edx+0 Ch]		//	m[3][0]
+
 		fld         dword ptr [edx]			//	m[0][0]
 		fmul        st, st(5)				//	v.x
-		
+
 		fxch		st(2)
 		faddp       st(1),st
 
@@ -510,7 +510,7 @@ namespace Stuff {
 
 				return *this;
 			}
-*/
+
 		//
 		// Support functions
 		//

@@ -14,10 +14,10 @@ CLASS DESCRIPTION
 MissionBegin:
 **************************************************************************************************/
 
-#include "aSystem.h"
-#include "aListBox.h"
-#include "aAnim.h"
-#include "abl.h"
+#include "../GUI/ASYSTEM.H"
+#include "../GUI/ALISTBOX.H"
+#include "../GUI/AANIM.H"
+#include "../MCLib/Abl.h"
 
 class LogisticsScreen;
 class MainMenu;
@@ -74,7 +74,7 @@ class MissionBegin
 		aAnimation					rightAnim;
 		aAnimation					upAnim;
 		aAnimation					downAnim;
-	
+
 		bool						bMultiplayer;
 
 		LogisticsScreen*			multiplayerScreens[5/*dim screen X*/][3/*dim screen Y*/];

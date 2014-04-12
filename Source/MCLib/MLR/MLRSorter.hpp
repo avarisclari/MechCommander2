@@ -5,11 +5,11 @@
 #pragma once
 #define MLR_MLRSORTER_HPP
 
-#include <MLR\MLR.hpp>
-#include <MLR\MLRLight.hpp>
-#include <MLR\GOSVertex.hpp>
-#include <MLR\GOSVertex2UV.hpp>
-#include <MLR\GOSVertexPool.hpp>
+#include "MLR.hpp"
+#include "MLRLight.hpp"
+#include "GOSVertex.hpp"
+#include "GOSVertex2UV.hpp"
+#include "GOSVertexPool.hpp"
 
 namespace MidLevelRenderer {
 
@@ -22,8 +22,8 @@ namespace MidLevelRenderer {
 
 	class SortData {
 	public:
-		SortData () 
-			{ vertices = NULL; numVertices = 0; indices = NULL; 
+		SortData ()
+			{ vertices = NULL; numVertices = 0; indices = NULL;
 			  numIndices = 0; type = TriList; texture2 = 0; }
 
 		void DrawTriList();
@@ -66,7 +66,7 @@ namespace MidLevelRenderer {
 	class MLRPrimitiveBase;
 
 
-#define CalDraw	
+#define CalDraw
 
 
 #ifdef CalDraw
@@ -142,7 +142,7 @@ namespace MidLevelRenderer {
 	//	enter raw data
 		SortData*
 			SetRawData
-				(	void *vertices, 
+				(	void *vertices,
 					int numVertices,
 					const MLRState& state,
 					const int& mode,
@@ -151,11 +151,11 @@ namespace MidLevelRenderer {
 
 		SortData*
 			SetRawIndexedData
-				(	void* vertices, 
-					int numVertices, 
+				(	void* vertices,
+					int numVertices,
 					unsigned short *indices,
 					int numIndices,
-					const MLRState& state, 
+					const MLRState& state,
 					const int& mode,
 					int tex2 = 0
 				);
@@ -163,7 +163,7 @@ namespace MidLevelRenderer {
 		SortData*
 			SetRawData(MLRPrimitiveBase*, int=0 );
 
-//	Just scaling down a bit to keep z under 1.0f	
+//	Just scaling down a bit to keep z under 1.0f
 		void
 			SetFarClipReciprocal(Stuff::Scalar fcr)
 				{ Check_Object(this); farClipReciprocal = fcr*(1.0f-Stuff::SMALL); }

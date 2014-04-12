@@ -34,7 +34,7 @@
 #endif
 
 #ifndef DELEMNTL_H
-#include "delemntl.h"
+#include "DELEMNTL.H"
 #endif
 
 #ifndef DTERROBJ_H
@@ -70,7 +70,7 @@
 #endif
 
 #ifndef DCOLLSN_H
-#include "dcollsn.h"
+#include "Dcollsn.h"
 #endif
 
 class PacketFile;
@@ -119,16 +119,16 @@ struct ObjDataLoader {
 		long objTypeNum;
 		Stuff::Vector3D vector;
 
-		float rotation;		
+		float rotation;
 		long damage;
-		
+
 		long teamId;
 		long parentId;
 
 		// convert to block and vertex
 		long tileCol;
 		long tileRow;
-		
+
 		long blockNumber;
 		long vertexNumber;
 };
@@ -219,7 +219,7 @@ class GameObjectManager {
 		ArtilleryPtr*			artillery;
 		TurretPtr*				turrets;
 		GatePtr*				gates;
-		
+
 		BuildingPtr				gateControls[MAX_GATE_CONTROLS];
 		BuildingPtr				turretControls[MAX_TURRET_CONTROLS];
 		BuildingPtr				powerGenerators[MAX_POWER_GENERATORS];
@@ -248,10 +248,10 @@ class GameObjectManager {
 		GameObjectPtr			*watchList;
 
 		long					currentWeaponsIndex;			//points to next entry in rotating weapon array.
-		long					currentCarnageIndex;			//points to next entry in rotating carnage list		
+		long					currentCarnageIndex;			//points to next entry in rotating carnage list
 		long					currentLightIndex;
 		long					currentArtilleryIndex;
-		
+
 		bool					rebuildCollidableList;
 
 		long					numCaptures[MAX_TEAMS];
@@ -278,7 +278,7 @@ class GameObjectManager {
 												long mouseY,
 												bool skipDisabled = false);
 
-		void addObject(ObjDataLoader *objData, long& objIndex, long& buildIndex, 
+		void addObject(ObjDataLoader *objData, long& objIndex, long& buildIndex,
 			long &turretIndex, long &gateIndex, long& curCollideHandle, long& curNonCollideHandle);
 
 		void countObject( ObjDataLoader* objType);
@@ -289,9 +289,9 @@ class GameObjectManager {
 		void* operator new (size_t mySize);
 
 		void operator delete (void* us);
-		
+
 		void init (void);
-		
+
 		GameObjectManager (void) {
 			init();
 		}
@@ -301,7 +301,7 @@ class GameObjectManager {
 		~GameObjectManager (void) {
 			destroy();
 		}
-		
+
 		void init (char* objTypeDataFile, long objTypeCacheSize, long objCacheSize);
 
 		void setNumObjects (long nMechs,
@@ -326,7 +326,7 @@ class GameObjectManager {
 				   numWeapons +
 				   numCarnage +
 				   numLights +
-				   numArtillery + 
+				   numArtillery +
 				   numGates);
 		}
 
@@ -340,7 +340,7 @@ class GameObjectManager {
 				   numWeapons +
 				   numCarnage +
 				   numLights +
-				   numArtillery + 
+				   numArtillery +
 				   numGates);
 		}
 
@@ -353,7 +353,7 @@ class GameObjectManager {
 		GroundVehiclePtr newVehicle (void);
 
 		void freeMover (MoverPtr mover);
-		
+
 		void tradeMover (MoverPtr mover, long newTeamID, long newCommanderID);
 
 #ifdef USE_ELEMENTAL
@@ -373,9 +373,9 @@ class GameObjectManager {
 		BuildingPtr getBuilding (long buildingIndex);
 
 		TurretPtr getTurret (long turretIndex);
-		
+
 		GatePtr	getGate (long gateIndex);
-		
+
 		WeaponBoltPtr getWeapon (void);				//gets next available weapon.
 
 		CarnagePtr getCarnage (CarnageEnumType carnageType);
@@ -518,7 +518,7 @@ class GameObjectManager {
 		GameObjectPtr findObjectByTypeHandle (long typeHandle);
 
 		GameObjectPtr findObjectByMouse (long mouseX, long mouseY);
-		
+
 		bool moverInRect(long index, Stuff::Vector3D &dStart, Stuff::Vector3D &dEnd);
 
 		ObjectTypePtr loadObjectType (ObjectTypeNumber typeHandle);
@@ -542,7 +542,7 @@ class GameObjectManager {
 		long updateCollisions (void);
 
 		void detectStaticCollision (GameObjectPtr obj1, GameObjectPtr obj2);
-		
+
 		void updateCaptureList (void);
 
 		bool GameObjectManager::isTeamCapturing (TeamPtr team, GameObjectWatchID targetWID);

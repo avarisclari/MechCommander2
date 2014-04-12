@@ -7,7 +7,7 @@ LogisticsScreen.h			: Interface for the LogisticsScreen component.
 //===========================================================================//
 \*************************************************************************************************/
 
-#include "aSystem.h"
+#include "ASYSTEM.H"
 //*************************************************************************************************
 class FitIniFile;
 class aObject;
@@ -82,7 +82,7 @@ class LogisticsScreen : public aObject
 	void	clear(); // remove everything
 
 
-	
+
 	aObject*			statics;
 	aRect*				rects;
 	long				rectCount;

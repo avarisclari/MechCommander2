@@ -12,7 +12,7 @@
 // Include Files
 
 #ifndef DPACKET_H
-#include "dpacket.h"
+#include "DPacket.h"
 #endif
 
 #ifndef FILE_H
@@ -20,7 +20,7 @@
 #endif
 
 #ifndef LZ_H
-#include "lz.h"
+#include "Lz.h"
 #endif
 
 //---------------------------------------------------------------------------
@@ -63,7 +63,7 @@ class PacketFile : public File
 		long packetSize;
 		long packetBase;
 
-		long packetType;		
+		long packetType;
 		long packetUnpackedSize;
 
 		long *seekTable;
@@ -81,10 +81,10 @@ class PacketFile : public File
 
 		PacketFile (void);
 		~PacketFile (void);
-		
+
 		virtual long open (char* fName, FileMode _mode = READ, long numChildren = 50);
 		virtual long open (FilePtr _parent, unsigned long fileSize, long numChildren = 50);
-		
+
 		virtual long create (char* fName);
 		virtual long createWithCase( char* fName ); // don't strlwr for me please!
 		virtual void close (void);
@@ -102,7 +102,7 @@ class PacketFile : public File
 
 		void operator ++ (void);
 		void operator -- (void);
-		
+
 		long getNumPackets (void);
 		long getCurrentPacket (void);
 		long getPacketOffset(void);
@@ -119,7 +119,7 @@ class PacketFile : public File
 		{
 			return PACKETFILE;
 		}
-			
+
 		long checkSumFile (void);
 
 		//-------------------------------------------

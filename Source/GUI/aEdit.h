@@ -8,7 +8,7 @@ aEdit.h			: Interface for the aEdit component of the GUI library.
 \*************************************************************************************************/
 
 #ifndef ASYSTEM_H
-#include "aSystem.h"
+#include "ASYSTEM.H"
 #endif
 
 #ifndef ESTRING_H
@@ -42,7 +42,7 @@ class aEdit: public aObject
 
 		void	renderWithDropShadow();
 
-	
+
 		void getEntry(EString& str);
 		void setEntry(const EString& str, BYTE byHighlight = 0);
 		void limitEntry(int nNewLimit) { nLimit = nNewLimit; }
@@ -64,26 +64,26 @@ class aEdit: public aObject
 		aFont* getFontObject() { return &font; }
 
 		void setReadOnly( bool bReadOnly )
-		{ 
+		{
 			if ( bReadOnly )
-				dwStyleFlags |= ES_EDITREADONLY; 
-			else 
+				dwStyleFlags |= ES_EDITREADONLY;
+			else
 				dwStyleFlags ^= ES_EDITREADONLY;
 		};
 
 		void setNoBlank( bool bNoBlank )
 		{
 			if ( bNoBlank )
-				dwStyleFlags |= ES_EDITNOBLANK; 
-			else 
+				dwStyleFlags |= ES_EDITNOBLANK;
+			else
 				dwStyleFlags ^= ES_EDITNOBLANK;
 		}
 
 		void setNumeric( bool bNoAlpha )
 		{
 			if ( bNoAlpha )
-				dwStyleFlags |= ES_EDITNUM; 
-			else 
+				dwStyleFlags |= ES_EDITNUM;
+			else
 				dwStyleFlags ^= ES_EDITNUM;
 		}
 
@@ -114,7 +114,7 @@ class aEdit: public aObject
 		void	handleKeyboard();
 
 		int charLength( int index );
-		
+
 
 		long cursorColor;
 		long highlightColor; // backdrop

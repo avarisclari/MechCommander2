@@ -14,12 +14,12 @@
 #include "ablgen.h"
 #endif
 
+#include "Ablsymt.h"
 #ifndef ABLSYMT_H
-#include "ablsymt.h"
 #endif
 
 #ifndef ABLPARS_H
-#include "ablparse.h"
+#include "Ablparse.h"
 #endif
 
 //***************************************************************************

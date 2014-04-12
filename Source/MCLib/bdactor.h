@@ -22,7 +22,7 @@
 #endif
 
 #ifndef MOVE_H
-#include "move.h"
+#include "Move.h"
 #endif
 #ifndef MSL_H
 #include "msl.h"
@@ -32,7 +32,7 @@
 #include "ObjectAppearance.h"
 #endif
 
-#include <gosFX\gosfxheaders.hpp>
+#include "GOSFX/gosFX.hpp"
 //**************************************************************************************
 #ifndef NO_ERR
 #define NO_ERR						0
@@ -47,38 +47,38 @@
 class BldgAppearanceType : public AppearanceType
 {
 	public:
-	
+
 		TG_TypeMultiShapePtr		bldgShape[MAX_LODS];
 		float						lodDistance[MAX_LODS];
-		
+
 		TG_TypeMultiShapePtr		bldgShadowShape;
-		
+
 		TG_TypeMultiShapePtr		bldgDmgShape;
-		
+
 		TG_TypeMultiShapePtr        bldgDmgShadowShape;
-		
+
 		TG_AnimateShapePtr			bdAnimData[MAX_BD_ANIMATIONS];
 		bool						bdAnimLoop[MAX_BD_ANIMATIONS];
 		bool						bdReverse[MAX_BD_ANIMATIONS];
 		bool						bdRandom[MAX_BD_ANIMATIONS];
 		long						bdStartF[MAX_BD_ANIMATIONS];
-		
+
 		char						rotationalNodeId[TG_NODE_ID];
 		char						destructEffect[60];
-		
+
 		bool						spinMe;
 		bool						isForestClump;
-		
+
 		DWORD						terrainLightRGB;
 		float						terrainLightIntensity;
 		float						terrainLightInnerRadius;
 		float						terrainLightOuterRadius;
-		
+
 		long						numWeaponNodes;
 		NodeData					*nodeData;
-		
+
 	public:
-	
+
 		void init (void)
 		{
 			long i=0;
@@ -91,15 +91,15 @@ class BldgAppearanceType : public AppearanceType
 			bldgShadowShape = NULL;
 			bldgDmgShape = NULL;
 			bldgDmgShadowShape = NULL;
-			
+
 			for (i=0;i<MAX_BD_ANIMATIONS;i++)
 				bdAnimData[i] = NULL;
-				
+
 			destructEffect[0] = 0;
-			
+
 			spinMe = false;
 		}
-	
+
 		BldgAppearanceType (void)
 		{
 			init();
@@ -111,7 +111,7 @@ class BldgAppearanceType : public AppearanceType
 		}
 
 		void setAnimation (TG_MultiShapePtr shape, DWORD animationNum);
-		
+
 		long getNumFrames (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MAX_BD_ANIMATIONS) && (bdAnimData[animationNum]))
@@ -141,7 +141,7 @@ class BldgAppearanceType : public AppearanceType
 
 			return false;
 		}
-		
+
 		bool isLooped (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MAX_BD_ANIMATIONS) && (bdAnimData[animationNum]))
@@ -149,7 +149,7 @@ class BldgAppearanceType : public AppearanceType
 
 			return false;
 		}
-		
+
 		bool isRandom (long animationNum)
 		{
 			if ((animationNum >= 0) && (animationNum < MAX_BD_ANIMATIONS) && (bdAnimData[animationNum]))
@@ -157,9 +157,9 @@ class BldgAppearanceType : public AppearanceType
 
 			return false;
 		}
-		
+
   		virtual void init (char *fileName);
-		
+
 		virtual void destroy (void);
 
 };
@@ -176,7 +176,7 @@ class BldgAppearance : public ObjectAppearance
 		BldgAppearanceType*							appearType;
 		TG_MultiShapePtr							bldgShape;
 		TG_MultiShapePtr							bldgShadowShape;
-		
+
 		long										bdAnimationState;
 		float										currentFrame;
 		float										bdFrameRate;
@@ -184,40 +184,40 @@ class BldgAppearance : public ObjectAppearance
 		bool										isLooping;
 		bool										setFirstFrame;
 		bool										canTransition;
-		
+
 		float										turretYaw;
 		float										turretPitch;
-		
+
 		float										hazeFactor;
-		
+
 		long										status;
-		
+
    		gosFX::Effect								*destructFX;
    		gosFX::Effect								*activity;
    		gosFX::Effect								*activity1;
 		bool										isActivitying;
-		
+
 		float										OBBRadius;
 		float										highZ;
-		
+
 		float										SpinAngle;
-		
+
 		float										flashDuration;
 		float										duration;
 		float										currentFlash;
 		bool										drawFlash;
 		DWORD										flashColor;
-		
+
 		long										currentLOD;
-		
+
  		long										*nodeUsed;				//Used to stagger the weapon nodes for firing.
 		float										*nodeRecycle;			//Used for ripple fire to find out if the node has fired recently.
-		
+
 		TG_LightPtr									pointLight;
 		DWORD										lightId;
 		bool										forceLightsOut;
 		bool										beenInView;
-		
+
 		bool										fogLightSet;
 		DWORD										lightRGB;
 		DWORD										fogRGB;
@@ -254,7 +254,7 @@ class BldgAppearance : public ObjectAppearance
 		}
 
 		virtual bool recalcBounds (void);
-		
+
 		virtual bool getInTransition (void)
 		{
 			return (canTransition == false);
@@ -266,7 +266,7 @@ class BldgAppearance : public ObjectAppearance
 		}
 
 		virtual void setGesture (unsigned long gestureId);
-		
+
 		virtual long getCurrentGestureId (void)
 		{
 			return bdAnimationState;
@@ -276,55 +276,55 @@ class BldgAppearance : public ObjectAppearance
 		{
 			return BUILDING_APPR_TYPE;
 		}
-			
+
 		virtual void setObjectNameId (long objId)
 		{
 			objectNameId = objId;
 		}
 
 		virtual bool isMouseOver (float px, float py);
-		
+
 		virtual void setObjectParameters (Stuff::Vector3D &pos, float rot, long selected, long alignment, long homeRelations);
-		
+
 		virtual void setMoverParameters (float turretRot, float lArmRot = 0.0f, float rArmRot = 0.0f, bool isAirborne = false);
-		
+
 		virtual void setObjStatus (long oStatus);
-		
+
 		virtual long calcCellsCovered (Stuff::Vector3D& pos, short* cellList);
 
 		virtual void markTerrain(_ScenarioMapCellInfo* pInfo, int type, int counter);
-		
+
 		virtual long markMoveMap (bool passable, long* lineOfSightRect, bool useheight = false, short* cellList = NULL);
 
 		virtual void markLOS (bool clearIt = false);
-		
+
  		void calcAdjCell (long& row, long& col);
 
 		virtual void scale (float scaleFactor)
 		{
 			bldgShape->ScaleShape(scaleFactor);
 		}
-		
+
 		virtual bool playDestruction (void);
-		
+
 		virtual float getRadius (void)
 		{
 			return OBBRadius;
 		}
-		
+
 		virtual void flashBuilding (float duration, float flashDuration, DWORD color);
 
 		virtual float getTopZ (void)
 		{
 			return highZ;
 		}
-		
+
 		virtual void setWeaponNodeUsed (long nodeId);
-		
+
 		virtual long getWeaponNode (long weapontype);
-		
+
 		virtual float getWeaponNodeRecycle (long node);
-		
+
 		virtual Stuff::Vector3D getWeaponNodePosition (long node);
 
 		virtual bool isSelectable()
@@ -336,17 +336,17 @@ class BldgAppearance : public ObjectAppearance
 		{
 			bldgShape->GetMultiType()->SetFilter(state);
 		}
-		
+
 		virtual void setIsHudElement (void)
 		{
 			bldgShape->SetIsHudElement();
 		}
-		
+
 		virtual bool getIsLit (void)
 		{
 			return (appearType->terrainLightRGB != 0xffffffff);
 		}
-		
+
 		virtual void setLightsOut (bool lightFlag)
 		{
 			forceLightsOut = lightFlag;
@@ -355,18 +355,18 @@ class BldgAppearance : public ObjectAppearance
 		virtual bool PerPolySelect (long mouseX, long mouseY);
 
 		virtual bool isForestClump (void)
-		{	
+		{
 			return appearType->isForestClump;
 		}
-		
+
 		virtual Stuff::Point3D getRootNodeCenter (void)
 		{
 			Stuff::Point3D result = bldgShape->GetRootNodeCenter();
 			return result;
 		}
-		
+
 		virtual Stuff::Vector3D getNodeNamePosition (char *nodeName);
-		
+
 		virtual void startActivity (long effectId, bool loop);
 		virtual void stopActivity (void);
 
@@ -390,21 +390,21 @@ class BldgAppearance : public ObjectAppearance
 class TreeAppearanceType : public AppearanceType
 {
 	public:
-	
+
 		TG_TypeMultiShapePtr		treeShape[MAX_LODS];
 		float						lodDistance[MAX_LODS];
-		
+
 		TG_TypeMultiShapePtr		treeShadowShape;
-		
+
 		TG_TypeMultiShapePtr		treeDmgShape;
-		
+
 		TG_TypeMultiShapePtr        treeDmgShadowShape;
-		
+
 		TG_AnimateShapePtr			treeAnimData[MAX_BD_ANIMATIONS];
 		bool						isForestClump;
-		
+
 	public:
-	
+
 		void init (void)
 		{
 			long i=0;
@@ -416,13 +416,13 @@ class TreeAppearanceType : public AppearanceType
 
 			for (i=0;i<MAX_BD_ANIMATIONS;i++)
 				treeAnimData[i] = NULL;
-				
+
 			treeShadowShape = NULL;
-			
+
 			treeDmgShape = NULL;
 			treeDmgShadowShape = NULL;
 		}
-	
+
 		TreeAppearanceType (void)
 		{
 			init();
@@ -434,7 +434,7 @@ class TreeAppearanceType : public AppearanceType
 		}
 
 		virtual void init (char *fileName);
-		
+
 		virtual void destroy (void);
 };
 
@@ -450,16 +450,16 @@ class TreeAppearance : public ObjectAppearance
 		TreeAppearanceType*							appearType;
 		TG_MultiShapePtr							treeShape;
 		TG_MultiShapePtr							treeShadowShape;
-												
+
 		float										hazeFactor;
 		float										pitch;
 		float										yaw;
 		long										status;
-		
+
 		float										OBBRadius;
-		
+
 		long										currentLOD;
-		
+
 		bool										forceLightsOut;
 		bool										beenInView;
 
@@ -499,45 +499,45 @@ class TreeAppearance : public ObjectAppearance
 		}
 
 		virtual bool recalcBounds (void);
-		
+
 		void setFadeTable (MemoryPtr fTable)
 		{
 			fadeTable = fTable;
 		}
-		
+
 		virtual void setObjectNameId (long objId)
 		{
 			objectNameId = objId;
 		}
 
 		virtual bool isMouseOver (float px, float py);
-		
+
 		virtual void setObjectParameters (Stuff::Vector3D &pos, float rot, long selected, long alignment, long homeRelations);
-		
+
 		virtual void setMoverParameters (float pitchAngle, float lArmRot = 0.0f, float rArmRot = 0.0f, bool isAirborne = false);
-		
+
 		virtual void setObjStatus (long oStatus);
 
 		virtual void scale (float scaleFactor)
 		{
 			treeShape->ScaleShape(scaleFactor);
 		}
-		
+
 		virtual float getRadius (void)
 		{
 			return OBBRadius;
 		}
-		
+
 		virtual void setLightsOut (bool lightFlag)
 		{
 			forceLightsOut = lightFlag;
 		}
-		
+
 		virtual bool isForestClump (void)
-		{	
+		{
 			return appearType->isForestClump;
 		}
-		
+
 		virtual void markTerrain(_ScenarioMapCellInfo* pInfo, int type, int counter);
 
  		virtual Stuff::Point3D getRootNodeCenter (void)

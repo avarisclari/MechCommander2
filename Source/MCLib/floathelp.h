@@ -15,8 +15,8 @@
 #include "dbasegui.h"
 #endif
 
-#include <gameos.hpp>
-#include <stuff/stuff.hpp>
+#include "../GameOS/include/GameOS.HPP"
+#include "Stuff/Stuff.hpp"
 
 extern HGOSFONT3D gosFontHandle;
 extern float	gosFontScale;
@@ -60,34 +60,34 @@ class FloatHelp
 		}
 
 		void init (long maxHelps);
-		
+
 		void destroy (void);
-		
+
 		static void resetAll (void);
 
 		static void renderAll (void);
 
-		static void setFloatHelp(char * txt, 
-								Stuff::Vector4D screenPos, 
-								DWORD fClr, 
-								DWORD bClr, 
+		static void setFloatHelp(char * txt,
+								Stuff::Vector4D screenPos,
+								DWORD fClr,
+								DWORD bClr,
 								float scl,
 								bool proportional,
 								bool bold,
-								bool italic, 
+								bool italic,
 								bool wordWrap);
 
 		static void getTextStringLength (char *text,
 										DWORD fColor,
 										float scl,
 										bool proportional,
-										bool bold,        
-										bool italic,      
+										bool bold,
+										bool italic,
 										bool wordWrap,
 										DWORD &width, DWORD &height);
-										
+
 	protected:
-		
+
 		void setHelpText (char *txt)
 		{
 			if (strlen(txt) < 2048)
@@ -104,7 +104,7 @@ class FloatHelp
 		{
 			screenPos = pos;
 		}
-		
+
 		void setForegroundColor (DWORD clr)
 		{
 			foregroundColor = clr;
@@ -114,7 +114,7 @@ class FloatHelp
 		{
 			backgroundColor = clr;
 		}
-		
+
 		void setScale (float scl)
 		{
 			scale = scl;
@@ -134,7 +134,7 @@ class FloatHelp
 		{
 			italic = flag;
 		}
-		
+
 		void setWordWrap (bool flag)
 		{
 			wordWrap = flag;

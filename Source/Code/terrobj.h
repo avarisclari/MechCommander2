@@ -27,7 +27,7 @@
 #include "dcarnage.h"
 #endif
 
-#include <gosFX\gosfxheaders.hpp>
+#include "../MCLib/GOSFX/gosFXHeaders.hpp"
 //---------------------------------------------------------------------------
 // Macro Definitions
 //#define NO_RAM_FOR_BUILDING				0xDCDC0006
@@ -62,22 +62,22 @@ class TerrainObjectType : public ObjectType {
 		float			explDmg;
 		float			explRad;
 		unsigned long	fireTypeHandle;
-		
+
 	public:
 
 		void init (void);
-		
+
 		TerrainObjectType (void) {
 			ObjectType::init();
 			init();
 		}
-		
+
 		virtual void initMiscTerrObj (long objTypeNum);
 
 		virtual long init (FilePtr objFile, unsigned long fileSize);
 
 		long init (FitIniFilePtr objFile);
-		
+
 		~TerrainObjectType (void) {
 			destroy();
 		}
@@ -85,9 +85,9 @@ class TerrainObjectType : public ObjectType {
 		float getDamageLevel (void) {
 			return(damageLevel);
 		}
-				
+
 		virtual void destroy (void);
-		
+
 		virtual GameObjectPtr createInstance (void);
 
 		virtual float getBurnDmg (void) {
@@ -97,7 +97,7 @@ class TerrainObjectType : public ObjectType {
 		virtual float getBurnTime (void) {
 			return(0.0);
 		}
-		
+
 		virtual bool handleCollision (GameObjectPtr collidee, GameObjectPtr collider);
 
 		virtual bool handleDestruction (GameObjectPtr collidee, GameObjectPtr collider);
@@ -143,11 +143,11 @@ class TerrainObject : public GameObject {
 		short						*subAreas0;
 		short						*subAreas1;
 		unsigned char				listID;
-		
+
 		unsigned char				numCellsCovered;
 		short*						cellsCovered;
 		gosFX::Effect				*bldgDustPoofEffect;
-			
+
 		static long					cellArray[9];
 
 	public:
@@ -190,17 +190,17 @@ class TerrainObject : public GameObject {
 		virtual char* getName (void);
 
 		virtual void killFire (void);
-		
+
 		void lightOnFire (float timeToBurn);
-		
+
 		virtual void destroy (void);
-		
+
 		virtual long update (void);
 
 		virtual void render (void);
 
 		virtual void renderShadows (void);
-		
+
 		virtual void init (bool create, ObjectTypePtr objType);
 
 		virtual long handleWeaponHit (WeaponShotInfoPtr shotInfo, bool addMultiplayChunk = false);
@@ -210,13 +210,13 @@ class TerrainObject : public GameObject {
 		virtual void setDamage (long newDamage);		//Damage encodes which groundtile to use, too.
 
 		virtual void setRotation( float rot );
-		
-		virtual float getDamage (void) 
+
+		virtual float getDamage (void)
 		{
 			return(damage);
 		}
 
-		virtual float getDamageLevel (void) 
+		virtual float getDamageLevel (void)
 		{
 			return ((TerrainObjectTypePtr)getObjectType())->getDamageLevel();
 		}
@@ -236,11 +236,11 @@ class TerrainObject : public GameObject {
 			//Do nothing for now.  Later, Buildings may do something.
 			return NO_ERR;
 		}
-		
+
 		bool isVisible (void);
 
 		virtual long getLineOfSightNodes (long eyeCellRow, long eyeCellCol, long* cells);
-		
+
 		virtual bool isTerrainObject (void) {
 			return(true);
 		}
@@ -249,14 +249,14 @@ class TerrainObject : public GameObject {
 			blockNum = blockNumber;
 			vertexNum = vertexNumber;
 		}
-		
+
 		virtual void rotate (float yaw, float pitch);
-		
+
 		virtual float getAppearRadius (void)
 		{
 			return appearance->getRadius();
 		}
-		
+
 		virtual void setPowerSupply (GameObjectPtr power)
 		{
 			powerSupply = power->getWatchID();
@@ -282,10 +282,10 @@ class TerrainObject : public GameObject {
 
 		void CopyTo (TerrainObjectData *data);
 
-		virtual Stuff::Vector3D getPositionFromHS (long weaponType) 
+		virtual Stuff::Vector3D getPositionFromHS (long weaponType)
 		{
 			//-----------------------------------------
-			// Hotspot for buildings is position plus 
+			// Hotspot for buildings is position plus
 			// some Z based on OBB to make Effect visible.
 			// If this doesn't work, replace with art defined site.
 			Stuff::Vector3D hsPos = position;
@@ -296,10 +296,10 @@ class TerrainObject : public GameObject {
 			return(hsPos);
 		}
 
-		virtual Stuff::Vector3D getLOSPosition (void) 
+		virtual Stuff::Vector3D getLOSPosition (void)
 		{
 			//-----------------------------------------
-			// Hotspot for buildings is position plus 
+			// Hotspot for buildings is position plus
 			// some Z based on OBB to make Effect visible.
 			//
 			// Use THIS position for LOS Calc!!!

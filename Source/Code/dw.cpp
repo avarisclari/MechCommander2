@@ -9,7 +9,7 @@
 #include "utilities.h"
 #include "..\resource.h"
 
-#include <gameos.hpp>
+#include "../GameOS/include/GameOS.HPP"
 
 long _stdcall ProcessException( EXCEPTION_POINTERS* ep );
 extern HWND			hWindow;
@@ -35,7 +35,7 @@ WCHAR *WatsonCrashMessageUnicode = NULL;
  * AnsiToUnicode converts the ANSI string pszA to a Unicode string
  * and returns the Unicode string through ppszW. Space for the
  * the converted string is allocated by AnsiToUnicode.
- */ 
+ */
 
 HRESULT __fastcall AnsiToUnicode(LPCSTR pszA, LPOLESTR* ppszW)
 {
@@ -88,22 +88,22 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 	HANDLE hFileMap;
 	DWSharedMem *pdwsm;
 	SECURITY_ATTRIBUTES  sa;
-	
+
 	//------------------------------------------------------------------------------------------------------------
 	// we keep local copies of these in case another thread is trashing memory
 	// it much more likely to trash the heap than our stack
 	HANDLE hEventDone;          // event DW signals when done
 	HANDLE hEventAlive;         // heartbeat event DW signals per EVENT_TIMEOUT
-	HANDLE hMutex;              // to protect the signaling of EventDone  
-	
+	HANDLE hMutex;              // to protect the signaling of EventDone
+
 	char szCommandLine[MAX_PATH * 2];
-	
+
 	DWORD dw;
-	BOOL fDwRunning;  
-	
+	BOOL fDwRunning;
+
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;
-	
+
 	//------------------------------------------------------------------------------------------------------------
 	// init - Check if we just hit a breakpoint.  If so, continue execution.  Debugger will take care of itself.
 	per = pep->ExceptionRecord;
@@ -115,7 +115,7 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 	memset(&sa, 0, sizeof(SECURITY_ATTRIBUTES));
 	sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 	sa.bInheritHandle = TRUE;
-	
+
 	hFileMap = CreateFileMapping(INVALID_HANDLE_VALUE, &sa, PAGE_READWRITE, 0, sizeof(DWSharedMem), NULL);
 	if (hFileMap == NULL)
 	{
@@ -123,7 +123,7 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 		ProcessException(pep);
 		return 1;
 	}
-		
+
 	pdwsm = (DWSharedMem *) MapViewOfFile(hFileMap, FILE_MAP_READ | FILE_MAP_WRITE, 0, 0, 0);
 	if (pdwsm == NULL)
 	{
@@ -176,7 +176,7 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 //	strcpy(pdwsm->szPIDRegKey, "HKLM\\Software\\Microsoft\\Internet Explorer\\Registration\\DigitalProductID");
 
 #if defined(FINAL) || defined(EXTERNAL)
-	strcpy(pdwsm->szServer, "watson.microsoft.com"); 
+	strcpy(pdwsm->szServer, "watson.microsoft.com");
 #else
 	strcpy(pdwsm->szServer, "officewatson");
 #endif
@@ -197,8 +197,8 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 	memset(&si, 0, sizeof(STARTUPINFO));
 	si.cb = sizeof(STARTUPINFO);
 	memset(&pi, 0, sizeof(PROCESS_INFORMATION));
-	
-	wsprintfA(szCommandLine, "dw -x -s %u", (DWORD) hFileMap); 
+
+	wsprintfA(szCommandLine, "dw -x -s %u", (DWORD) hFileMap);
 
 	//Check if we are in fullScreen mode.  If so, switch back to WindowMode to insure DW screen comes up.
 	if(Environment.fullScreen && hWindow )
@@ -218,12 +218,12 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 
 				continue;
 			}
-				
+
 			 // we timed-out waiting for DW to respond, try to quit
 			dw = WaitForSingleObject(hMutex, DW_TIMEOUT_VALUE);
 			if (dw == WAIT_TIMEOUT)
 			{
-				fDwRunning = FALSE; // either DW's hung or crashed, we must carry on  
+				fDwRunning = FALSE; // either DW's hung or crashed, we must carry on
 			}
 			else if (dw == WAIT_ABANDONED)
 			{
@@ -250,7 +250,7 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 			}
 		}
 
-#if 0		
+#if 0
 		// did we get attached?
 		// Again, do NOT term the current APP.  Late GameOS have its shot at the exception.
 		if (WaitForSingleObject(hEventDBAttach, 1) == WAIT_OBJECT_0)
@@ -262,13 +262,13 @@ LONG WINAPI DwExceptionFilter(LPEXCEPTION_POINTERS pep)
 			CloseHandle(hMutex);
 			TerminateProcess(GetCurrentProcess(), 0);
 		}
-#endif		
+#endif
 		// no, clean up
 		CloseHandle(hEventAlive);
 		CloseHandle(hEventDone);
 		CloseHandle(hMutex);
 	} // end if CreateProcess succeeded
-	
+
 	UnmapViewOfFile(pdwsm);
 	CloseHandle(hFileMap);
 
